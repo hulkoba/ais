@@ -1,14 +1,15 @@
 package com.example.cobi.ais;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
+import android.location.Location;
 import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -17,12 +18,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        // Provider verfügbar --> GPS aktiviert???
-        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        GpsTracker gpstracker = new GpsTracker();
+        TextView textView = (TextView) findViewById(R.id.gps);
+        textView.setText(gpstracker.getS());
+
+        if(!gpstracker.gpsIsActive(this)) {
             AlertDialog.Builder alert_builder = new AlertDialog.Builder(this);
             alert_builder.setMessage("Bitte aktiviere den GPS Empfänger");
-            final AlertDialog.Builder positiveButton = alert_builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            alert_builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -30,10 +33,12 @@ public class MainActivity extends ActionBarActivity {
             });
             AlertDialog dialog = alert_builder.create();
             dialog.show();
+
+        } else {
+            gpstracker.showGPS();
+            textView.setText(gpstracker.getS());
         }
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
