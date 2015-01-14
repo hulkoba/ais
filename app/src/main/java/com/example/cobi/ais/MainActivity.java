@@ -2,26 +2,21 @@ package com.example.cobi.ais;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.location.Location;
-import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
+    private static TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         GpsTracker gpstracker = new GpsTracker();
-        TextView textView = (TextView) findViewById(R.id.gps);
-        textView.setText(gpstracker.getS());
-
+        textView = (TextView) findViewById(R.id.gps);
         if(!gpstracker.gpsIsActive(this)) {
             AlertDialog.Builder alert_builder = new AlertDialog.Builder(this);
             alert_builder.setMessage("Bitte aktiviere den GPS Empfänger");
@@ -36,8 +31,11 @@ public class MainActivity extends ActionBarActivity {
 
         } else {
             gpstracker.showGPS();
-            textView.setText(gpstracker.getS());
         }
+    }
+
+    public static void showPosition(String string) {
+        textView.setText(string);
     }
 
     @Override
