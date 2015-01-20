@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">AIS</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="test">ok</string>
     <string name="action_settings">Settings</string>
-
 </resources>
