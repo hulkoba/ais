@@ -4,4 +4,8 @@
     <string name="app_name">AIS</string>
     <string name="test">ok</string>
     <string name="action_settings">Settings</string>
+    <string name="stop">Keine Weiterfahrt möglich</string>
+    <string name="ok">Geht weiter</string>
+    <string name="schneller">Etwas schneller fahren</string>
+    <string name="nochschneller">Viel schneller fahren</string>
 </resources>

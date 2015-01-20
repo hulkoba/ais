@@ -12,9 +12,9 @@ import android.os.Bundle;
 /**
  * Created by cobi on 13.01.15.
  */
-public class GpsTracker implements LocationListener {
+class GpsTracker implements LocationListener {
 
-    public LocationManager locationManager;
+    private LocationManager locationManager;
     private String s;
     public String getS() {
         return s;

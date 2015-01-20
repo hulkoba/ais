@@ -1,21 +1,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/black"
-
+    android:keepScreenOn="true"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/pfeil"
+        android:layout_above="@+id/gps"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/pfeil"
+        android:contentDescription="@string/schneller"
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/pfeil2"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@drawable/pfeil"
+        android:contentDescription="@string/nochschneller"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/x"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/x"
+        android:contentDescription="@string/stop"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/ok"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ok"
+        android:contentDescription="@string/ok"
+        android:visibility="visible"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/test"
         android:id="@+id/gps"
-        android:textColor="@color/green"
-        android:textSize="66pt"
-        android:textStyle="bold"
-        android:layout_centerVertical="true"
+        android:textColor="@color/white"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

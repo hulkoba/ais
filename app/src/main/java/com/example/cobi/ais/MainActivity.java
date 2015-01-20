@@ -59,4 +59,10 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    // kurz vor Beendigung
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
