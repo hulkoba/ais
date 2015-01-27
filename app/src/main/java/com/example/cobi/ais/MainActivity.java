@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
         if(!gpstracker.gpsIsActive(this)) {
             textView.setText("Bitte aktiviere GPS");
         } else {
-            gpstracker.startGpsTracker();
+            //gpstracker.startGpsTracker();
         }
     }
 
@@ -54,7 +54,29 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    // kurz vor Beendigung
+    protected void onStart() {
+        super.onStart();
+        gpstracker.startGpsTracker();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gpstracker.quitGpsTracker();
+    }
+    @Override //aktiv
+    protected void onResume() {
+        super.onResume();
+        gpstracker.startGpsTracker();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        gpstracker.quitGpsTracker();
+    }
+
+    @Override
+    // kurz vor Beendigung,wird von finish() aufgerufen
     protected void onDestroy() {
         super.onDestroy();
         // Empfänger abmelden
