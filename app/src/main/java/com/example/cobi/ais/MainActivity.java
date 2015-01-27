@@ -10,27 +10,20 @@ import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
     private static TextView textView;
+    private GpsTracker gpstracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GpsTracker gpstracker = new GpsTracker();
-        textView = (TextView) findViewById(R.id.gps);
-        if(!gpstracker.gpsIsActive(this)) {
-            AlertDialog.Builder alert_builder = new AlertDialog.Builder(this);
-            alert_builder.setMessage("Bitte aktiviere den GPS Empfänger");
-            alert_builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            AlertDialog dialog = alert_builder.create();
-            dialog.show();
 
+        gpstracker = new GpsTracker();
+        textView = (TextView) findViewById(R.id.gps);
+
+        if(!gpstracker.gpsIsActive(this)) {
+            textView.setText("Bitte aktiviere GPS");
         } else {
-            gpstracker.showGPS();
+            gpstracker.startGpsTracker();
         }
     }
 
@@ -64,5 +57,7 @@ public class MainActivity extends ActionBarActivity {
     // kurz vor Beendigung
     protected void onDestroy() {
         super.onDestroy();
+        // Empfänger abmelden
+        gpstracker.quitGpsTracker();
     }
 }

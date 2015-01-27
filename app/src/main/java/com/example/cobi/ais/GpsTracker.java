@@ -28,19 +28,21 @@ class GpsTracker implements LocationListener {
         locationManager = (LocationManager) a.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
-
+    // wird aufgerufen, wenn neue Positionsdaten vorhanden sind
     public void onLocationChanged(Location location) {
         setS("Position: \n"
             + String.format("%9.6f", location.getLatitude()) + ", "
             + String.format("%9.6f", location.getLongitude()) + "\n"
-            + "Geschwindigkeit: " + location.getSpeed() + " m/s \n");
+            + "Geschwindigkeit: " + location.getSpeed() + " m/s \n"
+            + "entspricht" + (location.getSpeed()*3.6) + "km/h \n"
+            + "Peilung: " + location.getBearing());
         MainActivity.showPosition(getS());
     }
-
+    //wird bei Zustandsänderungen aufgerufen
     public void onStatusChanged(String provider, int status, Bundle extras) {
        switch (status) {
            case LocationProvider.AVAILABLE:
-                setS("GPS ist wieder verfügbar\n");
+               // setS("GPS ist wieder verfügbar\n");
                 break;
            case LocationProvider.OUT_OF_SERVICE:
                 setS("GPS ist nicht verfügbar");
@@ -51,19 +53,24 @@ class GpsTracker implements LocationListener {
         }
     }
 
+    //gewählter Provider aktiviert?
     public void onProviderEnabled(String provider) {
         setS("GPS Empfänger ist aktiviert\n");
         MainActivity.showPosition(getS());
     }
-
+    //gewählter Lieferant  abgeschaltet?
     public void onProviderDisabled(String provider) {
         setS("GPS Empfänger ist nicht aktiviert\n");
         MainActivity.showPosition(getS());
     }
 
-    public void showGPS() {
+    public void startGpsTracker() {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
         MainActivity.showPosition(getS());
+    }
+    public void quitGpsTracker() {
+        locationManager.removeUpdates(this);
+        MainActivity.showPosition("Ciao");
     }
 }
 
