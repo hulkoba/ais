@@ -11,8 +11,8 @@ import android.util.Log;
 public class DBAccess extends SQLiteOpenHelper {
     private SQLiteDatabase db;
 
-    public DBAccess(Context activity, String name) {
-        super(activity, name, null, 1);
+    public DBAccess(Context activity, String dbName) {
+        super(activity, dbName, null, 1);
         db = getWritableDatabase();
         //db = getReadableDatabase(); // nur Lesezugriff
     }
@@ -20,17 +20,26 @@ public class DBAccess extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
 
-            // Tabelle anlegen
-            String sqlLSA = "CREATE TABLE testDB" +
-                    "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "name VARCHAR(20) NOT NULL" +
-                    "red DATE" +
-                    "green DATE" +
-                    "lat REAL NOT NULL" +
-                    "lon REAL NOT NULL" + // REAL=Fließkommazahlen
+            // Tabelle LSA anlegen
+            String sqlLSA = "CREATE TABLE lsaDB " +
+                    "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "name VARCHAR(20) NOT NULL, " +
+                    "red DATE, " +
+                    "green DATE, " +
+                    "lat REAL NOT NULL, " +
+                    "lon REAL NOT NULL, " + // REAL=Fließkommazahlen
                     "traffic INTEGER NOT NULL)"; //0=false, 1=true
 
-            db.execSQL(sqlLSA); // bei mehreren Tabellen --> mehrere Aufrufe
+            //Schaltplan
+            String sqlTUV = "CREATE TABLE tuvDB" +
+                    "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "name VARCHAR(20) NOT NULL, " +
+                    "red DATE, " +
+                    "green DATE)";
+
+            db.execSQL(sqlLSA);
+            db.execSQL(sqlTUV);
+
         } catch (Exception exc) {
             Log.e("datenbankfehler: ", exc.getMessage());
         }

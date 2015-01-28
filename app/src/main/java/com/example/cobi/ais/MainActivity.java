@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity {
     private static TextView textView;
     private GpsTracker gpstracker;
+    private DBAccess dbAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,7 @@ public class MainActivity extends ActionBarActivity {
 
         gpstracker = new GpsTracker();
         textView = (TextView) findViewById(R.id.gps);
+        dbAccess = new DBAccess(this, "lsaDB.dat");
 
         if(!gpstracker.gpsIsActive(this)) {
             textView.setText("Bitte aktiviere GPS");
@@ -49,7 +51,6 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
