@@ -1,9 +1,7 @@
 package com.example.cobi.ais;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -12,6 +10,7 @@ public class MainActivity extends ActionBarActivity {
     private static TextView textView;
     private GpsTracker gpstracker;
     private DBAccess dbAccess;
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +19,8 @@ public class MainActivity extends ActionBarActivity {
 
         gpstracker = new GpsTracker();
         textView = (TextView) findViewById(R.id.gps);
-        dbAccess = new DBAccess(this, "lsaDB.dat");
+        //dbAccess = new DBAccess(this, "lsaDB.dat");
+
 
         if(!gpstracker.gpsIsActive(this)) {
             textView.setText("Bitte aktiviere GPS");
@@ -57,6 +57,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        dbHelper = new DBHelper(this);
         gpstracker.startGpsTracker();
     }
     @Override
