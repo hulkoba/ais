@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lsa>Hello LSA
+    <lan>53.612345</lan>
+    <lon>13.984638</lon>
+    <traffic>true</traffic>
+</lsa>

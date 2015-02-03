@@ -2,15 +2,18 @@ package com.example.cobi.ais;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.io.InputStream;
+
 public class MainActivity extends ActionBarActivity {
-    private static TextView textView;
+    private static TextView gpsTextView;
+    private static TextView lsaTextView;
     private GpsTracker gpstracker;
-    private DBAccess dbAccess;
-    private DBHelper dbHelper;
+    private InputStream inputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,20 +21,27 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         gpstracker = new GpsTracker();
-        textView = (TextView) findViewById(R.id.gps);
-        //dbAccess = new DBAccess(this, "lsaDB.dat");
-        dbHelper = new DBHelper(this);
+        gpsTextView = (TextView) findViewById(R.id.gps);
+
+
+
+        //lsaTextView = (TextView) findViewById(R.id.lsa);
+
+        inputStream = getResources().openRawResource(R.raw.lsa);
+        //lsaTextView.setText(XMLReader.readXMLFile(inputStream));
+
+
 
 
         if(!gpstracker.gpsIsActive(this)) {
-            textView.setText("Bitte aktiviere GPS");
+         //   gpsTextView.setText("Bitte aktiviere GPS");
         } else {
             //gpstracker.startGpsTracker();
         }
     }
 
     public static void showPosition(String string) {
-        textView.setText(string);
+        gpsTextView.setText(string);
     }
 
     @Override
@@ -57,6 +67,10 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onStart() {
+        String s = XMLReader.readXMLFile(inputStream);
+        if(s.isEmpty()){
+            Log.d("output ĺsa:  ", "######### empty string");
+        }
         super.onStart();
         //gpstracker.startGpsTracker();
     }
