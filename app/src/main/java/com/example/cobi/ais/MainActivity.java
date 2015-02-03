@@ -20,6 +20,7 @@ public class MainActivity extends ActionBarActivity {
         gpstracker = new GpsTracker();
         textView = (TextView) findViewById(R.id.gps);
         //dbAccess = new DBAccess(this, "lsaDB.dat");
+        dbHelper = new DBHelper(this);
 
 
         if(!gpstracker.gpsIsActive(this)) {
@@ -57,8 +58,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        dbHelper = new DBHelper(this);
-        gpstracker.startGpsTracker();
+        //gpstracker.startGpsTracker();
     }
     @Override
     protected void onPause() {

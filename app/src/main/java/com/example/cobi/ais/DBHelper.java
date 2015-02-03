@@ -27,11 +27,13 @@ public class DBHelper {
     private SQLiteDatabase db = null;
 
     public DBHelper(Context context) { //context = activity
+        Log.d("info", "DBHELPER UDHFJDÜPODÜ*SW");
         myOpenHelper = new MyOpenHelper(context, DB_NAME, DB_VERSION);
         open();
     }
 
     private void open() {
+        Log.d("open", "OPEN SQLO DATABASE");
         if (db == null)
             db = myOpenHelper.getWritableDatabase();
             //db = myOpenHelper.getReadableDatabase();
