@@ -26,7 +26,7 @@ public class XMLReader {
             outputStream.close();
             inputStream.close();
         } catch (IOException ioE) {
-
+            Log.d("irgendwas  " , "### löuft schief +++ ");
         }
         Log.d("output ĺsa:  " , "#########" + outputStream.toString());
         return outputStream.toString();

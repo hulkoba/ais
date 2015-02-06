@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <lsa>LSA-N-Bornholmer/Björnson
+        <item name="lat">53.612345</item>
+        <item name="lon">53.612345</item>
+        <item name="traffic">false
+            <item name="MoMi">
+                <item name="spät">14-20</item>
+                <item name="red">90</item>
+                <item name="green">20</item>
+            </item>
+            <item name="Do">
+                <item name="spät">13-21</item>
+                <item name="red">90</item>
+                <item name="green">20</item>
+            </item>
+            <item name="Fr">
+                <item name="spät">13-21</item>
+                <item name="red">90</item>
+                <item name="green">20</item>
+            </item>
+            <item name="Sa">
+                <item name="tag">15-0</item>
+                <item name="red">90</item>
+                <item name="green">20</item>
+            </item>
+            <item name="SoFei">
+                <item name="tag">5-0</item>
+                <item name="red">90</item>
+                <item name="green">20</item>
+            </item>
+        </item>
+    </lsa>

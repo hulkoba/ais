@@ -23,16 +23,15 @@ public class MainActivity extends ActionBarActivity {
         gpstracker = new GpsTracker();
         gpsTextView = (TextView) findViewById(R.id.gps);
 
-
-
-        //lsaTextView = (TextView) findViewById(R.id.lsa);
-
+        lsaTextView = (TextView) findViewById(R.id.lsa);
         inputStream = getResources().openRawResource(R.raw.lsa);
-        //lsaTextView.setText(XMLReader.readXMLFile(inputStream));
 
 
-
-
+        String s = XMLReader.readXMLFile(inputStream);
+        if(s.isEmpty()){
+            Log.d("output ĺsa:  ", "######### empty string");
+        }
+        lsaTextView.setText(s);
         if(!gpstracker.gpsIsActive(this)) {
          //   gpsTextView.setText("Bitte aktiviere GPS");
         } else {
@@ -67,10 +66,6 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onStart() {
-        String s = XMLReader.readXMLFile(inputStream);
-        if(s.isEmpty()){
-            Log.d("output ĺsa:  ", "######### empty string");
-        }
         super.onStart();
         //gpstracker.startGpsTracker();
     }
