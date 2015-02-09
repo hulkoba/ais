@@ -1,6 +1,5 @@
 {
-  "Bornholmer/Björnson": {
-    "Position": [
+  "Position": [
       {
         "lat" : "52.554267", "lon": "13.402257", "name": "R1", "traffic" : "false"
       },
@@ -43,7 +42,7 @@
         },
         "spät": {
           "timeFrom": "1400",
-          "tomeTo": "2000",
+          "timeTo": "2000",
           "R1": {
               "duration": "90",
               "redFrom": "22",
@@ -348,9 +347,9 @@
             "duration": "90",
             "redFrom": "22",
             "redTo": "27" 
-          }
         }
       }
-    ]     
-  }
-} 
+    }
+  ]     
+}
+

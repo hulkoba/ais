@@ -2,6 +2,7 @@ package com.example.cobi.ais;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,27 +17,61 @@ public class JSONParser {
     private String lsaName;
     private boolean dependsOnTraffic;
 
-    private static void parseJSON(String in) {
+
+    private static void parseJSONlsasr(String in) {
         try {
-            JSONObject reader = new JSONObject(in);
 
-            JSONObject kreuzung = reader.getJSONObject("Bornholmer/Björnson");
-            Object pos = kreuzung.get("Position");
+            JSONObject mainObj = new JSONObject(in);
+            // Creating JSONArray from JSONObject
+            JSONArray positions = mainObj.getJSONArray("Position");
+            //Log.d("output ĺsa:  " , String.format("#########%s", positions));
 
-            Log.d("output ĺsa:  " , "#########" + pos.toString());
+            //for(Iterator<JSONObject> iterator = mainObj.iterator(); iterator.hasNext(););
+
+            JSONArray days = mainObj.getJSONArray("days"); // many days in object
+            Log.d("output ĺsa:  " ,  days.toString());
+            //days has some Objects
+            for (int i = 0; i<=days.length();i++){
+                days.get(0);
+                Log.d("output day:  " ,  days.get(0).toString());
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+    private static void parseJSONlsas(String in) {
+        try {
+
+            JSONObject mainObj = new JSONObject(in);
+            // Creating JSONArray from JSONObject
+            JSONArray positions = mainObj.getJSONArray("Position");
+            //Log.d("output ĺsa:  " , String.format("#########%s", positions));
+
+
+
+            JSONArray days = mainObj.getJSONArray("days");
+            Log.d("output ĺsa:  " ,  days.toString());
+            //days has some Objects
+            for (int i = 0; i<=days.length();i++){
+                days.get(0);
+                Log.d("output day:  " ,  days.get(0).toString());
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //String
+    }
 
     public static void fetchJSON(java.io.InputStream inputStream){
         //converts file into String
         java.util.Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
-        String data = scanner.hasNext() ? scanner.next() : "";
+        String jsonData = scanner.hasNext() ? scanner.next() : "";
 
-        parseJSON(data);
+        parseJSONlsasr(jsonData);
        // Log.d("output ĺsa:  " , "#########" + data);
+
     }
 
     public double getLat() {

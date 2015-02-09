@@ -23,9 +23,7 @@ public class MainActivity extends ActionBarActivity {
         gpsTextView = (TextView) findViewById(R.id.gps);
 
         inputStream = getResources().openRawResource(R.raw.lsasr);
-        JSONParser.fetchJSON(inputStream);
-
-
+        JSONParser.fetchJSON(inputStream); //liest LSA JSON
 
 
         if(!gpstracker.gpsIsActive(this)) {
