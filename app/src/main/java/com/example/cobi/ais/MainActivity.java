@@ -2,7 +2,6 @@ package com.example.cobi.ais;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -23,25 +22,49 @@ public class MainActivity extends ActionBarActivity {
         gpstracker = new GpsTracker();
         gpsTextView = (TextView) findViewById(R.id.gps);
 
-
-
-        //lsaTextView = (TextView) findViewById(R.id.lsa);
-
-        inputStream = getResources().openRawResource(R.raw.lsa);
-        //lsaTextView.setText(XMLReader.readXMLFile(inputStream));
+        inputStream = getResources().openRawResource(R.raw.lsasr);
+        JSONParser.fetchJSON(inputStream);
 
 
 
 
         if(!gpstracker.gpsIsActive(this)) {
-         //   gpsTextView.setText("Bitte aktiviere GPS");
-        } else {
-            //gpstracker.startGpsTracker();
+            gpsTextView.setText("Bitte aktiviere GPS");
         }
+        gpstracker.startGpsTracker();
     }
 
     public static void showPosition(String string) {
         gpsTextView.setText(string);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+    @Override // Daten übergeben?
+    protected void onPause() {
+        gpstracker.quitGpsTracker();
+        super.onPause();
+    }
+    @Override //aktiv
+    protected void onResume() {
+        gpstracker.startGpsTracker();
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        gpstracker.quitGpsTracker();
+        super.onStop();
+    }
+
+    @Override
+    // kurz vor Beendigung,wird von finish() aufgerufen
+    protected void onDestroy() {
+        // Empfänger abmelden
+        gpstracker.quitGpsTracker();
+        super.onDestroy();
     }
 
     @Override
@@ -63,39 +86,5 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onStart() {
-        String s = XMLReader.readXMLFile(inputStream);
-        if(s.isEmpty()){
-            Log.d("output ĺsa:  ", "######### empty string");
-        }
-        super.onStart();
-        //gpstracker.startGpsTracker();
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        gpstracker.quitGpsTracker();
-    }
-    @Override //aktiv
-    protected void onResume() {
-        super.onResume();
-        gpstracker.startGpsTracker();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        gpstracker.quitGpsTracker();
-    }
-
-    @Override
-    // kurz vor Beendigung,wird von finish() aufgerufen
-    protected void onDestroy() {
-        super.onDestroy();
-        // Empfänger abmelden
-        gpstracker.quitGpsTracker();
     }
 }
