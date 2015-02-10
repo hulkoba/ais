@@ -26,15 +26,19 @@ public class JSONParser {
             JSONArray positions = mainObj.getJSONArray("Position");
             //Log.d("output ĺsa:  " , String.format("#########%s", positions));
 
-            //for(Iterator<JSONObject> iterator = mainObj.iterator(); iterator.hasNext(););
-
-            JSONArray days = mainObj.getJSONArray("days"); // many days in object
-            Log.d("output ĺsa:  " ,  days.toString());
-            //days has some Objects
-            for (int i = 0; i<=days.length();i++){
-                days.get(0);
-                Log.d("output day:  " ,  days.get(0).toString());
+            for(int i = 0; i < mainObj.names().length(); i++){
+                Log.d("### output i:  " , mainObj.names().toString());
+                JSONArray days = mainObj.getJSONArray("days"); // many days in object
+                Log.d("output days:  " ,  days.get(i).toString());
+                //days has some Objects
+                for (int k = 0; k<=days.length();k++){
+                    days.get(0);
+                    Log.d("output day:  " ,  days.get(k).toString());
+                }
             }
+
+
+
 
         } catch (JSONException e) {
             e.printStackTrace();
