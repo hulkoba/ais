@@ -1,0 +1,355 @@
+{
+  "Position": [
+      {
+        "lat" : "52.554267", "lon": "13.402257", "name": "R1", "traffic" : "false"
+      },
+      {
+        "lat" : "52.554632", "lon": "13.402381", "name": "R2", "traffic" : "false"
+      },
+      {
+        "lat" : "52.554595", "lon": "13.402569", "name": "R3", "traffic" : "false"
+      },
+      {
+        "lat" : "52.554229", "lon": "13.402803", "name": "R4", "traffic" : "false"
+      }
+    ],  
+    "days": [ 
+      ["Mo", "Di", "Mi"] ,
+      {
+        "früh": {
+          "timeFrom": "0600",
+          "timeTo": "1400",
+            "R1": {
+              "duration": "90",
+              "redFrom": "22",
+              "redTo": "27" 
+            },
+            "R2": {
+              "duration": "90",
+              "redFrom": "22",
+              "redTo": "27" 
+            },
+            "R3": {
+              "duration": "90",
+              "redFrom": "22",
+              "redTo": "27" 
+            },
+            "R4": {
+              "duration": "90",
+              "redFrom": "22",
+              "redTo": "27" 
+            }
+        },
+        "spät": {
+          "timeFrom": "1400",
+          "timeTo": "2000",
+          "R1": {
+              "duration": "90",
+              "redFrom": "22",
+              "redTo": "27" 
+            },
+            "R2": {
+              "duration": "90",
+              "redFrom": "22",
+              "redTo": "27" 
+            },
+            "R3": {
+              "duration": "90",
+              "redFrom": "22",
+              "redTo": "27" 
+            },
+            "R4": {
+              "duration": "90",
+              "redFrom": "22",
+              "redTo": "27" 
+            }
+        },
+        "tag": {
+          "timeFrom": "0500",
+          "tomeTo": "0600",
+          "2ndTimeFrom": "2000",
+          "2ndTomeTo": "0000",
+          "R1": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R2": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R3": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R4": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          }
+        },
+        "nacht": {
+          "timeFrom": "0000",
+          "tomeTo": "0500",
+          "R1": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R2": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R3": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R4": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          }
+        }
+      }
+    ], 
+    "days": [
+      ["Do", "Fr"] , 
+      {
+        "früh": {
+          "timeFrom": "0600",
+          "tomeTo": "1300",
+          "R1": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R2": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R3": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R4": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          }
+        },
+        "spät": {
+          "timeFrom": "1300",
+          "tomeTo": "2100",
+          "R1": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R2": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R3": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R4": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          }
+        },
+        "tag": {
+          "timeFrom": "0500",
+          "tomeTo": "0600",
+          "2ndTimeFrom": "2100",
+          "2ndTomeTo": "0000",
+          "R1": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R2": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R3": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R4": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          }
+        },
+        "nacht": {
+          "timeFrom": "0000",
+          "tomeTo": "0500",
+          "R1": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R2": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R3": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R4": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          }
+        }
+      }
+    ], 
+    "days": [
+      ["Sa"] ,
+      {
+        "früh": {
+          "timeFrom": "0800",
+          "tomeTo": "1500",
+          "R1": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R2": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R3": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R4": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          }
+        },
+        "tag": {
+          "timeFrom": "0500",
+          "tomeTo": "0800",
+          "2ndTimeFrom": "1500",
+          "2ndTomeTo": "0000",
+          "R1": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R2": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R3": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R4": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          }
+        },
+        "nacht": {
+          "timeFrom": "0000",
+          "tomeTo": "0500",
+          "R1": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R2": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R3": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R4": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          }
+        }
+      }
+    ], 
+    "days": [
+      ["SoFei"] ,
+      {
+        "tag": {
+          "timeFrom": "0500",
+          "tomeTo": "0000",
+          "R1": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R2": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R3": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R4": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          }
+        },
+        "nacht": {
+          "timeFrom": "0000",
+          "tomeTo": "0500",
+         "R1": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R2": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R3": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+          },
+          "R4": {
+            "duration": "90",
+            "redFrom": "22",
+            "redTo": "27" 
+        }
+      }
+    }
+  ]     
+}
+
