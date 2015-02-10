@@ -4,13 +4,13 @@
         "lat" : "52.554267", "lon": "13.402257", "name": "R1", "traffic" : "false"
       },
       {
-        "lat" : "52.554632", "lon": "13.402381", "name": "R2", "traffic" : "false"
+        "lat" : "52.554632", "lon": "13.402381", "name": "R2", "traffic" : "false", "turnleft":"true"
       },
       {
         "lat" : "52.554595", "lon": "13.402569", "name": "R3", "traffic" : "false"
       },
       {
-        "lat" : "52.554229", "lon": "13.402803", "name": "R4", "traffic" : "false"
+        "lat" : "52.554229", "lon": "13.402803", "name": "R4", "traffic" : "false", "turnleft":"true"
       }
     ],  
     "days": [ 

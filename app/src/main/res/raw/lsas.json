@@ -1,446 +1,524 @@
 {
-  "Bornholmer/Björnson_R1": {
+    "name" : "Bornholmer/Björnson_R1",
     "lat": "52.554267",
     "lon": "13.402257",
-    "!dependsOnTraffic": {
-      "days": [ ["Mo", "Di", "Mi"] , {
-        "früh": {
-          "timeFrom": "0600",
-          "tomeTo": "1400",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "spät": {
-          "timeFrom": "1400",
-          "tomeTo": "2000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0600",
-          "2ndTimeFrom": "2000",
-          "2ndTomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }], 
-      "days": [["Do", "Fr"] , {
-        "früh": {
-          "timeFrom": "0600",
-          "tomeTo": "1300",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "spät": {
-          "timeFrom": "1300",
-          "tomeTo": "2100",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0600",
-          "2ndTimeFrom": "2100",
-          "2ndTomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }], 
-           "days": [["Sa"] ,{
-            "früh": {
-              "timeFrom": "0800",
-              "tomeTo": "1500",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            },
-            "tag": {
-              "timeFrom": "0500",
-              "tomeTo": "0800",
-              "2ndTimeFrom": "1500",
-              "2ndTomeTo": "0000",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            },
-            "nacht": {
-              "timeFrom": "0000",
-              "tomeTo": "0500",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            }
-        }], 
-      "days": [["SoFei"] ,{
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }] 
-    } 
-  }, 
-  "Bornholmer/Björnson_R2": {
+    "dependsOnTraffic": false,
+    "timetable" : [    
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },     
+    {
+        "days": ["Do", "Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 90,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Bornholmer/Björnson_R2",
     "lat": "52.554632",
     "lon": "13.402381",
-    "!dependsOnTraffic": {
-     "days": [ ["Mo", "Di", "Mi"] , {
-        "früh": {
-          "timeFrom": "0600",
-          "tomeTo": "1400",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "spät": {
-          "timeFrom": "1400",
-          "tomeTo": "2000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0600",
-          "2ndTimeFrom": "2000",
-          "2ndTomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }], 
-      "days": [["Do", "Fr"] , {
-        "früh": {
-          "timeFrom": "0600",
-          "tomeTo": "1300",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "spät": {
-          "timeFrom": "1300",
-          "tomeTo": "2100",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0600",
-          "2ndTimeFrom": "2100",
-          "2ndTomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }], 
-           "days":[ ["Sa"] ,{
-            "früh": {
-              "timeFrom": "0800",
-              "tomeTo": "1500",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            },
-            "tag": {
-              "timeFrom": "0500",
-              "tomeTo": "0800",
-              "2ndTimeFrom": "1500",
-              "2ndTomeTo": "0000",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            },
-            "nacht": {
-              "timeFrom": "0000",
-              "tomeTo": "0500",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            }
-        }], 
-      "days": [["SoFei"] ,{
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }]
-    } 
-  }, 
-  "Bornholmer/Björnson_R3": {
+    "dependsOnTraffic": false,
+    "timetable" : [   
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Do", "Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+}, 
+{ 
+    "name" : "Bornholmer/Björnson_R3",
     "lat": "52.554595",
     "lon": "13.402569",
-    "!dependsOnTraffic": {
-      "days": [ ["Mo", "Di", "Mi"] , {
-        "früh": {
-          "timeFrom": "0600",
-          "tomeTo": "1400",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "spät": {
-          "timeFrom": "1400",
-          "tomeTo": "2000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0600",
-          "2ndTimeFrom": "2000",
-          "2ndTomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }], 
-      "days": [["Do", "Fr"] , {
-        "früh": {
-          "timeFrom": "0600",
-          "tomeTo": "1300",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "spät": {
-          "timeFrom": "1300",
-          "tomeTo": "2100",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0600",
-          "2ndTimeFrom": "2100",
-          "2ndTomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }], 
-           "days": [["Sa"], {
-            "früh": {
-              "timeFrom": "0800",
-              "tomeTo": "1500",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            },
-            "tag": {
-              "timeFrom": "0500",
-              "tomeTo": "0800",
-              "2ndTimeFrom": "1500",
-              "2ndTomeTo": "0000",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            },
-            "nacht": {
-              "timeFrom": "0000",
-              "tomeTo": "0500",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            }
-        }], 
-      "days": [["SoFei"] ,{
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }]
-    } 
-  }, 
-  "Bornholmer/Björnson_R4": {
+    "dependsOnTraffic": false,
+    "timetable" : [   
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },         
+    {
+        "days": ["Do", "Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Bornholmer/Björnson_R4",
     "lat": "52.554229",
     "lon": "13.402803",
-    "!dependsOnTraffic": {
-     "days": [ ["Mo", "Di", "Mi"] , {
-        "früh": {
-          "timeFrom": "0600",
-          "tomeTo": "1400",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "spät": {
-          "timeFrom": "1400",
-          "tomeTo": "2000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0600",
-          "2ndTimeFrom": "2000",
-          "2ndTomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }], 
-      "days": [["Do", "Fr"] , {
-        "früh": {
-          "timeFrom": "0600",
-          "tomeTo": "1300",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "spät": {
-          "timeFrom": "1300",
-          "tomeTo": "2100",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0600",
-          "2ndTimeFrom": "2100",
-          "2ndTomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }],
-           "days": [["Sa"], {
-            "früh": {
-              "timeFrom": "0800",
-              "tomeTo": "1500",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            },
-            "tag": {
-              "timeFrom": "0500",
-              "tomeTo": "0800",
-              "2ndTimeFrom": "1500",
-              "2ndTomeTo": "0000",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            },
-            "nacht": {
-              "timeFrom": "0000",
-              "tomeTo": "0500",
-              "duration": "90",
-              "redFrom": "22",
-              "redTo": "27"
-            }
-        }], 
-      "days": [["SoFei"] ,{
-        "tag": {
-          "timeFrom": "0500",
-          "tomeTo": "0000",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        },
-        "nacht": {
-          "timeFrom": "0000",
-          "tomeTo": "0500",
-          "duration": "90",
-          "redFrom": "22",
-          "redTo": "27"
-        }
-      }] 
-    } 
-  }
-} 
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },   
+    {
+        "days": ["Do", "Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Bornholmer/Björnson_R5",
+    "lat": "52.554229",
+    "lon": "13.402803",
+    "dependsOnTraffic": false,
+    "timetable" : [    
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },      
+    {
+        "days": ["Do", "Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Bornholmer/Schönfließer_R1",
+    "lat": "52.554155",
+    "lon": "13.408758",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Do"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    },
+    {
+        "days": ["Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2000,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Bornholmer/Schönfließer_R2",
+    "lat": "52.554301",
+    "lon": "13.408598",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Do"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    },
+    {
+        "days": ["Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2000,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Bornholmer/Schönfließer_R3",
+    "lat": "52.554271",
+    "lon": "13.408950",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+   {
+        "days": ["Do"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    },
+    {
+        "days": ["Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2000,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Bornholmer/Schönfließer_R4",
+    "lat": "52.553888",
+    "lon": "13.408874",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+   {
+        "days": ["Do"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    },
+    {
+        "days": ["Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2000,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Schönhauser/Wisbyer_R2",
+    "lat": "52.553598",
+    "lon": "13.414209",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 0000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Do", "Fr"] , 
+        "timeFrom": 1400,
+        "timeTo": 0000,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Schönhauser/Wisbyer_R3",
+    "lat": "52.553634",
+    "lon": "13.414241",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi", "Do"] ,
+        "timeFrom": 1400,
+        "timeTo": 0000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 0000,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Schönhauser/Wisbyer_R4",
+    "lat": "52.553973",
+    "lon": "13.414316",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi", "Do"] ,
+        "timeFrom": 1400,
+        "timeTo": 0000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 0000,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Schönhauser/Wisbyer_R6",
+    "lat": "52.553956",
+    "lon": "13.414804",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi", "Do"] ,
+        "timeFrom": 1400,
+        "timeTo": 0000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 0000,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Schönhauser/Wisbyer_R7",
+    "lat": "52.553900",
+    "lon": "13.414840",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi", "Do"] ,
+        "timeFrom": 1400,
+        "timeTo": 0000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 0000,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Schönhauser/Wisbyer_R8",
+    "lat": "52.553542",
+    "lon": "13.414730",
+    "dependsOnTraffic": false,
+    "timetable" : [
+     {
+        "days": ["Mo", "Di", "Mi", "Do"] ,
+        "timeFrom": 1400,
+        "timeTo": 0000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 0000,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Wisbyer/Neumann_R1",
+    "lat": "52.552918",
+    "lon": "13.423992",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Do", "Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Wisbyer/Neumann_R3",
+    "lat": "52.552875",
+    "lon": "13.424942",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Do", "Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Wisbyer/Neumann_R4",
+    "lat": "52.552504",
+    "lon": "13.424384",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Do", "Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Wisbyer/Neumann_K1",
+    "lat": "52.552633",
+    "lon": "13.424046",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Do", "Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Wisbyer/Neumann_K15",
+    "lat": "52.552468",
+    "lon": "13.424539",
+    "dependsOnTraffic": false,
+    "timetable" : [
+    {
+        "days": ["Mo", "Di", "Mi"] ,
+        "timeFrom": 1400,
+        "timeTo": 2000,
+        "duration": 90,
+        "redFrom": 22,
+        "redTo": 27
+    },
+    {
+        "days": ["Do", "Fr"] , 
+        "timeFrom": 1300,
+        "timeTo": 2100,
+        "duration": 9,
+        "redFrom": 2,
+        "redTo": 27
+    }
+  ]    
+},
+{ 
+    "name" : "Wisbyer/Neumann_K20",
+    "lat": "52.552418",
+    "lon": "13.425184",
+    "dependsOnTraffic": true
+},
+{ 
+    "name" : "Wisbyer/Neumann_K18",
+    "lat": "52.552418",
+    "lon": "13.425184",
+    "dependsOnTraffic": true
+}
