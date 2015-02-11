@@ -60,7 +60,7 @@ class GpsTracker implements LocationListener {
     }
     //gewählter Lieferant  abgeschaltet?
     public void onProviderDisabled(String provider) {
-        setS("GPS Empfänger ist nicht aktiviert\n");
+        setS("Bitte aktiviere GPS\n");
         MainActivity.showPosition(getS());
     }
 

@@ -22,15 +22,10 @@ public class MainActivity extends ActionBarActivity {
         gpstracker = new GpsTracker();
         gpsTextView = (TextView) findViewById(R.id.gps);
 
-        inputStream = getResources().openRawResource(R.raw.lsasr);
+        inputStream = getResources().openRawResource(R.raw.lsas);
         JSONParser.fetchJSON(inputStream); //liest LSA JSON
 
 
-       /* String s = XMLReader.readXMLFile(inputStream);
-        if(s.isEmpty()){
-            Log.d("output ĺsa:  ", "######### empty string");
-        }
-        lsaTextView.setText(s);*/
         if(!gpstracker.gpsIsActive(this)) {
             gpsTextView.setText("Bitte aktiviere GPS");
         }
