@@ -14,6 +14,7 @@ import java.util.Scanner;
  */
 public class JSONParser {
     private static final LSA[] lsaArray = new LSA[23];
+    private static final SZPL[] szplArray = new SZPL[99];
 
     private static void parseJSON(String in) {
 
@@ -41,25 +42,26 @@ public class JSONParser {
                     for (int j = 0; j < timetable.length()-1; j++) {
 
                         JSONObject jsonSzpl = timetable.getJSONObject(j); //jsonPlan
-                       // Log.d("\nszpl: \n", szpl + "\n" );
 
-                        int duration = jsonSzpl.getInt("duration");
+                        //int duration = jsonSzpl.;
                         int timeFrom = jsonSzpl.getInt("timeFrom");
                         int timeTo = jsonSzpl.getInt("timeTo");
                         int greenFrom = jsonSzpl.getInt("greenFrom");
                         int greenTo = jsonSzpl.getInt("greenTo");
 
-                        SZPL szpl = new SZPL(duration,timeFrom,timeTo,greenFrom,greenTo);
-                        Log.d("\nszplObject\n",szpl + " \n"  );
+                        SZPL szpl = new SZPL(jsonSzpl.getInt("duration"),timeFrom,timeTo,greenFrom,greenTo);
+
+                        szplArray[j] = szpl;
+                       // Log.d("\nszplArray\n",szplArray.toString() + " \n j: " + j + "\n"  );
 
                     } // timetable ende
+                    Log.d("\n#### szplArray\n",szplArray.toString() + "\n"  );
 
 
-                    lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic);
+                    lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic, szplArray);
                 }
 
                 lsaArray[i] = lsaObject;
-
             }
 
         } catch (JSONException e) {
