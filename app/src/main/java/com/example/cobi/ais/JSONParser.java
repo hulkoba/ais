@@ -7,15 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
-import java.util.Iterator;
 import java.util.Scanner;
 
 /**
  * Created by cobi on 09.02.15.
  */
 public class JSONParser {
-    private static LSA[] lsaArray = new LSA[23];
+    private static final LSA[] lsaArray = new LSA[23];
 
     private static void parseJSON(String in) {
 
@@ -23,11 +21,10 @@ public class JSONParser {
             JSONObject jsonObject = new JSONObject(in);
             JSONArray lsas = jsonObject.getJSONArray("lsas");
             //Log.d("############## 1 ", lsas+ " +++");
-            LSA lsaObject = null;
+            LSA lsaObject;
 
             for(int i = 0;i<lsas.length();i++) {
                 JSONObject lsa = lsas.getJSONObject(i);
-
 
                // Log.d("\n lsa: " + lsa, "\n i: " +i + "\n");
                 String lsaName = lsa.getString("name");
@@ -37,26 +34,25 @@ public class JSONParser {
                 Boolean dependsOnTraffic = lsa.getBoolean("dependsOnTraffic");
 
                 if (dependsOnTraffic){
-                    lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic);
+                    lsaObject = new LSA(lsaName, lsaLocation, true);
                 } else {
                     JSONArray timetable = lsa.getJSONArray("timetable");
-                    Log.d("\n### timetable ### \n",timetable + " \n"  );
-                   /* for (int j = 0; j < timetable.length()-1; j++) {
-                        JSONObject szpl = timetable.getJSONObject(i); //jsonPlan
-                    //    Log.d("\nszpl: \n", szpl + "\n" );
+                  //  Log.d("\n### timetable ### \n",timetable + " \n"  );
+                    for (int j = 0; j < timetable.length()-1; j++) {
 
-                        int duration = szpl.getInt("duration");
-                        int timeFrom = szpl.getInt("timeFrom");
-                        int timeTo = szpl.getInt("timeTo");
-                        int greenFrom = szpl.getInt("greenFrom");
-                        int greenTo = szpl.getInt("greenTo");
+                        JSONObject jsonSzpl = timetable.getJSONObject(j); //jsonPlan
+                       // Log.d("\nszpl: \n", szpl + "\n" );
 
-                     //   Log.d(duration + "days \n" + greenFrom+"days \n" +greenTo+ "days \n" +timeFrom+ "days \n" +timeTo, "++++++++++++++++\n");
+                        int duration = jsonSzpl.getInt("duration");
+                        int timeFrom = jsonSzpl.getInt("timeFrom");
+                        int timeTo = jsonSzpl.getInt("timeTo");
+                        int greenFrom = jsonSzpl.getInt("greenFrom");
+                        int greenTo = jsonSzpl.getInt("greenTo");
 
-                      //  SZPL szplObject = new SZPL(duration,timeFrom,timeTo,greenFrom,greenTo);
-                      //  Log.d("\nszplObject\n",szplObject + " \n"  );
+                        SZPL szpl = new SZPL(duration,timeFrom,timeTo,greenFrom,greenTo);
+                        Log.d("\nszplObject\n",szpl + " \n"  );
 
-                    } // timetable ende*/
+                    } // timetable ende
 
 
                     lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic);
@@ -77,7 +73,6 @@ public class JSONParser {
         //converts file into String
         java.util.Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
         String jsonData = scanner.hasNext() ? scanner.next() : "";
-        //Log.d("output data:  " ,  jsonData);
         parseJSON(jsonData);
     }
 
