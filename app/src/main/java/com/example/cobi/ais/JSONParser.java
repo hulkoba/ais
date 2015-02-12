@@ -38,29 +38,34 @@ public class JSONParser {
                     lsaObject = new LSA(lsaName, lsaLocation, true);
                 } else {
                     JSONArray timetable = lsa.getJSONArray("timetable");
-                  //  Log.d("\n### timetable ### \n",timetable + " \n"  );
+
                     for (int j = 0; j < timetable.length()-1; j++) {
 
                         JSONObject jsonSzpl = timetable.getJSONObject(j); //jsonPlan
 
-                        //int duration = jsonSzpl.;
+                        int duration = jsonSzpl.getInt("duration");
                         int timeFrom = jsonSzpl.getInt("timeFrom");
                         int timeTo = jsonSzpl.getInt("timeTo");
                         int greenFrom = jsonSzpl.getInt("greenFrom");
                         int greenTo = jsonSzpl.getInt("greenTo");
 
-                        SZPL szpl = new SZPL(jsonSzpl.getInt("duration"),timeFrom,timeTo,greenFrom,greenTo);
+                        JSONArray jsonDays = jsonSzpl.getJSONArray("days");
+                        String[]days = new String[6]; // 7 days a week
+                        for (int k = 0; k < jsonDays.length(); k++) {
+                            days[k] = jsonDays.get(k).toString();
+                        }
+                        Log.d("#### days: ", days.toString() +" ### \n");
+
+
+                        SZPL szpl = new SZPL(days, duration,timeFrom,timeTo,greenFrom,greenTo);
+                       // SZPL szpl = new SZPL(days, jsonSzpl.getInt("duration"),jsonSzpl.getInt("timeFrom"),jsonSzpl.getInt("timeTo"),jsonSzpl.getInt("greenFrom"),jsonSzpl.getInt("greenTo"));
 
                         szplArray[j] = szpl;
-                       // Log.d("\nszplArray\n",szplArray.toString() + " \n j: " + j + "\n"  );
 
                     } // timetable ende
-                    Log.d("\n#### szplArray\n",szplArray.toString() + "\n"  );
-
 
                     lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic, szplArray);
                 }
-
                 lsaArray[i] = lsaObject;
             }
 
