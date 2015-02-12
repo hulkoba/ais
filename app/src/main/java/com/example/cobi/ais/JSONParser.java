@@ -23,21 +23,45 @@ public class JSONParser {
             JSONObject jsonObject = new JSONObject(in);
             JSONArray lsas = jsonObject.getJSONArray("lsas");
             //Log.d("############## 1 ", lsas+ " +++");
+            LSA lsaObject = null;
 
             for(int i = 0;i<lsas.length();i++) {
                 JSONObject lsa = lsas.getJSONObject(i);
 
 
-                Log.d("lsa: " + lsa, "\n i: " +i + "\n");
+               // Log.d("\n lsa: " + lsa, "\n i: " +i + "\n");
                 String lsaName = lsa.getString("name");
                 Location lsaLocation = new Location("");
                 lsaLocation.setLatitude(lsa.getDouble("lat"));
                 lsaLocation.setLongitude(lsa.getDouble("lon"));
                 Boolean dependsOnTraffic = lsa.getBoolean("dependsOnTraffic");
 
-               // JSONArray timetable = lsa.getJSONArray("timetable");
+                if (dependsOnTraffic){
+                    lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic);
+                } else {
+                    JSONArray timetable = lsa.getJSONArray("timetable");
+                    Log.d("\n### timetable ### \n",timetable + " \n"  );
+                   /* for (int j = 0; j < timetable.length()-1; j++) {
+                        JSONObject szpl = timetable.getJSONObject(i); //jsonPlan
+                    //    Log.d("\nszpl: \n", szpl + "\n" );
 
-                LSA lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic);
+                        int duration = szpl.getInt("duration");
+                        int timeFrom = szpl.getInt("timeFrom");
+                        int timeTo = szpl.getInt("timeTo");
+                        int greenFrom = szpl.getInt("greenFrom");
+                        int greenTo = szpl.getInt("greenTo");
+
+                     //   Log.d(duration + "days \n" + greenFrom+"days \n" +greenTo+ "days \n" +timeFrom+ "days \n" +timeTo, "++++++++++++++++\n");
+
+                      //  SZPL szplObject = new SZPL(duration,timeFrom,timeTo,greenFrom,greenTo);
+                      //  Log.d("\nszplObject\n",szplObject + " \n"  );
+
+                    } // timetable ende*/
+
+
+                    lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic);
+                }
+
                 lsaArray[i] = lsaObject;
 
             }

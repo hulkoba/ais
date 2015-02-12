@@ -18,11 +18,8 @@ public class LSA {
     private int greenFrom;
     private int greenTo;
 
-    public LSA(String name, Location lsaLocation, boolean dependsOnTraffic, Array days, int duration, int timeFrom, int timeTo, int greenFrom, int greenTo) {
-        this.name = name;
-        this.lsaLocation = lsaLocation;
-        this.dependsOnTraffic = dependsOnTraffic;
-        this.days = days;
+    public LSA(int duration, int timeFrom, int timeTo, int greenFrom, int greenTo) {
+
         this.duration = duration;
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
