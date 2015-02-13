@@ -15,6 +15,7 @@ import android.os.Bundle;
 class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
+    private Location myLocation;
     private String s;
     public String getS() {
         return s;
@@ -36,6 +37,10 @@ class GpsTracker implements LocationListener {
             + "Geschwindigkeit: " + location.getSpeed() + " m/s \n"
             + "entspricht" + (location.getSpeed()*3.6) + "km/h \n"
             + "Peilung: " + location.getBearing());
+
+        myLocation.setLatitude(location.getLatitude());
+        myLocation.setLongitude(location.getLongitude());
+
         MainActivity.showPosition(getS());
     }
     //wird bei Zustandsänderungen aufgerufen
