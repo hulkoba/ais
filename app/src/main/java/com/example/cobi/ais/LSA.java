@@ -37,7 +37,7 @@ public class LSA {
         return dependsOnTraffic;
     }
 
-    public SZPL[] getPlans() {
+    public SZPL[] getSzpls() {
         return szpls;
     }
 

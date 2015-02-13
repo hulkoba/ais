@@ -25,6 +25,8 @@ public class MainActivity extends ActionBarActivity {
         inputStream = getResources().openRawResource(R.raw.lsas);
         JSONParser.fetchJSON(inputStream); //liest LSA JSON
 
+        JSONParser.getLsaArray();
+
 
         if(!gpstracker.gpsIsActive(this)) {
             gpsTextView.setText("Bitte aktiviere GPS");

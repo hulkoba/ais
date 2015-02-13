@@ -20,4 +20,28 @@ public class SZPL {
         this.greenFrom = greenFrom;
         this.greenTo = greenTo;
     }
+
+    public String[] getDays() {
+        return days;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public int getTimeFrom() {
+        return timeFrom;
+    }
+
+    public int getTimeTo() {
+        return timeTo;
+    }
+
+    public int getGreenFrom() {
+        return greenFrom;
+    }
+
+    public int getGreenTo() {
+        return greenTo;
+    }
 }

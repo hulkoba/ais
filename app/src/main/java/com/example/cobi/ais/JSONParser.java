@@ -14,7 +14,6 @@ import java.util.Scanner;
  */
 public class JSONParser {
     private static final LSA[] lsaArray = new LSA[23];
-    private static final SZPL[] szplArray = new SZPL[99];
 
     private static void parseJSON(String in) {
 
@@ -25,6 +24,7 @@ public class JSONParser {
             LSA lsaObject;
 
             for(int i = 0;i<lsas.length();i++) {
+                final SZPL[] szplArray = new SZPL[7];
                 JSONObject lsa = lsas.getJSONObject(i);
 
                // Log.d("\n lsa: " + lsa, "\n i: " +i + "\n");
@@ -39,7 +39,7 @@ public class JSONParser {
                 } else {
                     JSONArray timetable = lsa.getJSONArray("timetable");
 
-                    for (int j = 0; j < timetable.length()-1; j++) {
+                    for (int j = 0; j < timetable.length(); j++) {
 
                         JSONObject jsonSzpl = timetable.getJSONObject(j); //jsonPlan
 
@@ -53,8 +53,9 @@ public class JSONParser {
                         String[]days = new String[6]; // 7 days a week
                         for (int k = 0; k < jsonDays.length(); k++) {
                             days[k] = jsonDays.get(k).toString();
+                           // Log.d("#### days: ", days[k] +" ### \n");
                         }
-                        Log.d("#### days: ", days.toString() +" ### \n");
+                      //  Log.d("++++ days: ", days.toString() +" ++++ \n");
 
 
                         SZPL szpl = new SZPL(days, duration,timeFrom,timeTo,greenFrom,greenTo);
@@ -86,4 +87,6 @@ public class JSONParser {
     public static LSA[] getLsaArray() {
         return lsaArray;
     }
+
+
 }
