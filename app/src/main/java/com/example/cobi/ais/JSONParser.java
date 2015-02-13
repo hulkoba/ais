@@ -20,14 +20,12 @@ public class JSONParser {
         try {
             JSONObject jsonObject = new JSONObject(in);
             JSONArray lsas = jsonObject.getJSONArray("lsas");
-            //Log.d("############## 1 ", lsas+ " +++");
             LSA lsaObject;
 
             for(int i = 0;i<lsas.length();i++) {
                 final SZPL[] szplArray = new SZPL[7];
                 JSONObject lsa = lsas.getJSONObject(i);
 
-               // Log.d("\n lsa: " + lsa, "\n i: " +i + "\n");
                 String lsaName = lsa.getString("name");
                 Location lsaLocation = new Location("");
                 lsaLocation.setLatitude(lsa.getDouble("lat"));
@@ -51,12 +49,10 @@ public class JSONParser {
 
                         JSONArray jsonDays = jsonSzpl.getJSONArray("days");
                         String[]days = new String[6]; // 7 days a week
+                        //JSONArray to Array
                         for (int k = 0; k < jsonDays.length(); k++) {
                             days[k] = jsonDays.get(k).toString();
-                           // Log.d("#### days: ", days[k] +" ### \n");
                         }
-                      //  Log.d("++++ days: ", days.toString() +" ++++ \n");
-
 
                         SZPL szpl = new SZPL(days, duration,timeFrom,timeTo,greenFrom,greenTo);
                        // SZPL szpl = new SZPL(days, jsonSzpl.getInt("duration"),jsonSzpl.getInt("timeFrom"),jsonSzpl.getInt("timeTo"),jsonSzpl.getInt("greenFrom"),jsonSzpl.getInt("greenTo"));
@@ -73,7 +69,6 @@ public class JSONParser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("array: ", lsaArray.toString() + "\n");
     }
 
 
@@ -87,6 +82,5 @@ public class JSONParser {
     public static LSA[] getLsaArray() {
         return lsaArray;
     }
-
 
 }
