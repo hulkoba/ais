@@ -4,27 +4,86 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="11dp"
     android:background="@color/black"
     android:keepScreenOn="true"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="1dp" tools:context=".MainActivity">
+    <!-- keepScreenOn = bleibt immer an-->
+    <ImageView
+        android:id="@+id/pfeil_transparent"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/pfeil_transparent"
+        android:contentDescription="@string/schneller"
+        android:visibility="visible"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="-90dp" />
+    <ImageView
+        android:id="@+id/pfeil_transparent_down"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/pfeil_transparent_down"
+        android:contentDescription="@string/langsamer"
+        android:visibility="invisible"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_below="@+id/pfeil_transparent"
+        android:layout_marginTop="90dp" />
 
     <ImageView
         android:id="@+id/pfeil"
-        android:layout_above="@+id/gps"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:src="@drawable/pfeil"
         android:contentDescription="@string/schneller"
-        android:visibility="invisible"/>
-
+        android:visibility="invisible"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="-84dp" />
     <ImageView
-        android:id="@+id/x"
+        android:id="@+id/pfeil_down"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:src="@drawable/x"
+        android:src="@drawable/pfeil_down"
+        android:contentDescription="@string/langsamer"
+        android:visibility="visible"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_below="@+id/pfeil"
+        android:layout_marginTop="96dp" />
+
+    <!-- COUNTDOWN  -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/countdown"
+        android:id="@+id/countdown"
+        android:textColor="@color/red"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        android:textSize="99dp" />
+    <ImageView
+        android:id="@+id/kreis"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/kreis"
+        android:contentDescription="@string/countdown"
+        android:layout_centerInParent="true"
+        android:layout_margin="50dp"
+        android:visibility="visible"/>
+
+
+<!-- STOP & OK  -->
+    <ImageView
+        android:id="@+id/stop"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/stop"
         android:contentDescription="@string/stop"
-        android:visibility="invisible" />
+        android:layout_centerInParent="true"
+        android:layout_margin="50dp"
+        android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/ok"
@@ -32,20 +91,34 @@
         android:layout_width="wrap_content"
         android:src="@drawable/ok"
         android:contentDescription="@string/ok"
-        android:visibility="visible"/>
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:layout_margin="50dp" />
 
+    <ImageView
+        android:id="@+id/mep"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/mep"
+        android:contentDescription="@string/mep"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:layout_margin="50dp" />
+
+    <!-- GPS & LSA  -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/test"
+        android:text="@string/gps"
         android:id="@+id/gps"
         android:textColor="@color/white"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentRight="true"
+        android:layout_toLeftOf="@+id/lsa" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/test"
+        android:text="@string/lsa"
         android:id="@+id/lsa"
         android:textColor="@color/white"
         android:layout_alignParentBottom="false"
