@@ -1,7 +1,11 @@
 package com.example.cobi.ais;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -18,6 +22,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        showStartDialog();
 
         gpstracker = new GpsTracker();
         gpsTextView = (TextView) findViewById(R.id.gps);
@@ -32,6 +37,20 @@ public class MainActivity extends ActionBarActivity {
             gpsTextView.setText("Bitte aktiviere GPS");
         }
         gpstracker.startGpsTracker();
+    }
+
+    private void showStartDialog(){
+       // new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Dialog));
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo_Dialog));
+        builder.setMessage(R.string.onStart);
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public static void showPosition(String string) {
