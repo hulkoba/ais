@@ -7,6 +7,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
+import android.util.Log;
+
+import java.util.IdentityHashMap;
 
 
 /**
@@ -15,13 +18,18 @@ import android.os.Bundle;
 class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
-    private Location myLocation;
+    private double distance;
+    private Location lsaLocation;
+    private Location newLocation;
+
+
     private String s;
+
     public String getS() {
         return s;
     }
     public void setS(String s) {
-        this.s = s;
+        this.s += s;
     }
 
     // Provider verfügbar --> GPS aktiviert???
@@ -38,11 +46,33 @@ class GpsTracker implements LocationListener {
             + "entspricht" + (location.getSpeed()*3.6) + "km/h \n"
             + "Peilung: " + location.getBearing());
 
-        myLocation.setLatitude(location.getLatitude());
-        myLocation.setLongitude(location.getLongitude());
+        //location.setLatitude(location.getLatitude());
+        //location.setLongitude(location.getLongitude());
 
-        MainActivity.showPosition(getS());
+        //nach 5 Metern Bewegung Entfernung zur LSA neu berechnen
+        if(location.distanceTo(newLocation) >= 5){
+            newLocation = location;
+            getNearestLSA(location);
+        }
+
     }
+
+    private void getNearestLSA(Location myLocation){
+
+        LSA[]lsas = JSONParser.getLsaArray();
+        for (int i = 0; i < lsas.length; i++) {
+            lsaLocation = lsas[i].getLsaLocation();
+            distance = myLocation.distanceTo(lsaLocation);
+
+            if(distance <= 3321.98) {
+                setS(" distance zu " + lsas[i].getName() + " beträgt " + String.format("%9.2f", distance) + " Meter.\n");
+                Log.d("s: ", getS());
+                MainActivity.showPosition(getS());
+            }
+        }
+    }
+
+
     //wird bei Zustandsänderungen aufgerufen
     public void onStatusChanged(String provider, int status, Bundle extras) {
        switch (status) {

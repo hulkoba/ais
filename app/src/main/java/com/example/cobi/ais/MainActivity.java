@@ -1,10 +1,10 @@
 package com.example.cobi.ais;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +16,7 @@ public class MainActivity extends ActionBarActivity {
     private static TextView gpsTextView;
     private static TextView lsaTextView;
     private GpsTracker gpstracker;
+
     private InputStream inputStream;
 
     @Override
@@ -24,23 +25,26 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         showStartDialog();
 
-        gpstracker = new GpsTracker();
-        gpsTextView = (TextView) findViewById(R.id.gps);
+        JSONParser jsonParser = new JSONParser();
 
         inputStream = getResources().openRawResource(R.raw.lsas);
-        JSONParser.fetchJSON(inputStream); //liest LSA JSON
+        jsonParser.fetchJSON(inputStream); //liest LSA JSON
 
-        JSONParser.getLsaArray();
 
+        jsonParser.getLsaArray();
+        Log.d("###", String.valueOf(jsonParser.getLsaArray().length));
+
+        gpstracker = new GpsTracker();
+        gpsTextView = (TextView) findViewById(R.id.gps);
 
         if(!gpstracker.gpsIsActive(this)) {
             gpsTextView.setText("Bitte aktiviere GPS");
         }
         gpstracker.startGpsTracker();
+
     }
 
     private void showStartDialog(){
-       // new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Dialog));
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo_Dialog));
         builder.setMessage(R.string.onStart);
         builder.setPositiveButton("OK",

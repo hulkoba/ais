@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class JSONParser {
     private static final LSA[] lsaArray = new LSA[23];
 
-    private static void parseJSON(String in) {
+    private void parseJSON(String in) {
 
         try {
             JSONObject jsonObject = new JSONObject(in);
@@ -71,7 +71,7 @@ public class JSONParser {
     }
 
 
-    public static void fetchJSON(java.io.InputStream inputStream){
+    public void fetchJSON(java.io.InputStream inputStream){
         //converts file into String
         java.util.Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
         String jsonData = scanner.hasNext() ? scanner.next() : "";
