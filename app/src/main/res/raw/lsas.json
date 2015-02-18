@@ -7,16 +7,16 @@
       "timetable" : 
       [    
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,       
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,       
           "greenFrom": 37,
           "greenTo": 86
         },     
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,         
+          "days": [5, 6] , 
+          "timeFrom": 13,
+          "timeTo": 21,         
           "greenFrom": 37,
           "greenTo": 86
         }
@@ -30,16 +30,16 @@
       "timetable" : 
       [   
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 20,
           "greenTo": 25
         },
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,         
+          "days": [5, 6] , 
+          "timeFrom": 13,
+          "timeTo": 21,         
           "greenFrom": 20,
           "greenTo": 25
         }
@@ -53,16 +53,16 @@
       "timetable" : 
       [   
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,          
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,          
           "greenFrom": 51,
           "greenTo": 88
         },         
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,         
+          "days": [5, 6] , 
+          "timeFrom": 13,
+          "timeTo": 21,         
           "greenFrom": 51,
           "greenTo": 88
         }
@@ -76,16 +76,16 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 19,
           "greenTo": 24
         },   
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5, 6] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "greenFrom": 19,
           "greenTo": 24
         }
@@ -99,16 +99,16 @@
       "timetable" : 
       [    
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 22,
           "greenTo": 27
         },      
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5, 6] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "greenFrom": 22,
           "greenTo": 27
         }
@@ -122,23 +122,23 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 88,
           "greenTo": 41
         },
         {
-          "days": ["Do"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "greenFrom": 88,
           "greenTo": 41
         },
         {
-          "days": ["Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2000,
+          "days": [6] , 
+          "timeFrom": 13,
+          "timeTo": 20,
           "greenFrom": 88,
           "greenTo": 41
         }
@@ -152,23 +152,23 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 48,
           "greenTo": 53
         },
         {
-          "days": ["Do"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "greenFrom": 48,
           "greenTo": 53
         },
         {
-          "days": ["Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2000,
+          "days": [6] , 
+          "timeFrom": 13,
+          "timeTo": 20,
           "greenFrom": 48,
           "greenTo": 53
         }
@@ -182,23 +182,23 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 74,
           "greenTo": 43
         },
        {
-          "days": ["Do"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "greenFrom": 74,
           "greenTo": 43
         },
         {
-          "days": ["Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2000,
+          "days": [6] , 
+          "timeFrom": 13,
+          "timeTo": 20,
           "greenFrom": 74,
           "greenTo": 43
         }
@@ -212,23 +212,23 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 48,
           "greenTo": 53
         },
        {
-          "days": ["Do"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "greenFrom": 48,
           "greenTo": 53
         },
         {
-          "days": ["Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2000,
+          "days": [6] , 
+          "timeFrom": 13,
+          "timeTo": 20,
           "greenFrom": 48,
           "greenTo": 53
         }
@@ -242,15 +242,15 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
           "timeTo": 0,
           "greenFrom": 85,
           "greenTo": 90
         },
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1400,
+          "days": [5, 6] , 
+          "timeFrom": 14,
           "timeTo": 0,
           "greenFrom": 85,
           "greenTo": 90
@@ -265,15 +265,15 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi", "Do"] ,
-          "timeFrom": 1400,
+          "days": [2, 3, 4, 5] ,
+          "timeFrom": 14,
           "timeTo": 0,
           "greenFrom": 86,
           "greenTo": 27
         },
         {
-          "days": ["Fr"] , 
-          "timeFrom": 1300,
+          "days": [6] , 
+          "timeFrom": 13,
           "timeTo": 0,
           "greenFrom": 86,
           "greenTo": 27
@@ -288,15 +288,15 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi", "Do"] ,
-          "timeFrom": 1400,
+          "days": [2, 3, 4, 5] ,
+          "timeFrom": 14,
           "timeTo": 0,
           "greenFrom": 45,
           "greenTo": 50
         },
         {
-          "days": ["Fr"] , 
-          "timeFrom": 1300,
+          "days": [6] , 
+          "timeFrom": 13,
           "timeTo": 0,
           "greenFrom": 45,
           "greenTo": 50
@@ -311,15 +311,15 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi", "Do"] ,
-          "timeFrom": 1400,
+          "days": [2, 3, 4, 5] ,
+          "timeFrom": 14,
           "timeTo": 0,
           "greenFrom": 85,
           "greenTo": 90
         },
         {
-          "days": ["Fr"] , 
-          "timeFrom": 1300,
+          "days": [6] , 
+          "timeFrom": 13,
           "timeTo": 0,
           "greenFrom": 85,
           "greenTo": 90
@@ -334,15 +334,15 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi", "Do"] ,
-          "timeFrom": 1400,
+          "days": [2, 3, 4, 5] ,
+          "timeFrom": 14,
           "timeTo": 0,
           "greenFrom": 86,
           "greenTo": 90
         },
         {
-          "days": ["Fr"] , 
-          "timeFrom": 1300,
+          "days": [6] , 
+          "timeFrom": 13,
           "timeTo": 0,
           "greenFrom": 86,
           "greenTo": 90
@@ -357,15 +357,15 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi", "Do"] ,
-          "timeFrom": 1400,
+          "days": [2, 3, 4, 5] ,
+          "timeFrom": 14,
           "timeTo": 0,
           "greenFrom": 45,
           "greenTo": 50
         },
         {
-          "days": ["Fr"] , 
-          "timeFrom": 1300,
+          "days": [6] , 
+          "timeFrom": 13,
           "timeTo": 0,
           "greenFrom": 45,
           "greenTo": 50
@@ -380,16 +380,16 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 5,
           "greenTo": 10
         },
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5, 6] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "greenFrom": 5,
           "greenTo": 10
         }
@@ -403,16 +403,16 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 26,
           "greenTo": 78
         },
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5, 6] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "greenFrom": 26,
           "greenTo": 78
         }
@@ -426,16 +426,16 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 90,
           "greenTo": 90
         },
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5, 6] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "greenFrom": 90,
           "greenTo": 90
         }
@@ -449,16 +449,16 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 5,
           "greenTo": 10
         },
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5, 6] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "greenFrom": 5,
           "greenTo": 10
         }
@@ -472,16 +472,16 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 39,
           "greenTo": 79
         },
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5, 6] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "greenFrom": 39,
           "greenTo": 79
         }
@@ -495,16 +495,16 @@
       "timetable" : 
       [
         {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 1400,
-          "timeTo": 2000,
+          "days": [2, 3, 4] ,
+          "timeFrom": 14,
+          "timeTo": 20,
           "greenFrom": 25,
           "greenTo": 84
         },
         {
-          "days": ["Do", "Fr"] , 
-          "timeFrom": 1300,
-          "timeTo": 2100,
+          "days": [5, 6] , 
+          "timeFrom": 13,
+          "timeTo": 21,
           "duration": 99,
           "greenFrom": 25,
           "greenTo": 84

@@ -1,7 +1,5 @@
 package com.example.cobi.ais;
 
-import android.location.Location;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,13 +24,15 @@ public class JSONParser {
                 JSONObject lsa = lsas.getJSONObject(i);
 
                 String lsaName = lsa.getString("name");
-                Location lsaLocation = new Location("");
-                lsaLocation.setLatitude(lsa.getDouble("lat"));
-                lsaLocation.setLongitude(lsa.getDouble("lon"));
+               // Location lsaLocation = new Location("");
+                double lsaLat = lsa.getDouble("lat");
+                double lsaLon = lsa.getDouble("lon");
+               // lsaLocation.setLatitude(lsa.getDouble("lat"));
+               // lsaLocation.setLongitude(lsa.getDouble("lon"));
                 Boolean dependsOnTraffic = lsa.getBoolean("dependsOnTraffic");
 
                 if (dependsOnTraffic){
-                    lsaObject = new LSA(lsaName, lsaLocation, true);
+                    lsaObject = new LSA(lsaName, lsaLat, lsaLon, true);
                 } else {
                     JSONArray timetable = lsa.getJSONArray("timetable");
 
@@ -46,10 +46,10 @@ public class JSONParser {
                         int greenTo = jsonSzpl.getInt("greenTo");
 
                         JSONArray jsonDays = jsonSzpl.getJSONArray("days");
-                        String[]days = new String[6]; // 7 days a week
+                        int[]days = new int[6]; // 7 days a week
                         //JSONArray to Array
                         for (int k = 0; k < jsonDays.length(); k++) {
-                            days[k] = jsonDays.get(k).toString();
+                            days[k] = (Integer)jsonDays.get(k);
                         }
 
                         SZPL szpl = new SZPL(days,timeFrom,timeTo,greenFrom,greenTo);
@@ -59,7 +59,7 @@ public class JSONParser {
 
                     } // timetable ende
 
-                    lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic, szplArray);
+                    lsaObject = new LSA(lsaName, lsaLat, lsaLon, dependsOnTraffic, szplArray);
                 }
                 lsaArray[i] = lsaObject;
             }

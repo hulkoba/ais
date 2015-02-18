@@ -16,6 +16,8 @@ public class MainActivity extends ActionBarActivity {
     private static TextView gpsTextView;
     private GpsHandler gpstracker;
 
+    private SpeedHandler sp;
+
     private InputStream inputStream;
 
     @Override
@@ -23,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showStartDialog();
+
 
         JSONParser jsonParser = new JSONParser();
         inputStream = getResources().openRawResource(R.raw.lsas);
@@ -45,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
     private void showStartDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo_Dialog));
         builder.setMessage(R.string.onStart);
-        builder.setPositiveButton("OK",
+        builder.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
