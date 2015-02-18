@@ -101,8 +101,8 @@
     },
     { 
       "name" : "Bornholmer/Björnson_R5",
-      "lat": 52.554229,
-      "lon": 13.402803,
+      "lat": 52.554469,
+      "lon": 13.402558,
       "dependsOnTraffic": false,
       "timetable" : 
       [    

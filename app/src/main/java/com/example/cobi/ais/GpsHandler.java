@@ -16,10 +16,10 @@ import android.util.Log;
 class GpsHandler implements LocationListener {
 
     private LocationManager locationManager;
-    private double distance;
     private Location lsaLocation;
-    private Location newLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    private Location myNewLocation;
 
+    LSA nearestLSA = null;
 
     private String s;
     public String getS() {
@@ -38,7 +38,6 @@ class GpsHandler implements LocationListener {
 
     // Provider verfügbar --> GPS aktiviert???
     public boolean gpsIsActive(Activity a) {
-        //newLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         locationManager = (LocationManager) a.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
@@ -55,28 +54,35 @@ class GpsHandler implements LocationListener {
         //location.setLongitude(location.getLongitude());
         MainActivity.showPosition(getS());
         //nach 5 Metern Bewegung Entfernung zur LSA neu berechnen
-        if(location.distanceTo(newLocation) >= 5){
-            newLocation = location;
+      //  if(location.distanceTo(myNewLocation) >= 5){
+         //   myNewLocation = location;
             getNearestLSA(location);
-        }
+       // }
 
     }
 
     private void getNearestLSA(Location myLocation){
+        float[]currentDistance = new float[1];
+        float minDistance = Float.MAX_VALUE;
 
         LSA[]lsas = JSONParser.getLsaArray();
-        for (int i = 0; i < lsas.length; i++) {
-            lsaLocation = lsas[i].getLsaLocation();
-            distance = myLocation.distanceTo(lsaLocation);
 
-            if(distance <= 3321.98) {
-                setL(" distance zu " + lsas[i].getName() + "\n beträgt " + String.format("%9.2f", distance) + " Meter.\n");
-                Log.d("distance: ", getL());
-                MainActivity.showDistance(getL());
+        for (LSA lsa : lsas) {
+
+            Location.distanceBetween(myLocation.getLatitude(),
+                    myLocation.getLongitude(),
+                    lsa.getLsaLocation().getLatitude(),
+                    lsa.getLsaLocation().getLongitude(),
+                    currentDistance
+                    );
+            if (minDistance > currentDistance[0]) {
+                minDistance = currentDistance[0];
+                nearestLSA = lsa;
             }
-        }
-    }
+        } //iterate lsas end
 
+        Log.d("test: ### \n", nearestLSA.toString()+ " "+ nearestLSA);
+    }
 
     //wird bei Zustandsänderungen aufgerufen
     public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -104,8 +110,9 @@ class GpsHandler implements LocationListener {
         MainActivity.showPosition(getS());
     }
 
-    public void startGpsTracker() {
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
+    public void startGpsTracker() {                                         //3sekunden
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, this);
+        myNewLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         MainActivity.showPosition(getS());
     }
     public void quitGpsTracker() {
