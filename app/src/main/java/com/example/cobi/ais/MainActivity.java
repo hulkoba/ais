@@ -15,7 +15,7 @@ import java.io.InputStream;
 public class MainActivity extends ActionBarActivity {
     private static TextView gpsTextView;
     private static TextView lsaTextView;
-    private GpsTracker gpstracker;
+    private GpsHandler gpstracker;
 
     private InputStream inputStream;
 
@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
         jsonParser.getLsaArray();
         Log.d("###", String.valueOf(jsonParser.getLsaArray().length));
 
-        gpstracker = new GpsTracker();
+        gpstracker = new GpsHandler();
         gpsTextView = (TextView) findViewById(R.id.gps);
 
         if(!gpstracker.gpsIsActive(this)) {
@@ -59,6 +59,9 @@ public class MainActivity extends ActionBarActivity {
 
     public static void showPosition(String string) {
         gpsTextView.setText(string);
+    }
+    public static void showDistance(String string) {
+        lsaTextView.setText(string);
     }
 
     @Override

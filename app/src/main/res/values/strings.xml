@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">AIS</string>
-    <string name="onStart">bbodjdowdwodadakdkdkd djdjdp dposwdpo  ojdowd w odiow dpowidpo iuiewuririewr iuiuerwoe r urowuerpowe r.</string>
+    <string name="onStart">Die Straßenverkehrsordnung hat in jedem Fall Vorrang vor den Empfehlungen des Ampelinformationssystems.\n
+    Verfolgen Sie die Anzeige des Geräts während der Fahrt nicht für längere Zeit.</string>
     <string name="gps">gps</string>
     <string name="lsa">lsa</string>
     <string name="countdown">33</string>

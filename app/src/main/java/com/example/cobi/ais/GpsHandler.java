@@ -9,31 +9,36 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.IdentityHashMap;
-
 
 /**
  * Created by cobi on 13.01.15.
  */
-class GpsTracker implements LocationListener {
+class GpsHandler implements LocationListener {
 
     private LocationManager locationManager;
     private double distance;
     private Location lsaLocation;
-    private Location newLocation;
+    private Location newLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
 
     private String s;
-
     public String getS() {
         return s;
     }
     public void setS(String s) {
-        this.s += s;
+        this.s = s;
+    }
+    private String l;
+    public String getL() {
+        return l;
+    }
+    public void setL(String l) {
+        this.l += l;
     }
 
     // Provider verfügbar --> GPS aktiviert???
     public boolean gpsIsActive(Activity a) {
+        //newLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         locationManager = (LocationManager) a.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
@@ -48,7 +53,7 @@ class GpsTracker implements LocationListener {
 
         //location.setLatitude(location.getLatitude());
         //location.setLongitude(location.getLongitude());
-
+        MainActivity.showPosition(getS());
         //nach 5 Metern Bewegung Entfernung zur LSA neu berechnen
         if(location.distanceTo(newLocation) >= 5){
             newLocation = location;
@@ -65,9 +70,9 @@ class GpsTracker implements LocationListener {
             distance = myLocation.distanceTo(lsaLocation);
 
             if(distance <= 3321.98) {
-                setS(" distance zu " + lsas[i].getName() + " beträgt " + String.format("%9.2f", distance) + " Meter.\n");
-                Log.d("s: ", getS());
-                MainActivity.showPosition(getS());
+                setL(" distance zu " + lsas[i].getName() + "\n beträgt " + String.format("%9.2f", distance) + " Meter.\n");
+                Log.d("distance: ", getL());
+                MainActivity.showDistance(getL());
             }
         }
     }
