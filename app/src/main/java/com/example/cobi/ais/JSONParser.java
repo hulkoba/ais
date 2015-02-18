@@ -40,7 +40,6 @@ public class JSONParser {
 
                         JSONObject jsonSzpl = timetable.getJSONObject(j); //jsonPlan
 
-                        int duration = jsonSzpl.getInt("duration");
                         int timeFrom = jsonSzpl.getInt("timeFrom");
                         int timeTo = jsonSzpl.getInt("timeTo");
                         int greenFrom = jsonSzpl.getInt("greenFrom");
@@ -53,8 +52,8 @@ public class JSONParser {
                             days[k] = jsonDays.get(k).toString();
                         }
 
-                        SZPL szpl = new SZPL(days, duration,timeFrom,timeTo,greenFrom,greenTo);
-                       // SZPL szpl = new SZPL(days, jsonSzpl.getInt("duration"),jsonSzpl.getInt("timeFrom"),jsonSzpl.getInt("timeTo"),jsonSzpl.getInt("greenFrom"),jsonSzpl.getInt("greenTo"));
+                        SZPL szpl = new SZPL(days,timeFrom,timeTo,greenFrom,greenTo);
+                       // SZPL szpl = new SZPL(days,jsonSzpl.getInt("timeFrom"),jsonSzpl.getInt("timeTo"),jsonSzpl.getInt("greenFrom"),jsonSzpl.getInt("greenTo"));
 
                         szplArray[j] = szpl;
 

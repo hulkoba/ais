@@ -25,7 +25,6 @@ public class MainActivity extends ActionBarActivity {
         showStartDialog();
 
         JSONParser jsonParser = new JSONParser();
-
         inputStream = getResources().openRawResource(R.raw.lsas);
         jsonParser.fetchJSON(inputStream); //liest LSA JSON
 
