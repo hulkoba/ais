@@ -6,14 +6,15 @@ import android.util.Log;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * Created by cobi on 18.02.15.
  */
-public class SpeedHandler extends TimerTask{
+public class SpeedHandler {
     String countdown = "";
-    private SZPL currentSzpl = null;
+    protected SZPL currentSzpl = null;
 
     Date today = new Date();
     Calendar c = Calendar.getInstance(Locale.GERMANY);
@@ -41,12 +42,10 @@ public class SpeedHandler extends TimerTask{
                 nearestLSA = lsa;
             }
         } //iterate lsas end
-        Log.d("+++", nearestLSA + "\n");
-
-        detectCurrentSzpl(nearestLSA);
+        getCurrentSzpl(nearestLSA);
     }
 
-    private void detectCurrentSzpl(LSA nearest){
+    private void getCurrentSzpl(LSA nearest){
        // SZPL currentSzpl = null;
         c.setTime(today);
 
@@ -62,31 +61,25 @@ public class SpeedHandler extends TimerTask{
                 }
             }
         }
-        Log.d("+++", currentSzpl + "\n");
-
-       calculate(currentSzpl);
+      // calculate();
     }
 
-    protected void calculate(SZPL current){
-        c.setTime(today);
-        int greenFrom = current.getGreenFrom();
-        int greenTo = current.getGreenTo();
-
-        int currentSecond = c.get(Calendar.SECOND);
+    protected void calculate(){
 
     }
 
-    @Override
+   /* @Override
     public void run() {
+        c.setTime(today);
         int currentSecond = c.get(Calendar.SECOND);
+        int greenFrom = currentSzpl.getGreenFrom();
+        int greenTo = currentSzpl.getGreenTo();
+
         if(currentSecond>=currentSzpl.getGreenFrom()&&currentSecond<=currentSzpl.getGreenTo()){
-            Log.d("###","Ampel ist grün");
+            Log.d("###", "Ampel ist grün");
         } else {
             Log.d("###","Ampel ist rot");
         }
-    }
+    }*/
 
-    // And From your main() method or any other method
-    // Timer timer = new Timer();
-    // timer.schedule(new SpeedHandler(), 0, 1000);
 }

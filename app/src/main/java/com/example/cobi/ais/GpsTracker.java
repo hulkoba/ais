@@ -17,15 +17,12 @@ import java.util.Locale;
 /**
  * Created by cobi on 13.01.15.
  */
-class GpsHandler implements LocationListener {
+class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
     private SpeedHandler speedHandler;
 
     private Location myNewLocation;
-
-    private LSA nearestLSA = null;
-    private SZPL currentSzpl = null;
 
     private String s;
     public String getS() {
@@ -59,58 +56,6 @@ class GpsHandler implements LocationListener {
             speedHandler.getNearestLSA(location);
        // }
     }
-
-    private void getNearestLSA(Location myLocation){
-        //LSA nearestLSA = null;
-        float[]currentDistance = new float[1];
-        float minDistance = Float.MAX_VALUE;
-
-        LSA[]lsas = JSONParser.getLsaArray();
-
-        for (LSA lsa : lsas) {
-
-            Location.distanceBetween(
-                    myLocation.getLatitude(),
-                    myLocation.getLongitude(),
-                    lsa.getLatitude(),
-                    lsa.getLongitude(),
-                    currentDistance);
-
-            if (minDistance > currentDistance[0]) {
-                minDistance = currentDistance[0];
-                nearestLSA = lsa;
-            }
-        } //iterate lsas end
-
-        detectCurrentSzpl();
-    }
-
-    private void detectCurrentSzpl(){
-        //SZPL currentSzpl = null;
-        Date today = new Date();
-        Calendar c = Calendar.getInstance(Locale.GERMANY);
-        c.setTime(today);
-
-        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
-
-        SZPL[] szpls;
-        szpls = nearestLSA.getSzpls();
-
-        for (SZPL szpl : szpls){
-            int[]days = szpl.getDays();
-            for (int i : days){
-                if(i == dayOfWeek && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
-                    currentSzpl = szpl;
-                }
-            }
-        }
-       // Log.d("+++", currentSzpl+"\n");
-   //     setS("szpl: " + String.valueOf(currentSzpl));
-
-        //speedHandler.calculate(currentSzpl);
-    }
-
 
     //wird bei Zustandsänderungen aufgerufen
     public void onStatusChanged(String provider, int status, Bundle extras) {

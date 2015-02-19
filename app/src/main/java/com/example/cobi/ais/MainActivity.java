@@ -3,6 +3,7 @@ package com.example.cobi.ais;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -11,12 +12,19 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.io.InputStream;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import java.util.logging.LogRecord;
 
 public class MainActivity extends ActionBarActivity {
     private static TextView gpsTextView;
-    private GpsHandler gpstracker;
+    private static TextView countdownTextView;
+    private GpsTracker gpstracker;
 
     private InputStream inputStream;
+    int i = 0;
+    final Handler myHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
        // jsonParser.getLsaArray();
         Log.d("###", String.valueOf(jsonParser.getLsaArray().length));
 
-        gpstracker = new GpsHandler();
+        gpstracker = new GpsTracker();
         gpsTextView = (TextView) findViewById(R.id.gps);
 
         if(!gpstracker.gpsIsActive(this)) {
@@ -41,7 +49,26 @@ public class MainActivity extends ActionBarActivity {
         }
         gpstracker.startGpsTracker();
 
+        countdownTextView = (TextView) findViewById(R.id.countdown);
+        Timer myTimer = new Timer();
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {UpdateGUI();}
+        }, 0, 1000);
     }
+
+    private void UpdateGUI() {
+        i++;
+        //tv.setText(String.valueOf(i));
+        myHandler.post(myRunnable);
+    }
+
+    final Runnable myRunnable = new Runnable() {
+        public void run() {
+            countdownTextView.setText(String.valueOf(i));
+        }
+    };
+
 
     private void showStartDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo_Dialog));
