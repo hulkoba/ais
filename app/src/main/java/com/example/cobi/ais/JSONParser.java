@@ -42,11 +42,6 @@ public class JSONParser {
 
                         JSONObject jsonSzpl = timetable.getJSONObject(j); //jsonPlan
 
-                        int timeFrom = jsonSzpl.getInt("timeFrom");
-                        int timeTo = jsonSzpl.getInt("timeTo");
-                        int greenFrom = jsonSzpl.getInt("greenFrom");
-                        int greenTo = jsonSzpl.getInt("greenTo");
-
                         JSONArray jsonDays = jsonSzpl.getJSONArray("days");
 
                         int[]days = new int[jsonDays.length()];
@@ -55,13 +50,9 @@ public class JSONParser {
                             days[k] = (Integer)jsonDays.get(k);
                         }
 
-                        SZPL szpl = new SZPL(days,timeFrom,timeTo,greenFrom,greenTo);
-                        Log.d("### szpl in jsonparser ", szpl + "\n");
-                       // SZPL szpl = new SZPL(days,jsonSzpl.getInt("timeFrom"),jsonSzpl.getInt("timeTo"),jsonSzpl.getInt("greenFrom"),jsonSzpl.getInt("greenTo"));
-
+                       // SZPL szpl = new SZPL(days,timeFrom,timeTo,greenFrom,greenTo);
+                        SZPL szpl = new SZPL(days,jsonSzpl.getInt("timeFrom"),jsonSzpl.getInt("timeTo"),jsonSzpl.getInt("greenFrom"),jsonSzpl.getInt("greenTo"));
                         szplArray[j] = szpl;
-                        Log.d("~~~ szplArray length in jsonparser ", szplArray.length + "\n");
-
                     } // timetable ende
 
                     lsaObject = new LSA(lsaName, lsaLat, lsaLon, dependsOnTraffic, szplArray);
@@ -73,7 +64,6 @@ public class JSONParser {
             e.printStackTrace();
         }
     }
-
 
     public void fetchJSON(java.io.InputStream inputStream){
         //converts file into String

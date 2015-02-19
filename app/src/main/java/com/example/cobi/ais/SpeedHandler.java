@@ -13,16 +13,12 @@ import java.util.TimerTask;
  */
 public class SpeedHandler extends TimerTask{
     String countdown = "";
+    private SZPL currentSzpl = null;
 
     Date today = new Date();
     Calendar c = Calendar.getInstance(Locale.GERMANY);
 
 
- //   private LSA nearestLSA = null;
-    private SZPL currentSzpl = null;
-
-    //private GpsHandler gpsHandler;
-    //private static SZPL currentSzpl;
 
     protected void getNearestLSA(Location myLocation){
         LSA nearestLSA = null;
@@ -58,18 +54,17 @@ public class SpeedHandler extends TimerTask{
         int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
 
         SZPL[] szpls = nearest.getSzpls();
-      //  Log.d("+++ szpls +++", String.valueOf(szpls) + "\n");
-        for (SZPL szpl : szpls){
-      //      Log.d("+++ szpl +++", szpl + "\n");
-           // for (int i : szpl.getDays()){
-           //     if(i == dayOfWeek && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
-                    //currentSzpl = szpl;
-           //     }
-           // }
-        }
-        //Log.d("+++", currentSzpl + "\n");
 
-       //calculate(currentSzpl);
+        for (SZPL szpl : szpls){
+            for (int i : szpl.getDays()){
+                if(i == dayOfWeek && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
+                    currentSzpl = szpl;
+                }
+            }
+        }
+        Log.d("+++", currentSzpl + "\n");
+
+       calculate(currentSzpl);
     }
 
     protected void calculate(SZPL current){
