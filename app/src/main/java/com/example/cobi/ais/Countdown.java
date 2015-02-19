@@ -1,3 +1,4 @@
+/*
 package com.example.cobi.ais;
 
 import android.util.Log;
@@ -7,9 +8,11 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimerTask;
 
+*/
 /**
  * Created by cobi on 19.02.15.
- */
+ *//*
+
 public class Countdown extends TimerTask {
     private SpeedHandler speedHandler = new SpeedHandler();
     private SZPL currentSzpl = speedHandler.currentSzpl;
@@ -35,3 +38,4 @@ public class Countdown extends TimerTask {
         }
     }
 }
+*/

@@ -1,7 +1,9 @@
 package com.example.cobi.ais;
 
 import android.location.Location;
+import android.os.Handler;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -13,61 +15,37 @@ import java.util.TimerTask;
  * Created by cobi on 18.02.15.
  */
 public class SpeedHandler {
-    String countdown = "";
-    protected SZPL currentSzpl = null;
+    String countdown = "21";
 
-    Date today = new Date();
-    Calendar c = Calendar.getInstance(Locale.GERMANY);
+    protected MainActivity a;
+    protected SZPL currentSzpl;
 
+    int i = 0;
+    final Handler myHandler = new Handler();
 
-
-    protected void getNearestLSA(Location myLocation){
-        LSA nearestLSA = null;
-        float[]currentDistance = new float[1];
-        float minDistance = Float.MAX_VALUE;
-
-        LSA[]lsas = JSONParser.getLsaArray();
-
-        for (LSA lsa : lsas) {
-
-            Location.distanceBetween(
-                    myLocation.getLatitude(),
-                    myLocation.getLongitude(),
-                    lsa.getLatitude(),
-                    lsa.getLongitude(),
-                    currentDistance);
-
-            if (minDistance > currentDistance[0]) {
-                minDistance = currentDistance[0];
-                nearestLSA = lsa;
-            }
-        } //iterate lsas end
-        getCurrentSzpl(nearestLSA);
-    }
-
-    private void getCurrentSzpl(LSA nearest){
-       // SZPL currentSzpl = null;
-        c.setTime(today);
-
-        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
-
-        SZPL[] szpls = nearest.getSzpls();
-
-        for (SZPL szpl : szpls){
-            for (int i : szpl.getDays()){
-                if(i == dayOfWeek && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
-                    currentSzpl = szpl;
-                }
-            }
-        }
-      // calculate();
+    public SpeedHandler(MainActivity a, SZPL currentSzpl) {
+        this.a = a;
+        this.currentSzpl = currentSzpl;
     }
 
     protected void calculate(){
-
+        Timer myTimer = new Timer();
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {UpdateGUI();}
+        }, 0, 1000);
     }
 
+    private void UpdateGUI() {
+        i++;
+        myHandler.post(myRunnable);
+    }
+
+    final Runnable myRunnable = new Runnable() {
+        public void run() {
+            a.countdownTextView.setText("#" +countdown + i);
+        }
+    };
    /* @Override
     public void run() {
         c.setTime(today);

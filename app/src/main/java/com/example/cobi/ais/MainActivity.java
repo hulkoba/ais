@@ -3,73 +3,49 @@ package com.example.cobi.ais;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
 import java.io.InputStream;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import java.util.logging.LogRecord;
 
 public class MainActivity extends ActionBarActivity {
     private static TextView gpsTextView;
-    private static TextView countdownTextView;
+    public TextView countdownTextView;
     private GpsTracker gpstracker;
 
     private InputStream inputStream;
-    int i = 0;
-    final Handler myHandler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showStartDialog();
+        startEverything();
+        SpeedHandler speedHandler = new SpeedHandler(this, gpstracker.getCurrentSzpl());
+        speedHandler.calculate();
 
+    }
 
+    private void startEverything(){
         JSONParser jsonParser = new JSONParser();
         inputStream = getResources().openRawResource(R.raw.lsas);
         jsonParser.fetchJSON(inputStream); //liest LSA JSON
 
 
-       // jsonParser.getLsaArray();
-        Log.d("###", String.valueOf(jsonParser.getLsaArray().length));
-
         gpstracker = new GpsTracker();
         gpsTextView = (TextView) findViewById(R.id.gps);
+        countdownTextView = (TextView) findViewById(R.id.countdown);
 
         if(!gpstracker.gpsIsActive(this)) {
             gpsTextView.setText("Bitte aktiviere GPS");
+        } else {
+            gpstracker.startGpsTracker();
         }
-        gpstracker.startGpsTracker();
-
-        countdownTextView = (TextView) findViewById(R.id.countdown);
-        Timer myTimer = new Timer();
-        myTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {UpdateGUI();}
-        }, 0, 1000);
     }
-
-    private void UpdateGUI() {
-        i++;
-        //tv.setText(String.valueOf(i));
-        myHandler.post(myRunnable);
-    }
-
-    final Runnable myRunnable = new Runnable() {
-        public void run() {
-            countdownTextView.setText(String.valueOf(i));
-        }
-    };
-
-
     private void showStartDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo_Dialog));
         builder.setMessage(R.string.onStart);

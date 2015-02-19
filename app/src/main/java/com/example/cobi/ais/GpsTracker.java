@@ -20,9 +20,10 @@ import java.util.Locale;
 class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
-    private SpeedHandler speedHandler;
-
+    private SZPL currentSzpl = null;
     private Location myNewLocation;
+    Date today = new Date();
+    Calendar c = Calendar.getInstance(Locale.GERMANY);
 
     private String s;
     public String getS() {
@@ -34,7 +35,6 @@ class GpsTracker implements LocationListener {
 
     // Provider verfügbar --> GPS aktiviert???
     public boolean gpsIsActive(Activity a) {
-        speedHandler = new SpeedHandler();
         locationManager = (LocationManager) a.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
@@ -53,8 +53,53 @@ class GpsTracker implements LocationListener {
         //nach 5 Metern Bewegung Entfernung zur LSA neu berechnen
       //  if(location.distanceTo(myNewLocation) >= 5){
          //   myNewLocation = location;
-            speedHandler.getNearestLSA(location);
+            getNearestLSA(location);
        // }
+    }
+
+    protected void getNearestLSA(Location myLocation){
+        LSA nearestLSA = null;
+        float[]currentDistance = new float[1];
+        float minDistance = Float.MAX_VALUE;
+
+        LSA[]lsas = JSONParser.getLsaArray();
+
+        for (LSA lsa : lsas) {
+
+            Location.distanceBetween(
+                    myLocation.getLatitude(),
+                    myLocation.getLongitude(),
+                    lsa.getLatitude(),
+                    lsa.getLongitude(),
+                    currentDistance);
+
+            if (minDistance > currentDistance[0]) {
+                minDistance = currentDistance[0];
+                nearestLSA = lsa;
+            }
+        } //iterate lsas end
+        detectCurrentSzpl(nearestLSA);
+    }
+
+    private void detectCurrentSzpl(LSA nearest){
+        c.setTime(today);
+
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        SZPL[] szpls = nearest.getSzpls();
+
+        for (SZPL szpl : szpls){
+            for (int i : szpl.getDays()){
+                if(i == dayOfWeek && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
+                    currentSzpl = szpl;
+                }
+            }
+        }
+    }
+
+    public SZPL getCurrentSzpl() {
+        return currentSzpl;
     }
 
     //wird bei Zustandsänderungen aufgerufen
