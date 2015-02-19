@@ -20,12 +20,12 @@ import java.util.Locale;
 class GpsHandler implements LocationListener {
 
     private LocationManager locationManager;
-  //  SpeedHandler speedHandler = new SpeedHandler();
+    private SpeedHandler speedHandler;
 
     private Location myNewLocation;
 
-  //  private LSA nearestLSA = null;
-  //  private SZPL currentSzpl = null;
+    private LSA nearestLSA = null;
+    private SZPL currentSzpl = null;
 
     private String s;
     public String getS() {
@@ -34,16 +34,10 @@ class GpsHandler implements LocationListener {
     public void setS(String s) {
         this.s = s;
     }
-    private String l;
-    public String getL() {
-        return l;
-    }
-    public void setL(String l) {
-        this.l += l;
-    }
 
     // Provider verfügbar --> GPS aktiviert???
     public boolean gpsIsActive(Activity a) {
+        speedHandler = new SpeedHandler();
         locationManager = (LocationManager) a.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
@@ -62,12 +56,12 @@ class GpsHandler implements LocationListener {
         //nach 5 Metern Bewegung Entfernung zur LSA neu berechnen
       //  if(location.distanceTo(myNewLocation) >= 5){
          //   myNewLocation = location;
-            getNearestLSA(location);
+            speedHandler.getNearestLSA(location);
        // }
     }
 
     private void getNearestLSA(Location myLocation){
-        LSA nearestLSA = null;
+        //LSA nearestLSA = null;
         float[]currentDistance = new float[1];
         float minDistance = Float.MAX_VALUE;
 
@@ -88,11 +82,11 @@ class GpsHandler implements LocationListener {
             }
         } //iterate lsas end
 
-        detectCurrentSzpl(nearestLSA);
+        detectCurrentSzpl();
     }
 
-    private void detectCurrentSzpl(LSA nearest){
-        SZPL currentSzpl = null;
+    private void detectCurrentSzpl(){
+        //SZPL currentSzpl = null;
         Date today = new Date();
         Calendar c = Calendar.getInstance(Locale.GERMANY);
         c.setTime(today);
@@ -101,7 +95,7 @@ class GpsHandler implements LocationListener {
         int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
 
         SZPL[] szpls;
-        szpls = nearest.getSzpls();
+        szpls = nearestLSA.getSzpls();
 
         for (SZPL szpl : szpls){
             int[]days = szpl.getDays();
@@ -111,8 +105,8 @@ class GpsHandler implements LocationListener {
                 }
             }
         }
-        Log.d("+++", currentSzpl+"\n");
-        setS("szpl: " + String.valueOf(currentSzpl));
+       // Log.d("+++", currentSzpl+"\n");
+   //     setS("szpl: " + String.valueOf(currentSzpl));
 
         //speedHandler.calculate(currentSzpl);
     }

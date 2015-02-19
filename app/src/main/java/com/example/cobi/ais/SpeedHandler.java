@@ -58,17 +58,18 @@ public class SpeedHandler extends TimerTask{
         int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
 
         SZPL[] szpls = nearest.getSzpls();
-
+      //  Log.d("+++ szpls +++", String.valueOf(szpls) + "\n");
         for (SZPL szpl : szpls){
-            for (int i : szpl.getDays()){
-                if(i == dayOfWeek && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
-                    currentSzpl = szpl;
-                }
-            }
+      //      Log.d("+++ szpl +++", szpl + "\n");
+           // for (int i : szpl.getDays()){
+           //     if(i == dayOfWeek && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
+                    //currentSzpl = szpl;
+           //     }
+           // }
         }
-        Log.d("+++", currentSzpl + "\n");
+        //Log.d("+++", currentSzpl + "\n");
 
-       calculate(currentSzpl);
+       //calculate(currentSzpl);
     }
 
     protected void calculate(SZPL current){

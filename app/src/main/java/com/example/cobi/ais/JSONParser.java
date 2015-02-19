@@ -1,5 +1,7 @@
 package com.example.cobi.ais;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +22,7 @@ public class JSONParser {
             LSA lsaObject;
 
             for(int i = 0;i<lsas.length();i++) {
-                final SZPL[] szplArray = new SZPL[7];
+
                 JSONObject lsa = lsas.getJSONObject(i);
 
                 String lsaName = lsa.getString("name");
@@ -35,7 +37,7 @@ public class JSONParser {
                     lsaObject = new LSA(lsaName, lsaLat, lsaLon, true);
                 } else {
                     JSONArray timetable = lsa.getJSONArray("timetable");
-
+                    final SZPL[] szplArray = new SZPL[timetable.length()];
                     for (int j = 0; j < timetable.length(); j++) {
 
                         JSONObject jsonSzpl = timetable.getJSONObject(j); //jsonPlan
@@ -46,16 +48,19 @@ public class JSONParser {
                         int greenTo = jsonSzpl.getInt("greenTo");
 
                         JSONArray jsonDays = jsonSzpl.getJSONArray("days");
-                        int[]days = new int[6]; // 7 days a week
+
+                        int[]days = new int[jsonDays.length()];
                         //JSONArray to Array
                         for (int k = 0; k < jsonDays.length(); k++) {
                             days[k] = (Integer)jsonDays.get(k);
                         }
 
                         SZPL szpl = new SZPL(days,timeFrom,timeTo,greenFrom,greenTo);
+                        Log.d("### szpl in jsonparser ", szpl + "\n");
                        // SZPL szpl = new SZPL(days,jsonSzpl.getInt("timeFrom"),jsonSzpl.getInt("timeTo"),jsonSzpl.getInt("greenFrom"),jsonSzpl.getInt("greenTo"));
 
                         szplArray[j] = szpl;
+                        Log.d("~~~ szplArray length in jsonparser ", szplArray.length + "\n");
 
                     } // timetable ende
 

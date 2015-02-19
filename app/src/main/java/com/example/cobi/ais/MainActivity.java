@@ -16,8 +16,6 @@ public class MainActivity extends ActionBarActivity {
     private static TextView gpsTextView;
     private GpsHandler gpstracker;
 
-    private SpeedHandler sp;
-
     private InputStream inputStream;
 
     @Override
