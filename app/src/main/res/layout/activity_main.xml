@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:src="@drawable/pfeil"
         android:contentDescription="@string/schneller"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:layout_marginTop="-70dp"
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:src="@drawable/pfeil"
         android:contentDescription="@string/schneller"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         />
@@ -98,7 +98,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/countdown"
+        android:text=""
         android:id="@+id/countdown"
         android:textColor="@color/red"
         android:layout_centerInParent="true"
@@ -109,10 +109,9 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:src="@drawable/kreis"
-        android:contentDescription="@string/countdown"
+        android:contentDescription="@string/stop"
         android:layout_centerInParent="true"
-        android:layout_margin="70dp"
-        android:visibility="visible"/>
+        android:layout_margin="70dp"/>
 
 
 <!-- STOP & OK  -->
@@ -153,18 +152,6 @@
         android:text="@string/gps"
         android:id="@+id/gps"
         android:textColor="@color/white"
-        android:layout_alignParentRight="true"
-        android:layout_toLeftOf="@+id/lsa" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lsa"
-        android:id="@+id/lsa"
-        android:textColor="@color/white"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentRight="false" />
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

@@ -5,7 +5,7 @@
     <string name="onStart">Die Straßenverkehrsordnung hat in jedem Fall Vorrang vor den Empfehlungen des Ampelinformationssystems.\n\nVerfolgen Sie die Anzeige des Geräts während der Fahrt nicht für längere Zeit.</string>
     <string name="gps">gps</string>
     <string name="lsa">lsa</string>
-    <string name="countdown">33</string>
+
     <string name="action_settings">Settings</string>
     <string name="stop">Keine Weiterfahrt möglich</string>
     <string name="ok">Ok</string>

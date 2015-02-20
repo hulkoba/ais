@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.InputStream;
 
@@ -14,8 +16,11 @@ import java.io.InputStream;
 public class MainActivity extends ActionBarActivity {
     private static TextView gpsTextView;
     public TextView countdownTextView;
-    private GpsTracker gpstracker;
+    public ImageView okView, mepView, xView;
 
+
+    private SpeedHandler speedHandler;
+    private GpsTracker gpstracker;
     private InputStream inputStream;
 
 
@@ -24,9 +29,9 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showStartDialog();
+
         startEverything();
-        SpeedHandler speedHandler = new SpeedHandler(this, gpstracker.getCurrentSzpl());
-        speedHandler.calculate();
+
 
     }
 
@@ -35,17 +40,31 @@ public class MainActivity extends ActionBarActivity {
         inputStream = getResources().openRawResource(R.raw.lsas);
         jsonParser.fetchJSON(inputStream); //liest LSA JSON
 
+        speedHandler =  new SpeedHandler(this);
 
         gpstracker = new GpsTracker();
         gpsTextView = (TextView) findViewById(R.id.gps);
         countdownTextView = (TextView) findViewById(R.id.countdown);
+        okView = (ImageView) findViewById(R.id.ok);
+        mepView = (ImageView) findViewById(R.id.mep);
+        xView = (ImageView) findViewById(R.id.stop);
 
         if(!gpstracker.gpsIsActive(this)) {
             gpsTextView.setText("Bitte aktiviere GPS");
         } else {
             gpstracker.startGpsTracker();
+            Log.d("test ", String.valueOf(gpstracker.gpsIsActive(this)));
+            gpstracker.setOnSetListener(new OnSetListener() {
+
+                @Override
+                public void onSzplSet(SZPL szpl) {
+                    Log.d("++++ szpl gesetzt? ", szpl +"\n");
+                    speedHandler.calculate(szpl);
+                }
+            });
         }
     }
+
     private void showStartDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo_Dialog));
         builder.setMessage(R.string.onStart);

@@ -21,6 +21,7 @@ class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
     private SZPL currentSzpl = null;
+    public OnSetListener onSetListener = null;
     private Location myNewLocation;
     Date today = new Date();
     Calendar c = Calendar.getInstance(Locale.GERMANY);
@@ -78,10 +79,12 @@ class GpsTracker implements LocationListener {
                 nearestLSA = lsa;
             }
         } //iterate lsas end
-        detectCurrentSzpl(nearestLSA);
+        if(nearestLSA != null) {
+            getCurrentSzpl(nearestLSA);
+        }
     }
 
-    private void detectCurrentSzpl(LSA nearest){
+    private void getCurrentSzpl(LSA nearest){
         c.setTime(today);
 
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
@@ -93,13 +96,16 @@ class GpsTracker implements LocationListener {
             for (int i : szpl.getDays()){
                 if(i == dayOfWeek && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
                     currentSzpl = szpl;
+                    Log.d(" ### ", i + "\n");
+                    if (onSetListener != null) {
+                        onSetListener.onSzplSet(szpl);
+                    }
                 }
             }
         }
     }
-
-    public SZPL getCurrentSzpl() {
-        return currentSzpl;
+    public void setOnSetListener(OnSetListener listener) {
+            onSetListener = listener;
     }
 
     //wird bei Zustandsänderungen aufgerufen

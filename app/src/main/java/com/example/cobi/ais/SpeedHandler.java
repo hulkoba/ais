@@ -3,6 +3,7 @@ package com.example.cobi.ais;
 import android.location.Location;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -14,50 +15,54 @@ import java.util.TimerTask;
 /**
  * Created by cobi on 18.02.15.
  */
-public class SpeedHandler {
-    String countdown = "21";
-
-    protected MainActivity a;
-    protected SZPL currentSzpl;
-
-    int i = 0;
+public class SpeedHandler{
+    Date today = new Date();
+    Calendar c = Calendar.getInstance(Locale.GERMANY);
     final Handler myHandler = new Handler();
+    protected MainActivity a;
 
-    public SpeedHandler(MainActivity a, SZPL currentSzpl) {
+   // private SZPL currentSzpl;
+
+    int countdown = 33;
+
+    public SpeedHandler(MainActivity a) {
         this.a = a;
-        this.currentSzpl = currentSzpl;
     }
 
-    protected void calculate(){
+
+    protected void calculate(final SZPL currentSzpl){
         Timer myTimer = new Timer();
         myTimer.schedule(new TimerTask() {
             @Override
-            public void run() {UpdateGUI();}
+            public void run() {UpdateGUI(currentSzpl);}
         }, 0, 1000);
     }
 
-    private void UpdateGUI() {
-        i++;
+    private void UpdateGUI(SZPL currentSzpl) {
+        Log.d("###", "Update GUI");
+        c.setTime(today);
+        int currentSecond = c.get(Calendar.SECOND);
+        int greenFrom = currentSzpl.getGreenFrom();
+        int greenTo = currentSzpl.getGreenTo();
+        Log.d("###", "GREEN " +currentSecond);
+
+        if(currentSecond>=greenFrom&&currentSecond<=greenTo){
+           // a.okView.setVisibility(View.VISIBLE);
+            Log.d("###", "Ampel ist grün");
+        } else {
+           // a.okView.setVisibility(View.INVISIBLE);
+            Log.d("###","Ampel ist rot");
+            countdown--;
+        }
+
         myHandler.post(myRunnable);
     }
 
     final Runnable myRunnable = new Runnable() {
         public void run() {
-            a.countdownTextView.setText("#" +countdown + i);
+            if (countdown >= 0) {
+                a.countdownTextView.setText(String.valueOf(countdown));
+            }
         }
     };
-   /* @Override
-    public void run() {
-        c.setTime(today);
-        int currentSecond = c.get(Calendar.SECOND);
-        int greenFrom = currentSzpl.getGreenFrom();
-        int greenTo = currentSzpl.getGreenTo();
-
-        if(currentSecond>=currentSzpl.getGreenFrom()&&currentSecond<=currentSzpl.getGreenTo()){
-            Log.d("###", "Ampel ist grün");
-        } else {
-            Log.d("###","Ampel ist rot");
-        }
-    }*/
-
 }
