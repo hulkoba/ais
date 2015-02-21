@@ -21,9 +21,10 @@ class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
     private SZPL currentSzpl = null;
+    private LSA nearestLSA = null;
     public OnSetListener onSetListener = null;
-    private Location myNewLocation;
-    Date today = new Date();
+    private Location myNewLocation = null;
+
     Calendar c = Calendar.getInstance(Locale.GERMANY);
 
     private String s;
@@ -45,21 +46,22 @@ class GpsTracker implements LocationListener {
             + String.format("%9.6f", location.getLatitude()) + ", "
             + String.format("%9.6f", location.getLongitude()) + "\n"
             + "Geschwindigkeit: " + location.getSpeed() + " m/s \n"
-            + "entspricht" + (location.getSpeed()*3.6) + "km/h \n"
-            + "Peilung: " + location.getBearing());
+            + "entspricht" + (location.getSpeed()*3.6) + "km/h \n");
 
         //location.setLatitude(location.getLatitude());
         //location.setLongitude(location.getLongitude());
         MainActivity.showPosition(getS());
         //nach 5 Metern Bewegung Entfernung zur LSA neu berechnen
-      //  if(location.distanceTo(myNewLocation) >= 5){
-         //   myNewLocation = location;
+        if(location.distanceTo(myNewLocation) >= 3){
+            myNewLocation = location;
             getNearestLSA(location);
-       // }
+        }
+        Log.d("distance", location.distanceTo(myNewLocation) + "\n");
     }
 
     protected void getNearestLSA(Location myLocation){
-        LSA nearestLSA = null;
+        Log.d("getNearestLocation", "getNearestLocation");
+        //LSA nearestLSA = null;
         float[]currentDistance = new float[1];
         float minDistance = Float.MAX_VALUE;
 
@@ -77,28 +79,31 @@ class GpsTracker implements LocationListener {
             if (minDistance > currentDistance[0]) {
                 minDistance = currentDistance[0];
                 nearestLSA = lsa;
+                Log.d("current distance: ", currentDistance[0] + " min distance " + minDistance +"\n");
             }
         } //iterate lsas end
         if(nearestLSA != null) {
-            getCurrentSzpl(nearestLSA);
+            getCurrentSzpl();
         }
     }
 
-    private void getCurrentSzpl(LSA nearest){
-        c.setTime(today);
+    private void getCurrentSzpl(){
+        Log.d("getCurrentSzpl", "getCurrentSzpl");
+        c.setTime(new Date());
 
-        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
 
-        SZPL[] szpls = nearest.getSzpls();
+        SZPL[] szpls = nearestLSA.getSzpls();
 
         for (SZPL szpl : szpls){
+            Log.d("foreach szpl", "");
             for (int i : szpl.getDays()){
-                if(i == dayOfWeek && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
+                Log.d("forIn days","");
+                if(i == c.get(Calendar.DAY_OF_WEEK) && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
                     currentSzpl = szpl;
                     Log.d(" ### ", i + "\n");
                     if (onSetListener != null) {
-                        onSetListener.onSzplSet(szpl);
+                        onSetListener.onSzplSet(currentSzpl);
                     }
                 }
             }
