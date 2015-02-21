@@ -31,8 +31,6 @@ public class MainActivity extends ActionBarActivity {
         showStartDialog();
 
         startEverything();
-
-
     }
 
     private void startEverything(){
@@ -53,7 +51,6 @@ public class MainActivity extends ActionBarActivity {
             gpsTextView.setText("Bitte aktiviere GPS");
         } else {
             gpstracker.startGpsTracker();
-            Log.d("test ", String.valueOf(gpstracker.gpsIsActive(this)));
             gpstracker.setOnSetListener(new OnSetListener() {
 
                 @Override

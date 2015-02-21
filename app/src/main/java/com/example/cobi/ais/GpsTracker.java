@@ -20,7 +20,7 @@ import java.util.Locale;
 class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
-    private SZPL currentSzpl = null;
+
     private LSA nearestLSA = null;
     public OnSetListener onSetListener = null;
     private Location myNewLocation = null;
@@ -51,12 +51,16 @@ class GpsTracker implements LocationListener {
         //location.setLatitude(location.getLatitude());
         //location.setLongitude(location.getLongitude());
         MainActivity.showPosition(getS());
+
         //nach 5 Metern Bewegung Entfernung zur LSA neu berechnen
-        if(location.distanceTo(myNewLocation) >= 3){
+        //TODO höhere Distanz geben (7m?)
+        if (myNewLocation == null) {
+            getNearestLSA(location);
+            myNewLocation = location;
+        } else if(location.distanceTo(myNewLocation) >= 7){
             myNewLocation = location;
             getNearestLSA(location);
         }
-        Log.d("distance", location.distanceTo(myNewLocation) + "\n");
     }
 
     protected void getNearestLSA(Location myLocation){
@@ -75,11 +79,11 @@ class GpsTracker implements LocationListener {
                     lsa.getLatitude(),
                     lsa.getLongitude(),
                     currentDistance);
-
+            // TODO erst bei 300m Entfernung
             if (minDistance > currentDistance[0]) {
                 minDistance = currentDistance[0];
                 nearestLSA = lsa;
-                Log.d("current distance: ", currentDistance[0] + " min distance " + minDistance +"\n");
+                Log.d("current distance: ", currentDistance[0] + " min distance " + minDistance +"\n" + lsa.getName());
             }
         } //iterate lsas end
         if(nearestLSA != null) {
@@ -88,6 +92,7 @@ class GpsTracker implements LocationListener {
     }
 
     private void getCurrentSzpl(){
+        SZPL currentSzpl = null;
         Log.d("getCurrentSzpl", "getCurrentSzpl");
         c.setTime(new Date());
 
@@ -96,9 +101,7 @@ class GpsTracker implements LocationListener {
         SZPL[] szpls = nearestLSA.getSzpls();
 
         for (SZPL szpl : szpls){
-            Log.d("foreach szpl", "");
             for (int i : szpl.getDays()){
-                Log.d("forIn days","");
                 if(i == c.get(Calendar.DAY_OF_WEEK) && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
                     currentSzpl = szpl;
                     Log.d(" ### ", i + "\n");
@@ -141,7 +144,7 @@ class GpsTracker implements LocationListener {
 
     public void startGpsTracker() {                                         //3sekunden
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, this);
-        myNewLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //myNewLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         MainActivity.showPosition(getS());
     }
     public void quitGpsTracker() {

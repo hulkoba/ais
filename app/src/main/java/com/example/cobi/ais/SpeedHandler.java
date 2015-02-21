@@ -16,51 +16,61 @@ public class SpeedHandler{
 
     Calendar c = Calendar.getInstance(Locale.GERMANY);
     final Handler myHandler = new Handler();
-    protected MainActivity a;
-
-   // private SZPL currentSzpl;
+    protected MainActivity mainActivity;
 
     int countdown = 33;
 
     public SpeedHandler(MainActivity a) {
-        this.a = a;
+        this.mainActivity = a;
     }
 
 
-    protected void calculate(final SZPL currentSzpl){
+    protected void calculate(final SZPL szpl){
+        final int greenFrom = szpl.getGreenFrom();
+        final int greenTo = szpl.getGreenTo();
+        final int redFrom = greenTo + 1;
+        countdown = greenTo +1 +greenFrom-1;
+        Date today = new Date();
+        today.setTime(greenFrom*1000);
+        Log.d("today","set Time" + today);
+
         Timer myTimer = new Timer();
         myTimer.schedule(new TimerTask() {
             @Override
-            public void run() {UpdateGUI(currentSzpl);}
+            public void run() {
+                UpdateGUI(greenFrom, greenTo);
+            }
         }, 0, 1000);
     }
 
-    private void UpdateGUI(SZPL currentSzpl) {
-        Log.d("###", "Update GUI");
+    private void UpdateGUI(int greenFrom, int greenTo) {
+        //TODO beim 2. Aufruf wird doppelt ausgeführt. tmp variable?
         c.setTime(new Date());
         int currentSecond = c.get(Calendar.SECOND);
-        int greenFrom = currentSzpl.getGreenFrom();
-        int greenTo = currentSzpl.getGreenTo();
-        Log.d("###", "currentSecond " +currentSecond);
+        //Log.d("###", "currentSecond " +currentSecond);
 
         if(currentSecond>=greenFrom&&currentSecond<=greenTo){
-           // a.okView.setVisibility(View.VISIBLE);
-            Log.d("###", "Ampel ist grün");
-            countdown++;
+           // Log.d("###", "Ampel ist grün");
         } else {
-           // a.okView.setVisibility(View.INVISIBLE);
-            Log.d("###","Ampel ist rot");
+           // Log.d("###","Ampel ist rot");
+           // getRedCountdown();
             countdown--;
         }
 
         myHandler.post(myRunnable);
     }
 
+    private void getRedCountdown(){
+
+    }
+
     final Runnable myRunnable = new Runnable() {
         public void run() {
-            if (countdown >= 0) {
-                a.countdownTextView.setText(String.valueOf(countdown));
+            if (countdown >= 0 || countdown <=60) {
+                mainActivity.countdownTextView.setText(String.valueOf(countdown));
             }
+            // mainActivity.okView.setVisibility(View.INVISIBLE);
+            // mainActivity.okView.setVisibility(View.VISIBLE);
         }
     };
 }
