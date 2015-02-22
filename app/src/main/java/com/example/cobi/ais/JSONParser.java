@@ -27,8 +27,6 @@ public class JSONParser {
 
                 String lsaName = lsa.getString("name");
                 Location lsaLocation = new Location("");
-               // double lsaLat = lsa.getDouble("lat");
-               // double lsaLon = lsa.getDouble("lon");
                 lsaLocation.setLatitude(lsa.getDouble("lat"));
                 lsaLocation.setLongitude(lsa.getDouble("lon"));
                 Boolean dependsOnTraffic = lsa.getBoolean("dependsOnTraffic");
@@ -69,7 +67,6 @@ public class JSONParser {
                                 default:
                                     days[k] = 1; break;
                             }
-                            //days[k] = (Integer)jsonDays.get(k);
                         }
 
                        // SZPL szpl = new SZPL(days,timeFrom,timeTo,greenFrom,greenTo);
@@ -87,8 +84,8 @@ public class JSONParser {
         }
     }
 
+    //converts file into String
     public void fetchJSON(java.io.InputStream inputStream){
-        //converts file into String
         java.util.Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
         String jsonData = scanner.hasNext() ? scanner.next() : "";
         parseJSON(jsonData);

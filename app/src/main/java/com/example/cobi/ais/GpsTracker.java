@@ -9,9 +9,6 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.Calendar;
-import java.util.Locale;
-
 
 /**
  * Created by cobi on 13.01.15.
@@ -19,12 +16,9 @@ import java.util.Locale;
 class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
-
-    protected LSA nearestLSA = null;
+    private Location myNewLocation = null;
     public OnSetListener onSetListener = null;
-    protected Location myNewLocation = null;
 
-    Calendar c = Calendar.getInstance(Locale.GERMANY);
 
     private String s;
     public String getS() {
@@ -51,20 +45,17 @@ class GpsTracker implements LocationListener {
         //location.setLongitude(location.getLongitude());
         MainActivity.showPosition(getS());
 
-        //nach 5 Metern Bewegung Entfernung zur LSA neu berechnen
-        //TODO höhere Distanz geben (7m?)
-        if (myNewLocation == null) {
-            getNearestLSA(location);
-            myNewLocation = location;
-        } else if(location.distanceTo(myNewLocation) >= Constants.MY_DISTANCE){
+        //nach höherer Entfernung zur LSA neu berechnen
+
+        if(location.distanceTo(myNewLocation) >= Constants.MY_DISTANCE){
             myNewLocation = location;
             getNearestLSA(location);
         }
     }
 
-    protected void getNearestLSA(Location myLocation){
+    private void getNearestLSA(Location myLocation){
         Log.d("getNearestLocation", "getNearestLocation");
-        //LSA nearestLSA = null;
+        LSA nearestLSA = null;
         float[]currentDistance = new float[1];
         float minDistance = Float.MAX_VALUE;
 
