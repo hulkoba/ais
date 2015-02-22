@@ -49,7 +49,10 @@ public class SpeedHandler{
                 }
             }
         }
-        if(currentSzpl != null) { calculate(currentSzpl); }
+        if(currentSzpl != null) {
+            //calculate(currentSzpl);
+            getOptSpeed(currentSzpl.getGreenTo());
+        }
     }
 
     protected void calculate(SZPL szpl){
@@ -97,7 +100,8 @@ public class SpeedHandler{
             int deltaT = t2 - t1;
             double s = myLocation.distanceTo(lsaLocation);
             double v = s / deltaT;
-            Log.d("Progressionsgeschwindigkeit: " , "t1:= " + t1 + "\nt2:= " + t2 + "\ns:= " + s + "\nv= " + v);
+            Log.d("Progressionsgeschwindigkeit: " , "\nt1:= " + t1 + "\nt2:= " + t2 +
+                    "\ndetltaT:= " + deltaT + "\ns:= " + s + "\nv= " + v +"\n in km/h: " + (v*3.6));
         }
 
     }
