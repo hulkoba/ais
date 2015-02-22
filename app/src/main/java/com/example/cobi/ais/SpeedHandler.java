@@ -1,5 +1,6 @@
 package com.example.cobi.ais;
 
+import android.location.Location;
 import android.os.Handler;
 import android.util.Log;
 
@@ -18,14 +19,40 @@ public class SpeedHandler{
     final Handler myHandler = new Handler();
     protected MainActivity mainActivity;
 
+    private Location lsaLocation;
+    private Location myLocation;
+
+
     int countdown = 33;
 
-    public SpeedHandler(MainActivity a) {
-        this.mainActivity = a;
+    public SpeedHandler(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
     }
 
+    protected void getCurrentSzpl(LSA nearestLSA, Location loc){
+        Log.d("getCurrentSzpl", "getCurrentSzpl");
 
-    protected void calculate(final SZPL szpl){
+        lsaLocation = nearestLSA.getLsaLocation();
+        myLocation = loc;
+        SZPL currentSzpl = null;
+
+        c.setTime(new Date());
+
+        int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        SZPL[] szpls = nearestLSA.getSzpls();
+
+        for (SZPL szpl : szpls){
+            for (int i : szpl.getDays()){
+                if(i == c.get(Calendar.DAY_OF_WEEK) && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
+                    currentSzpl = szpl;
+                }
+            }
+        }
+        if(currentSzpl != null) { calculate(currentSzpl); }
+    }
+
+    protected void calculate(SZPL szpl){
         final int greenFrom = szpl.getGreenFrom();
         final int greenTo = szpl.getGreenTo();
         final int redFrom = greenTo + 1;
@@ -44,7 +71,7 @@ public class SpeedHandler{
     }
 
     private void UpdateGUI(int greenFrom, int greenTo) {
-        //TODO beim 2. Aufruf wird doppelt ausgeführt. tmp variable?
+        //TODO beim 2. Aufruf wird doppelt ausgeführt.
         c.setTime(new Date());
         int currentSecond = c.get(Calendar.SECOND);
         //Log.d("###", "currentSecond " +currentSecond);
@@ -60,7 +87,18 @@ public class SpeedHandler{
         myHandler.post(myRunnable);
     }
 
-    private void getRedCountdown(){
+    private void getOptSpeed(int greenTo){
+        Log.d("getOptSpeed", "getOptSpeed");
+        // v = s / t2-t1  t1=currentSecond, t2=ampel schaltet auf rot s=abstand ampel-Rad
+        c.setTime(new Date());
+        int t1 = c.get(Calendar.SECOND);
+        int t2 = greenTo +1;
+        if(t2>t1 || myLocation != null || lsaLocation != null) {
+            int deltaT = t2 - t1;
+            double s = myLocation.distanceTo(lsaLocation);
+            double v = s / deltaT;
+            Log.d("Progressionsgeschwindigkeit: " , "t1:= " + t1 + "\nt2:= " + t2 + "\ns:= " + s + "\nv= " + v);
+        }
 
     }
 

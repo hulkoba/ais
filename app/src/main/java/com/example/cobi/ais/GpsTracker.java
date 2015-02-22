@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 
@@ -21,9 +20,9 @@ class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
 
-    private LSA nearestLSA = null;
+    protected LSA nearestLSA = null;
     public OnSetListener onSetListener = null;
-    private Location myNewLocation = null;
+    protected Location myNewLocation = null;
 
     Calendar c = Calendar.getInstance(Locale.GERMANY);
 
@@ -57,7 +56,7 @@ class GpsTracker implements LocationListener {
         if (myNewLocation == null) {
             getNearestLSA(location);
             myNewLocation = location;
-        } else if(location.distanceTo(myNewLocation) >= 7){
+        } else if(location.distanceTo(myNewLocation) >= Constants.MY_DISTANCE){
             myNewLocation = location;
             getNearestLSA(location);
         }
@@ -76,42 +75,24 @@ class GpsTracker implements LocationListener {
             Location.distanceBetween(
                     myLocation.getLatitude(),
                     myLocation.getLongitude(),
-                    lsa.getLatitude(),
-                    lsa.getLongitude(),
+                    lsa.getLsaLocation().getLatitude(),
+                    lsa.getLsaLocation().getLongitude(),
                     currentDistance);
-            // TODO erst bei 300m Entfernung
-            if (minDistance > currentDistance[0]) {
+
+            if (minDistance > currentDistance[0] || currentDistance[0] <= Constants.MIN_LSA_DISTANCE) {
                 minDistance = currentDistance[0];
                 nearestLSA = lsa;
-                Log.d("current distance: ", currentDistance[0] + " min distance " + minDistance +"\n" + lsa.getName());
+
+                Log.d("\ncurrent distance: ", currentDistance[0] + " min distance " + minDistance +"\n" + lsa.getName());
             }
         } //iterate lsas end
-        if(nearestLSA != null) {
-            getCurrentSzpl();
-        }
-    }
-
-    private void getCurrentSzpl(){
-        SZPL currentSzpl = null;
-        Log.d("getCurrentSzpl", "getCurrentSzpl");
-        c.setTime(new Date());
-
-        int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
-
-        SZPL[] szpls = nearestLSA.getSzpls();
-
-        for (SZPL szpl : szpls){
-            for (int i : szpl.getDays()){
-                if(i == c.get(Calendar.DAY_OF_WEEK) && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
-                    currentSzpl = szpl;
-                    Log.d(" ### ", i + "\n");
-                    if (onSetListener != null) {
-                        onSetListener.onSzplSet(currentSzpl);
-                    }
-                }
+        if(nearestLSA != null){
+            if (onSetListener != null) {
+                onSetListener.onLSASet(nearestLSA, myLocation);
             }
         }
     }
+
     public void setOnSetListener(OnSetListener listener) {
             onSetListener = listener;
     }
@@ -142,9 +123,9 @@ class GpsTracker implements LocationListener {
         MainActivity.showPosition(getS());
     }
 
-    public void startGpsTracker() {                                         //3sekunden
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, this);
-        //myNewLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    public void startGpsTracker() {                                         //30sekunden
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 0, this);
+        myNewLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         MainActivity.showPosition(getS());
     }
     public void quitGpsTracker() {

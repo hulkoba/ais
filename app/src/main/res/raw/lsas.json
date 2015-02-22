@@ -1,4 +1,50 @@
 { "lsas": [
+	{
+    "name" : "Test_Soldiner",
+    "lat": 52.559757, 
+    "lon": 13.382391,
+    "dependsOnTraffic": false,
+      "timetable" : 
+      [    
+        {
+          "days": ["Mo", "Di", "Mi"],
+          "timeFrom": 14,
+          "timeTo": 20,       
+          "greenFrom": 37,
+          "greenTo": 55
+        },     
+        {
+          "days": ["Do", "Fr", "Sa", "So"], 
+          "timeFrom": 13,
+          "timeTo": 21,         
+          "greenFrom": 37,
+          "greenTo": 60
+        }
+      ]    
+    },
+    {
+    "name" : "Test_Genter",
+    "lat": 52.545582, 
+    "lon": 13.357875,
+    "dependsOnTraffic": false,
+      "timetable" : 
+      [    
+        {
+          "days": ["Mo", "Di", "Mi"],
+          "timeFrom": 14,
+          "timeTo": 20,       
+          "greenFrom": 37,
+          "greenTo": 55
+        },     
+        {
+          "days": ["Do", "Fr", "Sa", "So"], 
+          "timeFrom": 13,
+          "timeTo": 21,         
+          "greenFrom": 37,
+          "greenTo": 60
+        }
+      ]    
+    },
   {
     "name" : "Bornholmer/Björnson_R1",
     "lat": 52.554267,
@@ -7,18 +53,18 @@
       "timetable" : 
       [    
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"] ,
           "timeFrom": 14,
           "timeTo": 20,       
           "greenFrom": 37,
-          "greenTo": 86
+          "greenTo": 56
         },     
         {
-          "days": [5, 6,7,0] , 
+          "days": ["Do", "Fr"],
           "timeFrom": 13,
           "timeTo": 21,         
           "greenFrom": 37,
-          "greenTo": 86
+          "greenTo": 56
         }
       ]    
     },
@@ -30,14 +76,14 @@
       "timetable" : 
       [   
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"] ,
           "timeFrom": 14,
           "timeTo": 20,
           "greenFrom": 20,
           "greenTo": 25
         },
         {
-          "days": [5, 6,7,0] , 
+          "days": ["Do", "Fr"],
           "timeFrom": 13,
           "timeTo": 21,         
           "greenFrom": 20,
@@ -53,18 +99,18 @@
       "timetable" : 
       [   
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"] ,
           "timeFrom": 14,
           "timeTo": 20,          
           "greenFrom": 51,
-          "greenTo": 88
+          "greenTo": 58
         },         
         {
-          "days": [5, 6] , 
+          "days": ["Do", "Fr"],
           "timeFrom": 13,
           "timeTo": 21,         
           "greenFrom": 51,
-          "greenTo": 88
+          "greenTo": 58
         }
       ]    
     },
@@ -76,14 +122,14 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"] ,
           "timeFrom": 14,
           "timeTo": 20,
           "greenFrom": 19,
           "greenTo": 24
         },   
         {
-          "days": [5, 6] , 
+          "days": ["Do", "Fr"],
           "timeFrom": 13,
           "timeTo": 21,
           "greenFrom": 19,
@@ -99,14 +145,14 @@
       "timetable" : 
       [    
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"] ,
           "timeFrom": 14,
           "timeTo": 20,
           "greenFrom": 22,
           "greenTo": 27
         },      
         {
-          "days": [5, 6] , 
+          "days": ["Do", "Fr"],
           "timeFrom": 13,
           "timeTo": 21,
           "greenFrom": 22,
@@ -122,24 +168,24 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"] ,
           "timeFrom": 14,
           "timeTo": 20,
-          "greenFrom": 88,
+          "greenFrom": 58,
           "greenTo": 41
         },
         {
-          "days": [5] , 
+          "days": ["Do"] , 
           "timeFrom": 13,
           "timeTo": 21,
-          "greenFrom": 88,
+          "greenFrom": 58,
           "greenTo": 41
         },
         {
-          "days": [6] , 
+          "days": ["Fr"] , 
           "timeFrom": 13,
           "timeTo": 20,
-          "greenFrom": 88,
+          "greenFrom": 58,
           "greenTo": 41
         }
       ]    
@@ -152,21 +198,21 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"] ,
           "timeFrom": 14,
           "timeTo": 20,
           "greenFrom": 48,
           "greenTo": 53
         },
         {
-          "days": [5] , 
+          "days": ["Do"] , 
           "timeFrom": 13,
           "timeTo": 21,
           "greenFrom": 48,
           "greenTo": 53
         },
         {
-          "days": [6] , 
+          "days": ["Fr"] , 
           "timeFrom": 13,
           "timeTo": 20,
           "greenFrom": 48,
@@ -182,24 +228,24 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"],
           "timeFrom": 14,
           "timeTo": 20,
-          "greenFrom": 74,
+          "greenFrom": 24,
           "greenTo": 43
         },
        {
-          "days": [5] , 
+          "days": ["Do"] , 
           "timeFrom": 13,
           "timeTo": 21,
-          "greenFrom": 74,
+          "greenFrom": 24,
           "greenTo": 43
         },
         {
-          "days": [6] , 
+          "days": ["Fr"] , 
           "timeFrom": 13,
           "timeTo": 20,
-          "greenFrom": 74,
+          "greenFrom": 24,
           "greenTo": 43
         }
       ]    
@@ -212,21 +258,21 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"],
           "timeFrom": 14,
           "timeTo": 20,
           "greenFrom": 48,
           "greenTo": 53
         },
        {
-          "days": [5] , 
+          "days": ["Do"] , 
           "timeFrom": 13,
           "timeTo": 21,
           "greenFrom": 48,
           "greenTo": 53
         },
         {
-          "days": [6] , 
+          "days": ["Fr"] , 
           "timeFrom": 13,
           "timeTo": 20,
           "greenFrom": 48,
@@ -242,18 +288,18 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"],
           "timeFrom": 14,
           "timeTo": 0,
-          "greenFrom": 85,
-          "greenTo": 90
+          "greenFrom": 55,
+          "greenTo": 60
         },
         {
-          "days": [5, 6] , 
+          "days": ["Do", "Fr"],
           "timeFrom": 14,
           "timeTo": 0,
-          "greenFrom": 85,
-          "greenTo": 90
+          "greenFrom": 55,
+          "greenTo": 60
         }
       ]    
     },
@@ -265,17 +311,17 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4, 5] ,
+          "days": ["Mo", "Di", "Mi", "Do"] ,
           "timeFrom": 14,
           "timeTo": 0,
-          "greenFrom": 86,
+          "greenFrom": 56,
           "greenTo": 27
         },
         {
-          "days": [6] , 
+          "days": ["Fr"] , 
           "timeFrom": 13,
           "timeTo": 0,
-          "greenFrom": 86,
+          "greenFrom": 56,
           "greenTo": 27
         }
       ]    
@@ -288,14 +334,14 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4, 5] ,
+          "days": ["Mo", "Di", "Mi", "Do"],
           "timeFrom": 14,
           "timeTo": 0,
           "greenFrom": 45,
           "greenTo": 50
         },
         {
-          "days": [6] , 
+          "days": ["Fr"] , 
           "timeFrom": 13,
           "timeTo": 0,
           "greenFrom": 45,
@@ -311,18 +357,18 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4, 5] ,
+          "days": ["Mo", "Di", "Mi", "Do"],
           "timeFrom": 14,
           "timeTo": 0,
-          "greenFrom": 85,
-          "greenTo": 90
+          "greenFrom": 55,
+          "greenTo": 60
         },
         {
-          "days": [6] , 
+          "days": ["Fr"] , 
           "timeFrom": 13,
           "timeTo": 0,
-          "greenFrom": 85,
-          "greenTo": 90
+          "greenFrom": 55,
+          "greenTo": 60
         }
       ]    
     },
@@ -334,18 +380,18 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4, 5] ,
+          "days": ["Mo", "Di", "Mi", "Do"],
           "timeFrom": 14,
           "timeTo": 0,
-          "greenFrom": 86,
-          "greenTo": 90
+          "greenFrom": 56,
+          "greenTo": 60
         },
         {
-          "days": [6] , 
+          "days": ["Fr"] , 
           "timeFrom": 13,
           "timeTo": 0,
-          "greenFrom": 86,
-          "greenTo": 90
+          "greenFrom": 56,
+          "greenTo": 60
         }
       ]    
     },
@@ -357,14 +403,14 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4, 5] ,
+          "days": ["Mo", "Di", "Mi", "Do"],
           "timeFrom": 14,
           "timeTo": 0,
           "greenFrom": 45,
           "greenTo": 50
         },
         {
-          "days": [6] , 
+          "days": ["Fr"] , 
           "timeFrom": 13,
           "timeTo": 0,
           "greenFrom": 45,
@@ -380,14 +426,14 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"],
           "timeFrom": 14,
           "timeTo": 20,
           "greenFrom": 5,
           "greenTo": 10
         },
         {
-          "days": [5, 6] , 
+          "days": ["Do", "Fr"],
           "timeFrom": 13,
           "timeTo": 21,
           "greenFrom": 5,
@@ -403,18 +449,18 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"],
           "timeFrom": 14,
           "timeTo": 20,
           "greenFrom": 26,
-          "greenTo": 78
+          "greenTo": 58
         },
         {
-          "days": [5, 6] , 
+          "days": ["Do", "Fr"],
           "timeFrom": 13,
           "timeTo": 21,
           "greenFrom": 26,
-          "greenTo": 78
+          "greenTo": 58
         }
       ]    
     },
@@ -426,18 +472,18 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"],
           "timeFrom": 14,
           "timeTo": 20,
-          "greenFrom": 90,
-          "greenTo": 90
+          "greenFrom": 60,
+          "greenTo": 60
         },
         {
-          "days": [5, 6] , 
+          "days": ["Do", "Fr"],
           "timeFrom": 13,
           "timeTo": 21,
-          "greenFrom": 90,
-          "greenTo": 90
+          "greenFrom": 60,
+          "greenTo": 60
         }
       ]    
     },
@@ -449,14 +495,14 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"],
           "timeFrom": 14,
           "timeTo": 20,
           "greenFrom": 5,
           "greenTo": 10
         },
         {
-          "days": [5, 6] , 
+          "days": ["Do", "Fr"],
           "timeFrom": 13,
           "timeTo": 21,
           "greenFrom": 5,
@@ -472,18 +518,18 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"],
           "timeFrom": 14,
           "timeTo": 20,
           "greenFrom": 39,
-          "greenTo": 79
+          "greenTo": 59
         },
         {
-          "days": [5, 6] , 
+          "days": ["Do", "Fr"], 
           "timeFrom": 13,
           "timeTo": 21,
           "greenFrom": 39,
-          "greenTo": 79
+          "greenTo": 59
         }
       ]    
     },
@@ -495,19 +541,18 @@
       "timetable" : 
       [
         {
-          "days": [2, 3, 4] ,
+          "days": ["Mo", "Di", "Mi"],
           "timeFrom": 14,
           "timeTo": 20,
           "greenFrom": 25,
-          "greenTo": 84
+          "greenTo": 54
         },
         {
-          "days": [5, 6] , 
+          "days": ["Do", "Fr"], 
           "timeFrom": 13,
           "timeTo": 21,
-          "duration": 99,
           "greenFrom": 25,
-          "greenTo": 84
+          "greenTo": 54
         }
       ]    
     },

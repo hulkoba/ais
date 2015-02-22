@@ -14,7 +14,7 @@
           "greenTo": 86
         },     
         {
-          "days": [5, 6] , 
+          "days": [5, 6,7,1] , 
           "timeFrom": 13,
           "timeTo": 21,         
           "greenFrom": 37,
@@ -37,7 +37,7 @@
           "greenTo": 25
         },
         {
-          "days": [5, 6] , 
+          "days": [5, 6,7,1] , 
           "timeFrom": 13,
           "timeTo": 21,         
           "greenFrom": 20,

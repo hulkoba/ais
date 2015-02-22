@@ -2,6 +2,7 @@ package com.example.cobi.ais;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.io.InputStream;
 
 
@@ -52,11 +54,10 @@ public class MainActivity extends ActionBarActivity {
         } else {
             gpstracker.startGpsTracker();
             gpstracker.setOnSetListener(new OnSetListener() {
-
                 @Override
-                public void onSzplSet(SZPL szpl) {
-                    Log.d("++++ szpl gesetzt? ", szpl +"\n");
-                    speedHandler.calculate(szpl);
+                public void onLSASet(LSA lsa, Location loc) {
+                    Log.d("++++ lsa gesetzt? ", lsa + "\n");
+                    speedHandler.getCurrentSzpl(lsa, loc);
                 }
             });
         }

@@ -1,6 +1,6 @@
 package com.example.cobi.ais;
 
-import android.util.Log;
+import android.location.Location;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +12,7 @@ import java.util.Scanner;
  * Created by cobi on 09.02.15.
  */
 public class JSONParser {
-    private static final LSA[] lsaArray = new LSA[23];
+    private static final LSA[] lsaArray = new LSA[Constants.LSAS];
 
     private void parseJSON(String in) {
 
@@ -26,28 +26,50 @@ public class JSONParser {
                 JSONObject lsa = lsas.getJSONObject(i);
 
                 String lsaName = lsa.getString("name");
-               // Location lsaLocation = new Location("");
-                double lsaLat = lsa.getDouble("lat");
-                double lsaLon = lsa.getDouble("lon");
-               // lsaLocation.setLatitude(lsa.getDouble("lat"));
-               // lsaLocation.setLongitude(lsa.getDouble("lon"));
+                Location lsaLocation = new Location("");
+               // double lsaLat = lsa.getDouble("lat");
+               // double lsaLon = lsa.getDouble("lon");
+                lsaLocation.setLatitude(lsa.getDouble("lat"));
+                lsaLocation.setLongitude(lsa.getDouble("lon"));
                 Boolean dependsOnTraffic = lsa.getBoolean("dependsOnTraffic");
 
                 if (dependsOnTraffic){
-                    lsaObject = new LSA(lsaName, lsaLat, lsaLon, true);
+                    lsaObject = new LSA(lsaName, lsaLocation, true);
                 } else {
                     JSONArray timetable = lsa.getJSONArray("timetable");
                     final SZPL[] szplArray = new SZPL[timetable.length()];
                     for (int j = 0; j < timetable.length(); j++) {
 
                         JSONObject jsonSzpl = timetable.getJSONObject(j); //jsonPlan
-
                         JSONArray jsonDays = jsonSzpl.getJSONArray("days");
-
                         int[]days = new int[jsonDays.length()];
-                        //JSONArray to Array
+
+                        //JSONArray to Array + convert DayStrings into Date-Integers
                         for (int k = 0; k < jsonDays.length(); k++) {
-                            days[k] = (Integer)jsonDays.get(k);
+                            String day = String.valueOf(jsonDays.get(k))  ;
+                            switch(day) {
+                                case "Mo":
+                                    days[k] = 2;
+                                    break;
+                                case "Di":
+                                    days[k] = 3;
+                                    break;
+                                case "Mi":
+                                    days[k] = 4;
+                                    break;
+                                case "Do":
+                                    days[k] = 5;
+                                    break;
+                                case "Fr":
+                                    days[k] = 6;
+                                    break;
+                                case "Sa" :
+                                    days[k] = 7;
+                                    break;
+                                default:
+                                    days[k] = 1; break;
+                            }
+                            //days[k] = (Integer)jsonDays.get(k);
                         }
 
                        // SZPL szpl = new SZPL(days,timeFrom,timeTo,greenFrom,greenTo);
@@ -55,7 +77,7 @@ public class JSONParser {
                         szplArray[j] = szpl;
                     } // timetable ende
 
-                    lsaObject = new LSA(lsaName, lsaLat, lsaLon, dependsOnTraffic, szplArray);
+                    lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic, szplArray);
                 }
                 lsaArray[i] = lsaObject;
             }
