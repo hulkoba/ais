@@ -44,13 +44,13 @@ class GpsTracker implements LocationListener {
         MainActivity.showPosition(getS());
 
         //nach höherer Entfernung zur LSA neu berechnen
-
         if(myNewLocation == null || location.distanceTo(myNewLocation) >= Constants.MY_DISTANCE){
             myNewLocation = location;
             getNearestLSA(location);
         }
     }
 
+    //nächstgelegende LSA suchen
     private void getNearestLSA(Location myLocation){
         Log.d("getNearestLocation", "getNearestLocation");
         LSA nearestLSA = null;
@@ -72,9 +72,11 @@ class GpsTracker implements LocationListener {
                 minDistance = currentDistance[0];
                 nearestLSA = lsa;
 
-                Log.d("\ncurrent distance: ", currentDistance[0] + " min distance " + minDistance +"\n" + lsa.getName());
+                Log.d("\ncurrent distance: ", currentDistance[0] +"\n" + lsa.getName());
             }
         } //iterate lsas end
+
+        // LSA gefunden --> per Listener MainActivity benachrichtigen
         if(nearestLSA != null){
             if (onSetListener != null) {
                 onSetListener.onLSASet(nearestLSA, myLocation);
@@ -90,7 +92,7 @@ class GpsTracker implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {
        switch (status) {
            case LocationProvider.AVAILABLE:
-               // setS("GPS ist wieder verfügbar\n");
+                setS("GPS ist wieder verfügbar\n");
                 break;
            case LocationProvider.OUT_OF_SERVICE:
                 setS("GPS ist nicht verfügbar");
@@ -112,14 +114,17 @@ class GpsTracker implements LocationListener {
         MainActivity.showPosition(getS());
     }
 
+    // auf Location updates horchen
     public void startGpsTracker() {                                         //30sekunden
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 0, this);
         myNewLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         MainActivity.showPosition(getS());
     }
+
+    // Location Uptdate Listener entfernen
     public void quitGpsTracker() {
         locationManager.removeUpdates(this);
-        MainActivity.showPosition("Ciao");
+        MainActivity.showPosition("");
     }
 }
 

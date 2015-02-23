@@ -1,6 +1,6 @@
 package com.example.cobi.ais;
 
-import android.annotation.SuppressLint;
+
 import android.location.Location;
 import android.os.Handler;
 import android.util.Log;
@@ -30,6 +30,7 @@ public class SpeedHandler{
         this.mainActivity = mainActivity;
     }
 
+    // Schaltplan der nächsten LSA holen
     protected void getCurrentSzpl(LSA nearestLSA, Location loc){
         Log.d("getCurrentSzpl", "getCurrentSzpl");
 
@@ -40,6 +41,7 @@ public class SpeedHandler{
         c.setTime(new Date());
         int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
 
+        // verkehrsabhängige LSA hat keinen Schaltplan
         if(nearestLSA.isDependsOnTraffic()){
             mainActivity.mepView.setVisibility(View.VISIBLE);
 
@@ -69,7 +71,7 @@ public class SpeedHandler{
         final int greenFrom = szpl.getGreenFrom();
         final int greenTo = szpl.getGreenTo();
         final int redFrom = greenTo + 1;
-        countdown = greenTo +1 +greenFrom-1;
+
         Date today = new Date();
         today.setTime(greenFrom*1000);
         Log.d("today","set Time" + today);
@@ -93,10 +95,14 @@ public class SpeedHandler{
 
         if(currentSecond>=greenFrom&&currentSecond<=greenTo){
            // Log.d("###", "Ampel ist grün");
+
         } else {
-           // Log.d("###","Ampel ist rot");
-           // getRedCountdown();
-            countdown--;
+            Log.d("#","Ampel ist rot "+"\ncurr: "+ currentSecond + " \ngreenFrom:" + greenFrom+" \ngreento " +greenTo );
+            if(currentSecond < greenFrom) {
+                countdown = greenFrom - currentSecond;
+            } else {
+                countdown = (60-currentSecond)+greenTo;
+            }
         }
         if(mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
             myHandler.post(myRunnable);
