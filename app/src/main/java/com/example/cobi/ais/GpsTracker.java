@@ -37,9 +37,7 @@ class GpsTracker implements LocationListener {
     public void onLocationChanged(Location location) {
         setS("Position: \n"
             + String.format("%9.6f", location.getLatitude()) + ", "
-            + String.format("%9.6f", location.getLongitude()) + "\n"
-            + "Geschwindigkeit: " + location.getSpeed() + " m/s \n"
-            + "entspricht" + (location.getSpeed()*3.6) + "km/h \n");
+            + String.format("%9.6f", location.getLongitude()) + "\n");
 
         //location.setLatitude(location.getLatitude());
         //location.setLongitude(location.getLongitude());

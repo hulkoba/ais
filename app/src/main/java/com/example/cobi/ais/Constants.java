@@ -12,5 +12,5 @@ public class Constants {
     static final int MAX_SPEED = 30; //km/h
     static final int MIN_SPEED = 5;
 
-    static final int MAX_BESCHLEUNIGUNG = 2; //m/s²
+    static final int MAX_ACCELERATION = 2; //m/s²
 }
