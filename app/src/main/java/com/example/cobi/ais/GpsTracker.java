@@ -16,7 +16,7 @@ import android.util.Log;
 class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
-    private Location myNewLocation = null;
+    private Location myNewLocation;
     public OnSetListener onSetListener = null;
 
 
@@ -47,7 +47,7 @@ class GpsTracker implements LocationListener {
 
         //nach höherer Entfernung zur LSA neu berechnen
 
-        if(location.distanceTo(myNewLocation) >= Constants.MY_DISTANCE){
+        if(myNewLocation == null || location.distanceTo(myNewLocation) >= Constants.MY_DISTANCE){
             myNewLocation = location;
             getNearestLSA(location);
         }
@@ -70,7 +70,7 @@ class GpsTracker implements LocationListener {
                     lsa.getLsaLocation().getLongitude(),
                     currentDistance);
 
-            if (minDistance > currentDistance[0] || currentDistance[0] <= Constants.MIN_LSA_DISTANCE) {
+            if (minDistance > currentDistance[0] && currentDistance[0] <= Constants.MIN_LSA_DISTANCE) {
                 minDistance = currentDistance[0];
                 nearestLSA = lsa;
 

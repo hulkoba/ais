@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="1dp"
+    android:paddingTop="3dp"
     android:background="@color/black"
     android:keepScreenOn="true"
-    android:paddingBottom="1dp" tools:context=".MainActivity">
+    android:paddingBottom="3dp" tools:context=".MainActivity">
     <!-- keepScreenOn = bleibt immer an-->
     <!-- Pfeil transparent up-->
     <ImageView
@@ -16,8 +16,8 @@
         android:layout_width="wrap_content"
         android:src="@drawable/pfeil_transparent"
         android:contentDescription="@string/schneller"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
         android:layout_marginTop="-70dp"
         android:layout_marginBottom="10dp" />
     <ImageView
@@ -26,8 +26,8 @@
         android:layout_width="wrap_content"
         android:src="@drawable/pfeil_transparent"
         android:contentDescription="@string/schneller"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
        />
     <!-- Pfeil up-->
     <ImageView
@@ -37,8 +37,8 @@
         android:src="@drawable/pfeil"
         android:contentDescription="@string/schneller"
         android:visibility="invisible"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
         android:layout_marginTop="-70dp"
         android:layout_marginBottom="10dp"  />
     <ImageView
@@ -48,8 +48,8 @@
         android:src="@drawable/pfeil"
         android:contentDescription="@string/schneller"
         android:visibility="invisible"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
         />
     <!-- Pfeil transparent down-->
     <ImageView
@@ -58,8 +58,8 @@
         android:layout_width="wrap_content"
         android:src="@drawable/pfeil_transparent_down"
         android:contentDescription="@string/langsamer"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
         android:layout_marginTop="310dp" />
     <ImageView
         android:id="@+id/pfeil_transparent_down2"
@@ -67,8 +67,8 @@
         android:layout_width="wrap_content"
         android:src="@drawable/pfeil_transparent_down"
         android:contentDescription="@string/langsamer"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
         android:layout_marginTop="440dp" />
 
     <!-- Pfeil down-->
@@ -79,8 +79,8 @@
         android:src="@drawable/pfeil_down"
         android:contentDescription="@string/langsamer"
         android:visibility="invisible"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
         android:layout_marginTop="310dp" />
     <ImageView
         android:id="@+id/pfeil_down2"
@@ -89,8 +89,8 @@
         android:src="@drawable/pfeil_down"
         android:contentDescription="@string/langsamer"
         android:visibility="invisible"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
         android:layout_marginTop="440dp" />
 
 

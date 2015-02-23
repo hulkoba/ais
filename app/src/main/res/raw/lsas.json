@@ -8,15 +8,15 @@
       [    
         {
           "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,       
+          "timeFrom": 10,
+          "timeTo": 22,       
           "greenFrom": 37,
           "greenTo": 55
         },     
         {
           "days": ["Do", "Fr", "Sa", "So"], 
-          "timeFrom": 13,
-          "timeTo": 21,         
+          "timeFrom": 10,
+          "timeTo": 22,         
           "greenFrom": 37,
           "greenTo": 60
         }
@@ -31,14 +31,14 @@
       [    
         {
           "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,       
+          "timeFrom": 10,
+          "timeTo": 19,       
           "greenFrom": 37,
           "greenTo": 55
         },     
         {
           "days": ["Do", "Fr", "Sa", "So"], 
-          "timeFrom": 13,
+          "timeFrom": 10,
           "timeTo": 21,         
           "greenFrom": 37,
           "greenTo": 60
