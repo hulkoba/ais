@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.location.Location;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -37,18 +38,27 @@ public class SpeedHandler{
         SZPL currentSzpl = null;
 
         c.setTime(new Date());
-
         int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
 
-        SZPL[] szpls = nearestLSA.getSzpls();
+        if(nearestLSA.isDependsOnTraffic()){
+            mainActivity.mepView.setVisibility(View.VISIBLE);
 
-        for (SZPL szpl : szpls){
-            for (int i : szpl.getDays()){
-                if(i == c.get(Calendar.DAY_OF_WEEK) && szpl.getTimeFrom()<=hourOfDay && szpl.getTimeTo()>=hourOfDay){
-                    currentSzpl = szpl;
+            mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
+            mainActivity.okView.setVisibility(View.INVISIBLE);
+            mainActivity.mepView.setVisibility(View.INVISIBLE);
+        } else {
+
+            SZPL[] szpls = nearestLSA.getSzpls();
+
+            for (SZPL szpl : szpls) {
+                for (int i : szpl.getDays()) {
+                    if (i == c.get(Calendar.DAY_OF_WEEK) && szpl.getTimeFrom() <= hourOfDay && szpl.getTimeTo() >= hourOfDay) {
+                        currentSzpl = szpl;
+                    }
                 }
             }
         }
+
         if(currentSzpl != null) {
             calculate(currentSzpl);
             getOptSpeed(currentSzpl.getGreenTo());
@@ -79,7 +89,7 @@ public class SpeedHandler{
     private void UpdateGUI(int greenFrom, int greenTo) {
        c.setTime(new Date());
         int currentSecond = c.get(Calendar.SECOND);
-        Log.d("###", "currentSecond " +currentSecond);
+       // Log.d("###", "currentSecond " +currentSecond);
 
         if(currentSecond>=greenFrom&&currentSecond<=greenTo){
            // Log.d("###", "Ampel ist grün");
@@ -88,34 +98,60 @@ public class SpeedHandler{
            // getRedCountdown();
             countdown--;
         }
-
-        myHandler.post(myRunnable);
+        if(mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
+            myHandler.post(myRunnable);
+        }
     }
 
-    @SuppressLint("LongLogTag")
     private void getOptSpeed(int greenTo){
         Log.d("getOptSpeed", "getOptSpeed");
         // v = s / t2-t1  t1=currentSecond, t2=ampel schaltet auf rot s=abstand ampel-Rad
         c.setTime(new Date());
         int t1 = c.get(Calendar.SECOND);
-        int t2 = greenTo + 1;
-        if(t2>t1 || myLocation != null || lsaLocation != null) {
-            double deltaT = t2 - t1;
-            double s = myLocation.distanceTo(lsaLocation);
-            double v = s / deltaT;
-            Log.d("Progressionsgeschwindigkeit: " , "\nt1:= " + t1 + "\nt2:= " + t2 +
-                    "\ndetltaT:= " + deltaT + "\ns:= " + s + "\nv= " + v +"\n in km/h: " + (v*3.6));
+        int t2 = greenTo + 1; // ampel schaltet auf rot
+        if(t2<t1 || myLocation == null || lsaLocation == null) {
+            return;
         }
+        double deltaT = t2 - t1;
+        double s = myLocation.distanceTo(lsaLocation);
+        double v = s / deltaT;
+        Log.d("v: " , v +"\n in km/h: " + (v*3.6));
+
+        double speed = myLocation.getSpeed();
+        if ((v*3.6) >= Constants.MAX_SPEED || (v*3.6) <= Constants.MIN_SPEED){
+            mainActivity.xView.setVisibility(View.VISIBLE);
+
+            mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
+            mainActivity.okView.setVisibility(View.INVISIBLE);
+            mainActivity.mepView.setVisibility(View.INVISIBLE);
+
+        } else if (Math.round(speed) == Math.round(v)) {
+            mainActivity.okView.setVisibility(View.VISIBLE);
+
+            mainActivity.xView.setVisibility(View.INVISIBLE);
+            mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
+            mainActivity.mepView.setVisibility(View.INVISIBLE);
+        } else if (speed < v) {
+            mainActivity.countdownTextView.setVisibility(View.VISIBLE);
+
+            mainActivity.okView.setVisibility(View.INVISIBLE);
+            mainActivity.xView.setVisibility(View.INVISIBLE);
+            mainActivity.mepView.setVisibility(View.INVISIBLE);
+        } else if (speed > v) {
+            mainActivity.countdownTextView.setVisibility(View.VISIBLE);
+
+            mainActivity.okView.setVisibility(View.INVISIBLE);
+            mainActivity.xView.setVisibility(View.INVISIBLE);
+            mainActivity.mepView.setVisibility(View.INVISIBLE);
+        }
+
 
     }
 
     final Runnable myRunnable = new Runnable() {
+
         public void run() {
-            if (countdown >= 0 || countdown <=60) {
-                mainActivity.countdownTextView.setText(String.valueOf(countdown));
-            }
-            // mainActivity.okView.setVisibility(View.INVISIBLE);
-            // mainActivity.okView.setVisibility(View.VISIBLE);
+            mainActivity.countdownTextView.setText(String.valueOf(countdown));
         }
     };
 }

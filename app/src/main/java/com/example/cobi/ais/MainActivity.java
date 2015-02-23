@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
             gpstracker.setOnSetListener(new OnSetListener() {
                 @Override
                 public void onLSASet(LSA lsa, Location loc) {
-                    Log.d("++++ lsa gesetzt? ", lsa + "\n");
+                    //Log.d("++++ lsa gesetzt? ", lsa + "\n");
                     speedHandler.getCurrentSzpl(lsa, loc);
                 }
             });

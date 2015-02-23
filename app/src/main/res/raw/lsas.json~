@@ -8,15 +8,15 @@
       [    
         {
           "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,       
+          "timeFrom": 10,
+          "timeTo": 22,       
           "greenFrom": 37,
           "greenTo": 55
         },     
         {
           "days": ["Do", "Fr", "Sa", "So"], 
-          "timeFrom": 13,
-          "timeTo": 21,         
+          "timeFrom": 10,
+          "timeTo": 22,         
           "greenFrom": 37,
           "greenTo": 60
         }
@@ -26,19 +26,19 @@
     "name" : "Test_Genter",
     "lat": 52.545582, 
     "lon": 13.357875,
-    "dependsOnTraffic": false,
+    "dependsOnTraffic": true,
       "timetable" : 
       [    
         {
           "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,       
+          "timeFrom": 10,
+          "timeTo": 19,       
           "greenFrom": 37,
           "greenTo": 55
         },     
         {
           "days": ["Do", "Fr", "Sa", "So"], 
-          "timeFrom": 13,
+          "timeFrom": 10,
           "timeTo": 21,         
           "greenFrom": 37,
           "greenTo": 60
