@@ -77,10 +77,8 @@ class GpsTracker implements LocationListener {
         } //iterate lsas end
 
         // LSA gefunden --> per Listener MainActivity benachrichtigen
-        if(nearestLSA != null){
-            if (onSetListener != null) {
-                onSetListener.onLSASet(nearestLSA, myLocation);
-            }
+        if(nearestLSA != null && onSetListener != null){
+           onSetListener.onLSASet(nearestLSA, myLocation);
         }
     }
 
@@ -115,8 +113,8 @@ class GpsTracker implements LocationListener {
     }
 
     // auf Location updates horchen
-    public void startGpsTracker() {                                         //30sekunden
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 0, this);
+    public void startGpsTracker() {                                         //3sekunden
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, this);
         myNewLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         MainActivity.showPosition(getS());
     }

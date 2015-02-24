@@ -31,6 +31,29 @@
         android:layout_marginRight="65dp"
         android:layout_centerHorizontal="true"
        />
+    <!-- Pfeil transparent down-->
+    <ImageView
+        android:id="@+id/pfeil_transparent_down"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/pfeil_transparent_down"
+        android:contentDescription="@string/langsamer"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginTop="310dp"
+        android:layout_centerHorizontal="true"/>
+    <ImageView
+        android:id="@+id/pfeil_transparent_down2"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/pfeil_transparent_down"
+        android:contentDescription="@string/langsamer"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginTop="440dp"
+        android:layout_centerHorizontal="true"
+        />
+
     <!-- Pfeil up-->
     <ImageView
         android:id="@+id/pfeil"
@@ -55,29 +78,6 @@
         android:layout_marginRight="65dp"
         android:layout_centerHorizontal="true"
         />
-    <!-- Pfeil transparent down-->
-    <ImageView
-        android:id="@+id/pfeil_transparent_down"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:src="@drawable/pfeil_transparent_down"
-        android:contentDescription="@string/langsamer"
-        android:layout_marginLeft="65dp"
-        android:layout_marginRight="65dp"
-        android:layout_marginTop="310dp"
-        android:layout_centerHorizontal="true"/>
-    <ImageView
-        android:id="@+id/pfeil_transparent_down2"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:src="@drawable/pfeil_transparent_down"
-        android:contentDescription="@string/langsamer"
-        android:layout_marginLeft="65dp"
-        android:layout_marginRight="65dp"
-        android:layout_marginTop="440dp"
-        android:layout_centerHorizontal="true"
-        />
-
     <!-- Pfeil down-->
     <ImageView
         android:id="@+id/pfeil_down"

@@ -6,6 +6,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -17,12 +18,10 @@ import java.io.InputStream;
 public class MainActivity extends ActionBarActivity {
     private static TextView gpsTextView;
     public TextView countdownTextView;
-    public ImageView okView, mepView, xView;
-
+    public ImageView okView, mepView, xView, upView, upperView, downView, downerView;
 
     private SpeedHandler speedHandler;
     private GpsTracker gpstracker;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +30,25 @@ public class MainActivity extends ActionBarActivity {
         // hide ActionBar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-
+        Log.d("+++","###");
         showStartDialog();
 
-        startEverything();
+        init();
+        if(!gpstracker.gpsIsActive(this)) {
+            gpsTextView.setText("Bitte aktiviere GPS");
+        } else {
+            gpstracker.startGpsTracker();
+            gpstracker.setOnSetListener(new OnSetListener() {
+                @Override
+                public void onLSASet(LSA lsa, Location loc) {
+                    Log.d("++++ lsa gesetzt? ", lsa + "\n");
+                    speedHandler.getCurrentSzpl(lsa, loc);
+                }
+            });
+        }
     }
 
-    private void startEverything(){
+    private void init(){
         JSONParser jsonParser = new JSONParser();
         InputStream inputStream = getResources().openRawResource(R.raw.lsas);
         jsonParser.fetchJSON(inputStream); //liest LSA JSON
@@ -50,19 +61,10 @@ public class MainActivity extends ActionBarActivity {
         okView = (ImageView) findViewById(R.id.ok);
         mepView = (ImageView) findViewById(R.id.mep);
         xView = (ImageView) findViewById(R.id.stop);
-
-        if(!gpstracker.gpsIsActive(this)) {
-            gpsTextView.setText("Bitte aktiviere GPS");
-        } else {
-            gpstracker.startGpsTracker();
-            gpstracker.setOnSetListener(new OnSetListener() {
-                @Override
-                public void onLSASet(LSA lsa, Location loc) {
-                    //Log.d("++++ lsa gesetzt? ", lsa + "\n");
-                    speedHandler.getCurrentSzpl(lsa, loc);
-                }
-            });
-        }
+        upView = (ImageView) findViewById(R.id.pfeil);
+        upperView = (ImageView) findViewById(R.id.pfeil2);
+        downView = (ImageView) findViewById(R.id.pfeil_down);
+        downerView = (ImageView) findViewById(R.id.pfeil_down2);
     }
 
     // startDialog, StVo hat Vorrang...

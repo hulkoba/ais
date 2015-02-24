@@ -62,56 +62,15 @@ public class SpeedHandler{
         }
 
         if(currentSzpl != null) {
-            calculate(currentSzpl);
-            getOptSpeed(currentSzpl.getGreenTo());
+            getOptSpeed(currentSzpl);
         }
     }
 
-    protected void calculate(SZPL szpl){
+    protected void getOptSpeed(SZPL szpl){
+        // v = s / t2-t1  t1=currentSecond, t2=ampel schaltet auf rot s=abstand ampel-Rad
         final int greenFrom = szpl.getGreenFrom();
         final int greenTo = szpl.getGreenTo();
-        final int redFrom = greenTo + 1;
 
-        Date today = new Date();
-        today.setTime(greenFrom*1000);
-        Log.d("today","set Time" + today);
-
-        final Timer myTimer = new Timer();
-        if(run) {
-            myTimer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    UpdateGUI(greenFrom, greenTo);
-                }
-            }, 0, 1000);
-        }
-        run = false;
-    }
-
-    private void UpdateGUI(int greenFrom, int greenTo) {
-       c.setTime(new Date());
-        int currentSecond = c.get(Calendar.SECOND);
-       // Log.d("###", "currentSecond " +currentSecond);
-
-        if(currentSecond>=greenFrom&&currentSecond<=greenTo){
-           // Log.d("###", "Ampel ist grün");
-
-        } else {
-            Log.d("#","Ampel ist rot "+"\ncurr: "+ currentSecond + " \ngreenFrom:" + greenFrom+" \ngreento " +greenTo );
-            if(currentSecond < greenFrom) {
-                countdown = greenFrom - currentSecond;
-            } else {
-                countdown = (60-currentSecond)+greenTo;
-            }
-        }
-        if(mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
-            myHandler.post(myRunnable);
-        }
-    }
-
-    private void getOptSpeed(int greenTo){
-        Log.d("getOptSpeed", "getOptSpeed");
-        // v = s / t2-t1  t1=currentSecond, t2=ampel schaltet auf rot s=abstand ampel-Rad
         c.setTime(new Date());
         int t1 = c.get(Calendar.SECOND);
         int t2 = greenTo + 1; // ampel schaltet auf rot
@@ -127,6 +86,8 @@ public class SpeedHandler{
         if ((v*3.6) >= Constants.MAX_SPEED || (v*3.6) <= Constants.MIN_SPEED){
             mainActivity.xView.setVisibility(View.VISIBLE);
 
+            mainActivity.upView.setVisibility(View.INVISIBLE);
+            mainActivity.downView.setVisibility(View.INVISIBLE);
             mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
             mainActivity.okView.setVisibility(View.INVISIBLE);
             mainActivity.mepView.setVisibility(View.INVISIBLE);
@@ -134,28 +95,70 @@ public class SpeedHandler{
         } else if (Math.round(speed) == Math.round(v)) {
             mainActivity.okView.setVisibility(View.VISIBLE);
 
+            mainActivity.upView.setVisibility(View.INVISIBLE);
+            mainActivity.downView.setVisibility(View.INVISIBLE);
             mainActivity.xView.setVisibility(View.INVISIBLE);
             mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
             mainActivity.mepView.setVisibility(View.INVISIBLE);
         } else if (speed < v) {
             mainActivity.countdownTextView.setVisibility(View.VISIBLE);
+            mainActivity.upView.setVisibility(View.VISIBLE);
 
+            mainActivity.downView.setVisibility(View.INVISIBLE);
             mainActivity.okView.setVisibility(View.INVISIBLE);
             mainActivity.xView.setVisibility(View.INVISIBLE);
             mainActivity.mepView.setVisibility(View.INVISIBLE);
         } else if (speed > v) {
             mainActivity.countdownTextView.setVisibility(View.VISIBLE);
+            mainActivity.downView.setVisibility(View.VISIBLE);
 
+            mainActivity.upView.setVisibility(View.INVISIBLE);
             mainActivity.okView.setVisibility(View.INVISIBLE);
             mainActivity.xView.setVisibility(View.INVISIBLE);
             mainActivity.mepView.setVisibility(View.INVISIBLE);
         }
 
 
+        final Timer myTimer = new Timer();
+        if(run) {
+            myTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    UpdateGUI(greenFrom, greenTo);
+                }
+            }, 0, 1000);
+        }
+        run = false;
+    }
+
+    private void UpdateGUI(int greenFrom, int greenTo) {
+        Log.d("update GUI", "gui");
+       c.setTime(new Date());
+        int currentSecond = c.get(Calendar.SECOND);
+       // Log.d("###", "currentSecond " +currentSecond);
+
+        if(currentSecond>=greenFrom && currentSecond<=greenTo){
+            //Ampel ist grün
+            countdown = 0;
+        }else {
+            // Ampel ist rot
+            if(currentSecond < greenFrom) {
+                countdown = greenFrom - currentSecond;
+            } else {
+                countdown = (60-currentSecond) + greenTo;
+            }
+            Log.d("#","\nAmpel ist rot "+"\ncurr: "+ currentSecond + " \ngreenFrom:" + greenFrom+" \ngreento " +greenTo +"\n countdown"+countdown );
+        }
+        if(countdown <= 0){
+            countdown = 0;
+        }
+
+        if(mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
+            myHandler.post(myRunnable);
+        }
     }
 
     final Runnable myRunnable = new Runnable() {
-
         public void run() {
             mainActivity.countdownTextView.setText(String.valueOf(countdown));
         }
