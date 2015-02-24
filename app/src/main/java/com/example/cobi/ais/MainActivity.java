@@ -30,7 +30,6 @@ public class MainActivity extends ActionBarActivity {
         // hide ActionBar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        Log.d("+++","###");
         showStartDialog();
 
         init();

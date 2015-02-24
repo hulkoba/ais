@@ -132,8 +132,8 @@ public class SpeedHandler{
     }
 
     private void UpdateGUI(int greenFrom, int greenTo) {
-        Log.d("update GUI", "gui");
-       c.setTime(new Date());
+
+        c.setTime(new Date());
         int currentSecond = c.get(Calendar.SECOND);
        // Log.d("###", "currentSecond " +currentSecond);
 
@@ -145,7 +145,7 @@ public class SpeedHandler{
             if(currentSecond < greenFrom) {
                 countdown = greenFrom - currentSecond;
             } else {
-                countdown = (60-currentSecond) + greenTo;
+                countdown = (60-currentSecond) + greenFrom;
             }
             Log.d("#","\nAmpel ist rot "+"\ncurr: "+ currentSecond + " \ngreenFrom:" + greenFrom+" \ngreento " +greenTo +"\n countdown"+countdown );
         }
