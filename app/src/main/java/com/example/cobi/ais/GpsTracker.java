@@ -77,7 +77,7 @@ class GpsTracker implements LocationListener {
         } //iterate lsas end
 
         // LSA gefunden --> per Listener MainActivity benachrichtigen
-        if(nearestLSA != null && onSetListener != null){
+        if(nearestLSA != null || onSetListener != null){
            onSetListener.onLSASet(nearestLSA, myLocation);
         }
     }
