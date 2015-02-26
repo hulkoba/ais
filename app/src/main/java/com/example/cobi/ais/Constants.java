@@ -6,8 +6,9 @@ package com.example.cobi.ais;
 public class Constants {
 
     static final int LSAS = 25;
-    static final int MY_DISTANCE = 3;
-    static final int MIN_LSA_DISTANCE = 300;
+
+    static final int MY_DISTANCE = 1;
+    static final int MIN_LSA_DISTANCE = 3600;
 
     static final int MAX_SPEED = 30; //km/h
     static final int MIN_SPEED = 5;

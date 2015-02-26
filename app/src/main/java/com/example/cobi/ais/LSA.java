@@ -11,8 +11,15 @@ public class LSA {
     //private double latitude;
     //private double longitude;
     private boolean dependsOnTraffic;
-
     private SZPL[] szpls;
+
+    private float distance;
+
+    public LSA(String name, float distance, Location lsaLocation) {
+        this.name = name;
+        this.distance = distance;
+        this.lsaLocation = lsaLocation;
+    }
 
     public LSA(String name, Location lsaLocation, boolean dependsOnTraffic) {
         this.name = name;
@@ -55,4 +62,7 @@ public class LSA {
         return szpls;
     }
 
+    public float getDistance() {
+        return distance;
+    }
 }

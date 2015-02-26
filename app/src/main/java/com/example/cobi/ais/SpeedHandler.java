@@ -98,7 +98,7 @@ public class SpeedHandler{
     protected void getOptSpeed(SZPL szpl){
         final int greenFrom = szpl.getGreenFrom();
         final int greenTo = szpl.getGreenTo();
-        final double speed = myLocation.getSpeed();
+        final float speed = myLocation.getSpeed();
 
         c.setTime(new Date());
         int t1 = c.get(Calendar.SECOND);
@@ -106,8 +106,8 @@ public class SpeedHandler{
         if(t2<t1 || myLocation == null || lsaLocation == null) {
             return;
         }
-        double deltaT = t2 - t1;
-        double s = myLocation.distanceTo(lsaLocation);
+        float deltaT = t2 - t1;
+        float s = myLocation.distanceTo(lsaLocation);
 
         final double v = s / deltaT;
         Log.d("v: " , v +"\n in km/h: " + (v*3.6));

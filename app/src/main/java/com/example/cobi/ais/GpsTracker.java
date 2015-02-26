@@ -9,6 +9,9 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by cobi on 13.01.15.
@@ -18,6 +21,7 @@ class GpsTracker implements LocationListener {
     private LocationManager locationManager;
     private Location myNewLocation;
     public OnSetListener onSetListener = null;
+    private List<LSA> nearestLSAs;
 
 
     private String s;
@@ -46,18 +50,60 @@ class GpsTracker implements LocationListener {
         //nach höherer Entfernung zur LSA neu berechnen
         if(myNewLocation == null || location.distanceTo(myNewLocation) >= Constants.MY_DISTANCE){
             myNewLocation = location;
-            getNearestLSA(location);
+            getNearestLSAs(location);
         }
+    }
+
+    private void getNearestLSAs(Location myLocation){
+        Log.d("count ", "get Nearest");
+        LSA[]lsas = JSONParser.getLsaArray();
+        LSA nearestLSA = null;
+        float distance;
+        float minDistance = Float.MAX_VALUE;
+
+        if (nearestLSAs == null ) {
+            nearestLSAs = new ArrayList<LSA>();
+
+            for (int i = 0; i < lsas.length; i++) {
+                distance = myLocation.distanceTo(lsas[i].getLsaLocation());
+                // Ampeln in der Umgebung suchen
+                if (distance <= Constants.MIN_LSA_DISTANCE) {
+                    LSA lsa = new LSA(lsas[i].getName(), distance, lsas[i].getLsaLocation());
+                    nearestLSAs.add(lsa);
+                }
+            }
+          //  Log.d("lsas ", String.valueOf(nearestLSAs.length));
+        } else if(nearestLSAs != null && nearestLSA == null) {
+            for(LSA lsa : nearestLSAs){
+                Log.d("nearest LSAS " , nearestLSAs.toString());
+                distance = myLocation.distanceTo(lsa.getLsaLocation());
+                Log.d("distance ", String.valueOf(distance));
+                if (distance < lsa.getDistance()){
+                    if (minDistance > distance && distance <= Constants.MIN_LSA_DISTANCE) {
+                        minDistance = distance;
+                        nearestLSA = lsa;
+                    }
+                }
+            }
+            Log.d("\n nearest LSA: ", nearestLSA.getName());
+        } else {
+            //kp
+        }
+
+        // LSA gesetzt und Entfernung ist höher als gegebene Distanz
+        if(nearestLSA!=null && myLocation.distanceTo(nearestLSA.getLsaLocation()) > Constants.MIN_LSA_DISTANCE){
+            nearestLSAs = null;
+        }
+
     }
 
     //nächstgelegende LSA suchen
     private void getNearestLSA(Location myLocation){
         Log.d("getNearestLocation", "getNearestLocation");
         LSA nearestLSA = null;
+        LSA[]lsas = JSONParser.getLsaArray();
         float[]currentDistance = new float[1];
         float minDistance = Float.MAX_VALUE;
-
-        LSA[]lsas = JSONParser.getLsaArray();
 
         for (LSA lsa : lsas) {
             Location.distanceBetween(
@@ -73,7 +119,7 @@ class GpsTracker implements LocationListener {
 
                 Log.d("\n nearest LSA: ", lsa.getName());
             }
-        } //iterate lsas end
+        } //iterate lsas end*/
 
         // LSA gefunden --> per Listener MainActivity benachrichtigen
         if(nearestLSA != null && onSetListener != null){
