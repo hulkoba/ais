@@ -60,7 +60,6 @@ class GpsTracker implements LocationListener {
         LSA[]lsas = JSONParser.getLsaArray();
 
         for (LSA lsa : lsas) {
-
             Location.distanceBetween(
                     myLocation.getLatitude(),
                     myLocation.getLongitude(),
@@ -72,12 +71,12 @@ class GpsTracker implements LocationListener {
                 minDistance = currentDistance[0];
                 nearestLSA = lsa;
 
-                Log.d("\ncurrent distance: ", currentDistance[0] +"\n" + lsa.getName());
+                Log.d("\n nearest LSA: ", lsa.getName());
             }
         } //iterate lsas end
 
         // LSA gefunden --> per Listener MainActivity benachrichtigen
-        if(nearestLSA != null || onSetListener != null){
+        if(nearestLSA != null && onSetListener != null){
            onSetListener.onLSASet(nearestLSA, myLocation);
         }
     }

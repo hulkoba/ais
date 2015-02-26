@@ -45,17 +45,29 @@ public class SpeedHandler{
 
         // verkehrsabhängige LSA hat keinen Schaltplan
         if(nearestLSA.isDependsOnTraffic()){
-            mainActivity.mepView.setVisibility(View.VISIBLE);
+            if(mainActivity.mepView.getVisibility() == View.INVISIBLE) {
+                mainActivity.mepView.setVisibility(View.VISIBLE);
+            }
 
-            mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
-            mainActivity.okView.setVisibility(View.INVISIBLE);
-            mainActivity.mepView.setVisibility(View.INVISIBLE);
-            mainActivity.downView.setVisibility(View.INVISIBLE);
-            mainActivity.downerView.setVisibility(View.INVISIBLE);
-            mainActivity.upView.setVisibility(View.INVISIBLE);
-            mainActivity.upperView.setVisibility(View.INVISIBLE);
+            if(mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
+                mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
+            }
+            if(mainActivity.okView.getVisibility() == View.VISIBLE) {
+                mainActivity.okView.setVisibility(View.INVISIBLE);
+            }
+            if(mainActivity.mepView.getVisibility() == View.VISIBLE) {
+                mainActivity.mepView.setVisibility(View.INVISIBLE);
+            }
+            if(mainActivity.downView.getVisibility() == View.VISIBLE) {
+                mainActivity.downView.setVisibility(View.INVISIBLE);
+            }
+            if(mainActivity.upView.getVisibility() == View.VISIBLE) {
+                mainActivity.upView.setVisibility(View.INVISIBLE);
+            }          
         } else {
-            mainActivity.mepView.setVisibility(View.INVISIBLE);
+            if(mainActivity.mepView.getVisibility() == View.VISIBLE) {
+                mainActivity.mepView.setVisibility(View.INVISIBLE);
+            }
 
             SZPL[] szpls = nearestLSA.getSzpls();
 
@@ -163,7 +175,9 @@ public class SpeedHandler{
 
     final Runnable myRunnable = new Runnable() {
         public void run() {
-            mainActivity.countdownTextView.setText(String.valueOf(countdown));
+            if (mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
+                mainActivity.countdownTextView.setText(String.valueOf(countdown));
+            }
             if (x){
                 mainActivity.xView.setVisibility(View.VISIBLE);
 
