@@ -32,7 +32,7 @@ public class SpeedHandler{
         this.mainActivity = mainActivity;
     }
 
-    // Schaltplan der nächsten LSA holen
+    // Schaltplan der nächsten LSA holen, wenn keiner Vorhanden --> verkehrsabhängig --> keine Vorausage möglich
     protected void getCurrentSzpl(LSA nearestLSA, Location loc){
         Log.d("getCurrentSzpl", "getCurrentSzpl");
 
@@ -61,9 +61,15 @@ public class SpeedHandler{
             if(mainActivity.downView.getVisibility() == View.VISIBLE) {
                 mainActivity.downView.setVisibility(View.INVISIBLE);
             }
+            if(mainActivity.downerView.getVisibility() == View.VISIBLE) {
+                mainActivity.downerView.setVisibility(View.INVISIBLE);
+            }
             if(mainActivity.upView.getVisibility() == View.VISIBLE) {
                 mainActivity.upView.setVisibility(View.INVISIBLE);
-            }          
+            }
+            if(mainActivity.upperView.getVisibility() == View.VISIBLE) {
+                mainActivity.upperView.setVisibility(View.INVISIBLE);
+            }
         } else {
             if(mainActivity.mepView.getVisibility() == View.VISIBLE) {
                 mainActivity.mepView.setVisibility(View.INVISIBLE);
@@ -87,10 +93,12 @@ public class SpeedHandler{
 
     /*
      * Geschwindigkeit berechnen
-     * v = s / (t2-t1)
+     * v = s / (t2 - t1)
+     * a = s / (t2 - t1)²
      * t1 = aktuelle Sekunde
      * t2 = Ampel schaltet auf rot
      * s = Abstand zwischen Fahrrad und Ampel
+     * a = notwendige Beschleunigung
      * speed = eigene Geschwindigkeit
      *
      * Timer updatet jede Sekunde die GUI
@@ -109,15 +117,17 @@ public class SpeedHandler{
         float deltaT = t2 - t1;
         float s = myLocation.distanceTo(lsaLocation);
 
-        final double v = s / deltaT;
-        Log.d("v: " , v +"\n in km/h: " + (v*3.6));
+        final float v = s / deltaT;
+        final float a = v / deltaT;
+        Log.d("\nv: " , v +"\n in km/h: " + (v*3.6)+"\na= " +a +"\nspeed "+speed);
+
 
         final Timer myTimer = new Timer();
         if(run) {
             myTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    UpdateGUI(greenFrom, greenTo, speed, v);
+                    UpdateGUI(greenFrom, greenTo, speed, v, a);
                 }
             }, 0, 1000);
         }
@@ -141,32 +151,53 @@ public class SpeedHandler{
             } else {
                 countdown = (60-currentSecond) + greenFrom;
             }
-            Log.d("#","\nAmpel ist rot "+"\ncurr: "+ currentSecond + " \ngreenFrom:" + greenFrom+" \ngreento " +greenTo +"\n countdown"+countdown );
         }
     }
 
-    private void UpdateGUI(int greenFrom, int greenTo, double speed, double v) {
+    /*
+     * GUI sekündlich updaten
+     */
+    private void UpdateGUI(int greenFrom, int greenTo, float speed, float v, float a) {
+        Log.d("\nv: " , v +"\n in km/h: " + (v*3.6)+"\na= " +a +"\nspeed "+speed);
 
-        setCountdown(greenFrom, greenTo);
-
-        if ((v*3.6) >= Constants.MAX_SPEED || (v*3.6) <= Constants.MIN_SPEED){
-            x=true;
-            ok = false; up = false; upper=false; down=false; downer = false;
-
-        } else if (Math.round(speed) == Math.round(v)) {
+        // empfohlene Geschwindigkeit = aktuelles Tempo
+        if (Math.round(speed) == Math.round(v)) {
+            Log.d("\nok", "ok");
             ok=true;
             x = false; up = false; upper=false; down=false; downer = false;
-
-            //langsamer als empfohlen --> schneller fahren
-        } else if (speed < v) {
+        } else
+        //langsamer als empfohlen --> schneller fahren
+        if (speed < v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
+            Log.d("\nx", "schnell");
+            setCountdown(greenFrom, greenTo);
             up=true;
             ok = false; x = false; upper=false; down=false; downer = false;
 
+        } else if (speed < v && (speed + Constants.DIFF_SPEED) < v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
+            Log.d("\nx", "schneller²");
+            setCountdown(greenFrom, greenTo);
+            up=false; upper=true;
+            ok = false; x = false; down=false; downer = false;
             //schneller als empfohlen --> langsamer fahren
-        } else if (speed > v) {
+        } else if (speed > v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
+            Log.d("\nx", "langsamer");
+            setCountdown(greenFrom, greenTo);
             down=true;
             ok = false; x = false; upper=false; up=false; downer = false;
+
+            // viel schneller als empfohlen >> viel langsamer fahren
+        } else if ( speed > v && (speed - Constants.DIFF_SPEED) > v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
+            Log.d("\nx", "langsamer²");
+            setCountdown(greenFrom, greenTo);
+            down = false; downer = true;
+            ok = false; x = false; upper = false; up = false;
+        } else {
+            // Geschwindigkeit zu hoch  || Geschwindigkeit zu niedrig || Beschleunigung zu hoch >> anhalten
+            Log.d("\nx", "x");
+            x=true;
+            ok = false; up = false; upper=false; down=false; downer = false;
         }
+
 
         if(mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
             myHandler.post(myRunnable);
@@ -182,7 +213,9 @@ public class SpeedHandler{
                 mainActivity.xView.setVisibility(View.VISIBLE);
 
                 mainActivity.upView.setVisibility(View.INVISIBLE);
+                mainActivity.upperView.setVisibility(View.INVISIBLE);
                 mainActivity.downView.setVisibility(View.INVISIBLE);
+                mainActivity.downerView.setVisibility(View.INVISIBLE);
                 mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
                 mainActivity.okView.setVisibility(View.INVISIBLE);
                 mainActivity.mepView.setVisibility(View.INVISIBLE);
@@ -190,7 +223,9 @@ public class SpeedHandler{
                 mainActivity.okView.setVisibility(View.VISIBLE);
 
                 mainActivity.upView.setVisibility(View.INVISIBLE);
+                mainActivity.upperView.setVisibility(View.INVISIBLE);
                 mainActivity.downView.setVisibility(View.INVISIBLE);
+                mainActivity.downerView.setVisibility(View.INVISIBLE);
                 mainActivity.xView.setVisibility(View.INVISIBLE);
                 mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
                 mainActivity.mepView.setVisibility(View.INVISIBLE);
@@ -198,7 +233,19 @@ public class SpeedHandler{
                 mainActivity.countdownTextView.setVisibility(View.VISIBLE);
                 mainActivity.upView.setVisibility(View.VISIBLE);
 
+                mainActivity.upperView.setVisibility(View.INVISIBLE);
                 mainActivity.downView.setVisibility(View.INVISIBLE);
+                mainActivity.downerView.setVisibility(View.INVISIBLE);
+                mainActivity.okView.setVisibility(View.INVISIBLE);
+                mainActivity.xView.setVisibility(View.INVISIBLE);
+                mainActivity.mepView.setVisibility(View.INVISIBLE);
+            } else if (upper) {
+                mainActivity.countdownTextView.setVisibility(View.VISIBLE);
+                mainActivity.upView.setVisibility(View.VISIBLE);
+                mainActivity.upperView.setVisibility(View.VISIBLE);
+
+                mainActivity.downView.setVisibility(View.INVISIBLE);
+                mainActivity.downerView.setVisibility(View.INVISIBLE);
                 mainActivity.okView.setVisibility(View.INVISIBLE);
                 mainActivity.xView.setVisibility(View.INVISIBLE);
                 mainActivity.mepView.setVisibility(View.INVISIBLE);
@@ -206,7 +253,19 @@ public class SpeedHandler{
                 mainActivity.countdownTextView.setVisibility(View.VISIBLE);
                 mainActivity.downView.setVisibility(View.VISIBLE);
 
+                mainActivity.downerView.setVisibility(View.INVISIBLE);
                 mainActivity.upView.setVisibility(View.INVISIBLE);
+                mainActivity.upperView.setVisibility(View.INVISIBLE);
+                mainActivity.okView.setVisibility(View.INVISIBLE);
+                mainActivity.xView.setVisibility(View.INVISIBLE);
+                mainActivity.mepView.setVisibility(View.INVISIBLE);
+            } else if (downer) {
+                mainActivity.countdownTextView.setVisibility(View.VISIBLE);
+                mainActivity.downView.setVisibility(View.VISIBLE);
+                mainActivity.downerView.setVisibility(View.VISIBLE);
+
+                mainActivity.upView.setVisibility(View.INVISIBLE);
+                mainActivity.upperView.setVisibility(View.INVISIBLE);
                 mainActivity.okView.setVisibility(View.INVISIBLE);
                 mainActivity.xView.setVisibility(View.INVISIBLE);
                 mainActivity.mepView.setVisibility(View.INVISIBLE);

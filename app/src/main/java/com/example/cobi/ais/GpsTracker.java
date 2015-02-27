@@ -74,12 +74,12 @@ class GpsTracker implements LocationListener {
                 }
             }
         // Ampeln in der Umgebung gefunden, noch keine Ampel festgelegt
-        } else if(nearestLSAs != null || nearestLSA == null) {
+        } else if(nearestLSAs != null && nearestLSA == null) {
             Log.d("list+lsa ", "Nearest != null && nearestLSA == null");
             for(LSA lsa : nearestLSAs){
                 distance = myLocation.distanceTo(lsa.getLsaLocation());
-                if (distance < lsa.getDistance()){
-                    if (minDistance > distance && distance <= Constants.MIN_LSA_DISTANCE) {
+                if (distance < lsa.getDistance() && distance <= Constants.MIN_LSA_DISTANCE){
+                    if (minDistance > distance ) {
                         minDistance = distance;
                         nearestLSA = lsa;
                     }

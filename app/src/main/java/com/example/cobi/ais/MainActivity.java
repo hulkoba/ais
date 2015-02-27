@@ -41,6 +41,7 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public void onLSASet(LSA lsa, Location loc) {
                     Log.d("++++ lsa gesetzt? ", lsa + "\n");
+                    gpsTextView.setText("Ampel voraus");
                     speedHandler.getCurrentSzpl(lsa, loc);
                 }
             });
@@ -68,16 +69,17 @@ public class MainActivity extends ActionBarActivity {
 
     // startDialog, StVo hat Vorrang...
     private void showStartDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo_Dialog));
-        builder.setMessage(R.string.onStart);
-        builder.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
+        if (isFirstRun){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo_Dialog));
+            builder.setTitle("Achtung");
+            builder.setMessage(R.string.onStart);
+            builder.setNeutralButton(R.string.ok,null).show();
+
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                    .edit().putBoolean("isFirstRun", false).apply();
+        }
     }
 
     public static void showPosition(String string) {
