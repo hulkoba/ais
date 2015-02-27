@@ -94,7 +94,7 @@ public class SpeedHandler{
     /*
      * Geschwindigkeit berechnen
      * v = s / (t2 - t1)
-     * a = s / (t2 - t1)²
+     * a = v / (t2 - t1)²
      * t1 = aktuelle Sekunde
      * t2 = Ampel schaltet auf rot
      * s = Abstand zwischen Fahrrad und Ampel
@@ -118,8 +118,8 @@ public class SpeedHandler{
         float s = myLocation.distanceTo(lsaLocation);
 
         final float v = s / deltaT;
-        final float a = v / deltaT;
-        Log.d("\nv: " , v +"\n in km/h: " + (v*3.6)+"\na= " +a +"\nspeed "+speed);
+        final double a = v / Math.pow(deltaT, 2.0);
+        Log.d("v: " ,"\n"+ v +"\n in km/h: " + (v*3.6)+"\na= " +a +"\nspeed "+speed);
 
 
         final Timer myTimer = new Timer();
@@ -157,7 +157,7 @@ public class SpeedHandler{
     /*
      * GUI sekündlich updaten
      */
-    private void UpdateGUI(int greenFrom, int greenTo, float speed, float v, float a) {
+    private void UpdateGUI(int greenFrom, int greenTo, float speed, float v, double a) {
         Log.d("\nv: " , v +"\n in km/h: " + (v*3.6)+"\na= " +a +"\nspeed "+speed);
 
         // empfohlene Geschwindigkeit = aktuelles Tempo
@@ -198,10 +198,7 @@ public class SpeedHandler{
             ok = false; up = false; upper=false; down=false; downer = false;
         }
 
-
-        if(mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
-            myHandler.post(myRunnable);
-        }
+        myHandler.post(myRunnable);
     }
 
     final Runnable myRunnable = new Runnable() {
