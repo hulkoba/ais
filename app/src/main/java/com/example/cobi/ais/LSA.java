@@ -15,10 +15,12 @@ public class LSA {
 
     private float distance;
 
-    public LSA(String name, float distance, Location lsaLocation) {
-        this.name = name;
+    public LSA(float distance, String name, Location lsaLocation, boolean dependsOnTraffic, SZPL[] szpls) {
         this.distance = distance;
+        this.name = name;
         this.lsaLocation = lsaLocation;
+        this.dependsOnTraffic = dependsOnTraffic;
+        this.szpls = szpls;
     }
 
     public LSA(String name, Location lsaLocation, boolean dependsOnTraffic) {
