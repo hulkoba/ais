@@ -12,7 +12,7 @@ import java.util.Scanner;
  * Created by cobi on 09.02.15.
  */
 public class JSONParser {
-    private static final LSA[] lsaArray = new LSA[Constants.LSAS];
+    private static final LSA[] lsas = new LSA[Constants.LSAS];
 
     private void parseJSON(String in) {
 
@@ -76,7 +76,7 @@ public class JSONParser {
 
                     lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic, szplArray);
                 }
-                lsaArray[i] = lsaObject;
+                JSONParser.lsas[i] = lsaObject;
             }
 
         } catch (JSONException e) {
@@ -91,8 +91,8 @@ public class JSONParser {
         parseJSON(jsonData);
     }
 
-    public static LSA[] getLsaArray() {
-        return lsaArray;
+    public static LSA[] getLsas() {
+        return lsas;
     }
 
 }

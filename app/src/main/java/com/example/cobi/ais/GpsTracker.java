@@ -56,7 +56,7 @@ class GpsTracker implements LocationListener {
 
     private void getNearestLSA(Location myLocation){
         Log.d("count ", "get Nearest");
-        LSA[]lsas = JSONParser.getLsaArray();
+        LSA[]lsas = JSONParser.getLsas();
         LSA nearestLSA = null;
         float distance;
         float minDistance = Float.MAX_VALUE;
