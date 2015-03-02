@@ -3,7 +3,7 @@
     "name" : "Test_Soldiner",
     "lat": 52.559757, 
     "lon": 13.382391,
-    "dependsOnTraffic": false,
+    "dependsOnTraffic": true,
       "timetable" : 
       [    
         {

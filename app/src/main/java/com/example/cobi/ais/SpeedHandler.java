@@ -56,8 +56,8 @@ public class SpeedHandler{
             if(mainActivity.okView.getVisibility() == View.VISIBLE) {
                 mainActivity.okView.setVisibility(View.INVISIBLE);
             }
-            if(mainActivity.mepView.getVisibility() == View.VISIBLE) {
-                mainActivity.mepView.setVisibility(View.INVISIBLE);
+            if(mainActivity.xView.getVisibility() == View.VISIBLE) {
+                mainActivity.xView.setVisibility(View.INVISIBLE);
             }
             if(mainActivity.downView.getVisibility() == View.VISIBLE) {
                 mainActivity.downView.setVisibility(View.INVISIBLE);
