@@ -58,7 +58,7 @@ class GpsTracker implements LocationListener {
         Log.d("count ", "get Nearest");
         List<LSA> lsas = JSONParser.getLsaList();
         LSA nearestLSA = null;
-        float distance;
+        float distance = 0;
         float minDistance = Float.MAX_VALUE;
 
         // Ampeln in der Umgebung suchen
@@ -78,20 +78,25 @@ class GpsTracker implements LocationListener {
             Log.d("list+lsa ", "Nearest != null && nearestLSA == null");
             for(LSA lsa : nearestLSAs){
                 distance = myLocation.distanceTo(lsa.getLsaLocation());
-                if (distance < lsa.getDistance() && distance <= Constants.MIN_LSA_DISTANCE && minDistance > distance){ // && minDistance > distance
+                if (/*distance < lsa.getDistance() &&*/ distance <= Constants.MIN_LSA_DISTANCE  && minDistance > distance){ // && minDistance > distance
                     minDistance = distance;
                     nearestLSA = lsa;
+                    Log.d("list+lsa ", nearestLSA.getName() + "Nearest != null && nearestLSA == null");
                 }
             }
+
             // LSA gefunden --> per Listener MainActivity benachrichtigen
             if(nearestLSA != null && onSetListener != null){
                 Log.d("\n nearest LSA: ", nearestLSA.getName());
                 onSetListener.onLSASet(nearestLSA, myLocation);
             }
         }
-        // LSA gesetzt und Entfernung ist höher als gegebene Distanz
-        if(nearestLSA!=null && myLocation.distanceTo(nearestLSA.getLsaLocation()) > Constants.MIN_LSA_DISTANCE){
-            nearestLSAs = null;
+
+        // LSA gesetzt und Entfernung ist höher als gegebene Distanz oder Entfernung ist größer als vorher
+        if(nearestLSA != null) {
+            if(myLocation.distanceTo(nearestLSA.getLsaLocation()) > Constants.MIN_LSA_DISTANCE || myLocation.distanceTo(nearestLSA.getLsaLocation()) > distance) {
+                nearestLSAs = null;
+            }
         }
     }
 

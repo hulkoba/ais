@@ -23,6 +23,7 @@ public class SpeedHandler{
 
     private Location lsaLocation;
     private Location myLocation;
+    //private final Timer myTimer = new Timer();
     private boolean run = true;
     int countdown;
 
@@ -141,44 +142,16 @@ public class SpeedHandler{
         Log.d("v: " ,"\n"+ v +"\n in km/h: " + (v*3.6)+"\na= " +a +"\nspeed "+speed);
 
 
-        final Timer myTimer = new Timer();
-        Log.d("timer: ", "new Timer " + myTimer);
-        if(run) {
-            myTimer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    UpdateGUI(greenFrom, greenTo, speed, v, a);
-                }
-            }, 0, 1000);
-        }
-        run = false;
-    }
+        UpdateGUI(greenFrom, greenTo, speed, v, a);
 
-    /*
-     * countdown berechnen
-     */
-    private void setCountdown(int greenFrom, int greenTo){
-        c.setTime(new Date());
-        int currentSecond = c.get(Calendar.SECOND);
-
-        // Ampel ist grün
-        if(getPhase(currentSecond, greenFrom, greenTo).equals("green")){
-            countdown = 0;
-        } else {
-            // Ampel ist rot
-            if(currentSecond < greenFrom) {
-                countdown = greenFrom - currentSecond;
-            } else {
-                countdown = (60-currentSecond) + greenFrom;
-            }
-        }
     }
 
     /*
      * GUI sekündlich updaten
      */
-    private void UpdateGUI(int greenFrom, int greenTo, float speed, float v, double a) {
-        Log.d("\nv: " , v +"\n in km/h: " + (v*3.6)+"\na= " +a +"\nspeed "+speed);
+    private void UpdateGUI(final int greenFrom, final int greenTo, float speed, float v, double a) {
+        Log.d("###", "update GUI");
+        Log.d("data " , "\nv" +v +"\n in km/h: " + (v*3.6)+"\na= " +a);
 
         // empfohlene Geschwindigkeit = aktuelles Tempo
         if (Math.round(speed) == Math.round(v)) {
@@ -188,26 +161,25 @@ public class SpeedHandler{
         } else
         //langsamer als empfohlen --> schneller fahren
         if (speed < v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
-            Log.d("\nx", "schnell");
-            setCountdown(greenFrom, greenTo);
+            Log.d("\nup", "schnell");
             up=true;
             ok = false; x = false; upper=false; down=false; downer = false;
 
         } else if (speed < v && (speed + Constants.DIFF_SPEED) < v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
-            Log.d("\nx", "schneller²");
+            Log.d("\nup", "schneller");
             setCountdown(greenFrom, greenTo);
             up=false; upper=true;
             ok = false; x = false; down=false; downer = false;
             //schneller als empfohlen --> langsamer fahren
         } else if (speed > v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
-            Log.d("\nx", "langsamer");
+            Log.d("\ndown", "langsam");
             setCountdown(greenFrom, greenTo);
             down=true;
             ok = false; x = false; upper=false; up=false; downer = false;
 
             // viel schneller als empfohlen >> viel langsamer fahren
         } else if ( speed > v && (speed - Constants.DIFF_SPEED) > v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
-            Log.d("\nx", "langsamer²");
+            Log.d("\ndown", "langsamer");
             setCountdown(greenFrom, greenTo);
             down = false; downer = true;
             ok = false; x = false; upper = false; up = false;
@@ -219,6 +191,37 @@ public class SpeedHandler{
         }
 
         myHandler.post(myRunnable);
+    }
+
+    /*
+     * countdown berechnen
+     */
+    private void setCountdown(final int greenFrom, final int greenTo){
+        Log.d("###", "setCountdown()");
+        c.setTime(new Date());
+        final int currentSecond = c.get(Calendar.SECOND);
+
+        final Timer myTimer = new Timer();
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getCountdown(currentSecond, greenFrom, greenTo);
+            }
+        }, 0, 1000);
+    }
+
+    private void getCountdown(int currentSecond, int greenFrom, int greenTo){
+        Log.d("###", "getCountdown()");
+        if(getPhase(currentSecond, greenFrom, greenTo).equals("green")){
+            countdown = 0;
+        } else {
+            // Ampel ist rot
+            if(currentSecond < greenFrom) {
+                countdown = greenFrom - currentSecond;
+            } else {
+                countdown = (60-currentSecond) + greenFrom;
+            }
+        }
     }
 
     final Runnable myRunnable = new Runnable() {
