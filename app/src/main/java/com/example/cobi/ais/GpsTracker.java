@@ -56,7 +56,7 @@ class GpsTracker implements LocationListener {
 
     private void getNearestLSA(Location myLocation){
         Log.d("count ", "get Nearest");
-        LSA[]lsas = JSONParser.getLsas();
+        List<LSA> lsas = JSONParser.getLsaList();
         LSA nearestLSA = null;
         float distance;
         float minDistance = Float.MAX_VALUE;
@@ -66,11 +66,11 @@ class GpsTracker implements LocationListener {
             Log.d("list ", "NearestLSAs == null");
             nearestLSAs = new ArrayList<LSA>();
 
-            for (int i = 0; i < lsas.length; i++) {
-                distance = myLocation.distanceTo(lsas[i].getLsaLocation());
+            for (LSA lsa : lsas) {
+                distance = myLocation.distanceTo(lsa.getLsaLocation());
                 if (distance <= Constants.MIN_LSA_DISTANCE) {
-                    LSA lsa = new LSA(distance, lsas[i].getName(), lsas[i].getLsaLocation(), lsas[i].isDependsOnTraffic(), lsas[i].getSzpls());
-                    nearestLSAs.add(lsa);
+                    LSA nlsa = new LSA(distance, lsa.getName(), lsa.getLsaLocation(), lsa.isDependsOnTraffic(), lsa.getSzpls());
+                    nearestLSAs.add(nlsa);
                 }
             }
         // Ampeln in der Umgebung gefunden, noch keine Ampel festgelegt

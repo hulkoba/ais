@@ -6,13 +6,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
  * Created by cobi on 09.02.15.
  */
 public class JSONParser {
-    private static final LSA[] lsas = new LSA[Constants.LSAS];
+
+    private static final List<LSA> lsaList = new ArrayList<>();
 
     private void parseJSON(String in) {
 
@@ -76,7 +79,7 @@ public class JSONParser {
 
                     lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic, szplArray);
                 }
-                JSONParser.lsas[i] = lsaObject;
+                lsaList.add(lsaObject);
             }
 
         } catch (JSONException e) {
@@ -91,8 +94,7 @@ public class JSONParser {
         parseJSON(jsonData);
     }
 
-    public static LSA[] getLsas() {
-        return lsas;
+    public static List<LSA> getLsaList() {
+        return lsaList;
     }
-
 }
