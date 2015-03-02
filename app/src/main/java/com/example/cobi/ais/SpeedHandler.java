@@ -91,6 +91,18 @@ public class SpeedHandler{
         }
     }
 
+   /*
+   * Ist die Ampel grün oder rot?
+   */
+    private String getPhase(int currentSecond, int greenFrom, int greenTo){
+       if(currentSecond>=greenFrom && currentSecond<=greenTo){
+            //Ampel ist grün
+            return "green";
+        }else {
+            return "red";
+        }
+    }
+
     /*
      * Geschwindigkeit berechnen
      * v = s / (t2 - t1)
@@ -110,8 +122,15 @@ public class SpeedHandler{
 
         c.setTime(new Date());
         int t1 = c.get(Calendar.SECOND);
-        int t2 = greenTo + 1;
-        if(t2<t1 || myLocation == null || lsaLocation == null) {
+
+        int t2;
+        if(getPhase(t1, greenFrom, greenTo).equals("green")){
+            t2 = greenTo + 1;
+        } else {
+            t2 = greenFrom;
+        }
+
+        if(t2 < t1 || myLocation == null || lsaLocation == null) {
             return;
         }
         float deltaT = t2 - t1;
@@ -123,6 +142,7 @@ public class SpeedHandler{
 
 
         final Timer myTimer = new Timer();
+        Log.d("timer: ", "new Timer " + myTimer);
         if(run) {
             myTimer.schedule(new TimerTask() {
                 @Override
@@ -141,10 +161,10 @@ public class SpeedHandler{
         c.setTime(new Date());
         int currentSecond = c.get(Calendar.SECOND);
 
-        if(currentSecond>=greenFrom && currentSecond<=greenTo || countdown < 0){
-            //Ampel ist grün
+        // Ampel ist grün
+        if(getPhase(currentSecond, greenFrom, greenTo).equals("green")){
             countdown = 0;
-        }else {
+        } else {
             // Ampel ist rot
             if(currentSecond < greenFrom) {
                 countdown = greenFrom - currentSecond;
