@@ -68,9 +68,10 @@ public class MainActivity extends ActionBarActivity {
 
     // startDialog, StVo hat Vorrang...
     private void showStartDialog(){
+
         boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
         if (isFirstRun){
-
+            // Startdialog nur bei der Installation anzeigen
             AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo_Dialog));
             builder.setTitle("Achtung");
             builder.setMessage(R.string.onStart);
