@@ -19,7 +19,7 @@ import java.util.List;
 class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
-    private Location myNewLocation;
+   // private Location myNewLocation;
     public  OnSetListener onSetListener = null;
     private List<LSA> nearestLSAs;
 
@@ -32,11 +32,17 @@ class GpsTracker implements LocationListener {
     // wird aufgerufen, wenn neue Positionsdaten vorhanden sind
     public void onLocationChanged(Location location) {
 
+        if (location.hasAccuracy()) {
+           if(location.getAccuracy() <= 40) {
+               //getNearestLSA(location);
+           }
+        }
+
         //nach höherer Entfernung zur LSA neu berechnen
         //if(myNewLocation == null || location.distanceTo(myNewLocation) >= Constants.MY_DISTANCE){
           //  myNewLocation = location;
             Log.d("\n ", "\n"+ String.valueOf(location.getLatitude())+"\n"+ String.valueOf(location.getLongitude()));
-            getNearestLSA(location);
+
        // }
     }
 
@@ -115,7 +121,7 @@ class GpsTracker implements LocationListener {
 
     public void startGpsTracker() {
         // Registrieren für GPS Updates (alle 3 sekunden, nach 5 Metern)
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 5, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, Constants.MY_DISTANCE, this);
         // VergleichsPosition ist die letzte bekannte Position
       //  myNewLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
     }
