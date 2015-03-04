@@ -34,14 +34,13 @@ public class MainActivity extends ActionBarActivity {
 
         init();
         if(!gpstracker.gpsIsActive(this)) {
-            gpsTextView.setText("Bitte aktiviere GPS");
+            gpsTextView.setText(R.string.gpsActivate);
         } else {
             gpstracker.startGpsTracker();
             gpstracker.setOnSetListener(new OnSetListener() {
                 @Override
                 public void onLSASet(LSA lsa, Location loc) {
-                    Log.d("++++ lsa gesetzt? ", lsa + "\n");
-                    gpsTextView.setText("Ampel voraus");
+                    Log.d("+++ lsa gesetzt ", lsa.getName() + "\n");
                     speedHandler.getCurrentSzpl(lsa, loc);
                 }
             });

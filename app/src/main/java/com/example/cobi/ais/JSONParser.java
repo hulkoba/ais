@@ -29,23 +29,31 @@ public class JSONParser {
                 JSONObject lsa = lsas.getJSONObject(i);
 
                 String lsaName = lsa.getString("name");
+
+                // Location Objekt erstellen
                 Location lsaLocation = new Location("");
                 lsaLocation.setLatitude(lsa.getDouble("lat"));
                 lsaLocation.setLongitude(lsa.getDouble("lon"));
+
                 Boolean dependsOnTraffic = lsa.getBoolean("dependsOnTraffic");
 
                 if (dependsOnTraffic){
+
+                    // Wenn LSA verkehrsabhängig ist, dann ohne Schaltplan speichern
                     lsaObject = new LSA(lsaName, lsaLocation, true);
                 } else {
+
+                    // Wenn nicht, Schaltpläne durchlaufen und konvertieren
                     JSONArray timetable = lsa.getJSONArray("timetable");
                     final SZPL[] szplArray = new SZPL[timetable.length()];
+
                     for (int j = 0; j < timetable.length(); j++) {
 
                         JSONObject jsonSzpl = timetable.getJSONObject(j); //jsonPlan
                         JSONArray jsonDays = jsonSzpl.getJSONArray("days");
                         int[]days = new int[jsonDays.length()];
 
-                        //JSONArray to Array + convert DayStrings into Date-Integers
+                        // JSONArray to Array + convert DayStrings into Date-Integers
                         for (int k = 0; k < jsonDays.length(); k++) {
                             String day = String.valueOf(jsonDays.get(k))  ;
                             switch(day) {
@@ -72,11 +80,13 @@ public class JSONParser {
                             }
                         }
 
-                       // SZPL szpl = new SZPL(days,timeFrom,timeTo,greenFrom,greenTo);
+                        // SZPL szpl = new SZPL(days,timeFrom,timeTo,greenFrom,greenTo);
                         SZPL szpl = new SZPL(days,jsonSzpl.getInt("timeFrom"),jsonSzpl.getInt("timeTo"),jsonSzpl.getInt("greenFrom"),jsonSzpl.getInt("greenTo"));
+                        // Signalschaltplan in Array einfuegen
                         szplArray[j] = szpl;
                     } // timetable ende
 
+                    // neues Ampelobjekt mit Signalschaltplan
                     lsaObject = new LSA(lsaName, lsaLocation, dependsOnTraffic, szplArray);
                 }
                 lsaList.add(lsaObject);
