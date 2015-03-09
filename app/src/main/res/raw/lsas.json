@@ -46,7 +46,7 @@
       ]    
     },
     {
-      "name" : "Stein/Schul_A1",
+      "name" : "Steinstr/Schulstr_A1",
       "lat": 53.4592628,
       "lon": 12.2589130,
       "dependsOnTraffic": false,
@@ -69,7 +69,7 @@
       ]    
     },
     { 
-      "name" : "Stein/Schul_A2",
+      "name" : "Steinstr/Schulstr_A2",
       "lat": 53.4592056,
       "lon": 12.2589397,
       "dependsOnTraffic": false,
@@ -92,13 +92,13 @@
       ]    
     }, 
     { 
-      "name" : "Schul/Lange_A1",
+      "name" : "Schulstr/Lange_A1",
       "lat": 53.4110481,
       "lon": 12.2628021,
       "dependsOnTraffic": true      
     },
     { 
-      "name" : "Schul/Lange_A2",
+      "name" : "Schulstr/Lange_A2",
       "lat": 53.4609871,
       "lon": 12.2628393,
       "dependsOnTraffic": true      
