@@ -45,17 +45,17 @@
         }
       ]    
     },
-  {
-    "name" : "Bornholmer/Björnson_R1",
-    "lat": 52.554267,
-    "lon": 13.402257,
-    "dependsOnTraffic": false,
-      "timetable" : 
-      [    
-        {
+    {
+      "name" : "Stein/Schul_A1",
+      "lat": 53.4592628,
+      "lon": 12.2589130,
+      "dependsOnTraffic": false,
+        "timetable" : 
+        [    
+          {
           "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 14,
-          "timeTo": 20,       
+          "timeFrom": 12,
+          "timeTo": 16,     
           "greenFrom": 37,
           "greenTo": 56
         },     
@@ -69,504 +69,274 @@
       ]    
     },
     { 
-      "name" : "Bornholmer/Björnson_R2",
-      "lat": 52.554632,
-      "lon": 13.402381,
+      "name" : "Stein/Schul_A2",
+      "lat": 53.4592056,
+      "lon": 12.2589397,
       "dependsOnTraffic": false,
       "timetable" : 
       [   
         {
           "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 14,
-          "timeTo": 20,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 20,
           "greenTo": 25
         },
         {
           "days": ["Do", "Fr"],
-          "timeFrom": 13,
-          "timeTo": 21,         
+          "timeFrom": 12,
+          "timeTo": 16,     
           "greenFrom": 20,
           "greenTo": 25
         }
       ]    
     }, 
     { 
-      "name" : "Bornholmer/Björnson_R3",
-      "lat": 52.554595,
-      "lon": 13.402569,
-      "dependsOnTraffic": false,
-      "timetable" : 
-      [   
-        {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 14,
-          "timeTo": 20,          
-          "greenFrom": 51,
-          "greenTo": 58
-        },         
-        {
-          "days": ["Do", "Fr"],
-          "timeFrom": 13,
-          "timeTo": 21,         
-          "greenFrom": 51,
-          "greenTo": 58
-        }
-      ]    
+      "name" : "Schul/Lange_A1",
+      "lat": 53.4110481,
+      "lon": 12.2628021,
+      "dependsOnTraffic": true      
     },
     { 
-      "name" : "Bornholmer/Björnson_R4",
-      "lat": 52.554229,
-      "lon": 13.402803,
-      "dependsOnTraffic": false,
-      "timetable" : 
-      [
-        {
-          "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 14,
-          "timeTo": 20,
-          "greenFrom": 19,
-          "greenTo": 24
-        },   
-        {
-          "days": ["Do", "Fr"],
-          "timeFrom": 13,
-          "timeTo": 21,
-          "greenFrom": 19,
-          "greenTo": 24
-        }
-      ]    
+      "name" : "Schul/Lange_A2",
+      "lat": 53.4609871,
+      "lon": 12.2628393,
+      "dependsOnTraffic": true      
     },
     { 
-      "name" : "Bornholmer/Björnson_R5",
-      "lat": 52.554469,
-      "lon": 13.402558,
+      "name" : "Lange/Quetziner_A1",
+      "lat": 53.4639282,
+      "lon": 12.2651205,
       "dependsOnTraffic": false,
       "timetable" : 
       [    
         {
           "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 14,
-          "timeTo": 20,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 22,
           "greenTo": 27
         },      
         {
           "days": ["Do", "Fr"],
-          "timeFrom": 13,
-          "timeTo": 21,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 22,
           "greenTo": 27
         }
       ]    
     },
     { 
-      "name" : "Bornholmer/Schönfließer_R1",
-      "lat": 52.554155,
-      "lon": 13.408758,
+      "name" : "Lange/Quetziner_A2",
+      "lat": 53.4638786,
+      "lon": 12.2651987,
       "dependsOnTraffic": false,
       "timetable" : 
       [
         {
           "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 14,
-          "timeTo": 20,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 58,
           "greenTo": 41
         },
         {
           "days": ["Do"] , 
-          "timeFrom": 13,
-          "timeTo": 21,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 58,
           "greenTo": 41
         },
         {
           "days": ["Fr"] , 
-          "timeFrom": 13,
-          "timeTo": 20,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 58,
           "greenTo": 41
         }
       ]    
     },
     { 
-      "name" : "Bornholmer/Schönfließer_R2",
-      "lat": 52.554301,
-      "lon": 13.408598,
+      "name" : "Lange/Quetziner_A3",
+      "lat": 53.4641075,
+      "lon": 12.2647429,
       "dependsOnTraffic": false,
       "timetable" : 
       [
         {
           "days": ["Mo", "Di", "Mi"] ,
-          "timeFrom": 14,
-          "timeTo": 20,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 48,
           "greenTo": 53
         },
         {
           "days": ["Do"] , 
-          "timeFrom": 13,
-          "timeTo": 21,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 48,
           "greenTo": 53
         },
         {
           "days": ["Fr"] , 
-          "timeFrom": 13,
-          "timeTo": 20,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 48,
           "greenTo": 53
         }
       ]    
     },
     { 
-      "name" : "Bornholmer/Schönfließer_R3",
-      "lat": 52.554271,
-      "lon": 13.408950,
+      "name" : "Lange/Quetziner_A4",
+      "lat": 53.4638672,
+      "lon": 12.2650423,
       "dependsOnTraffic": false,
       "timetable" : 
       [
         {
           "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 24,
           "greenTo": 43
         },
        {
           "days": ["Do"] , 
-          "timeFrom": 13,
-          "timeTo": 21,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 24,
           "greenTo": 43
         },
         {
           "days": ["Fr"] , 
-          "timeFrom": 13,
-          "timeTo": 20,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 24,
           "greenTo": 43
         }
       ]    
     },
     { 
-      "name" : "Bornholmer/Schönfließer_R4",
-      "lat": 52.553888,
-      "lon": 13.408874,
+      "name" : "Quetziner_A1",
+      "lat": 53.4625626,
+      "lon": 12.2659216,
       "dependsOnTraffic": false,
       "timetable" : 
       [
         {
           "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 48,
           "greenTo": 53
         },
        {
           "days": ["Do"] , 
-          "timeFrom": 13,
-          "timeTo": 21,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 48,
           "greenTo": 53
         },
         {
           "days": ["Fr"] , 
-          "timeFrom": 13,
-          "timeTo": 20,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 48,
           "greenTo": 53
         }
       ]    
     },
     { 
-      "name" : "Schönhauser/Wisbyer_R2",
-      "lat": 52.553598,
-      "lon": 13.414209,
+      "name" : "Quetziner_A2",
+      "lat": 53.4628181,
+      "lon": 12.2658081,
       "dependsOnTraffic": false,
       "timetable" : 
       [
         {
           "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 0,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 55,
           "greenTo": 60
         },
         {
           "days": ["Do", "Fr"],
-          "timeFrom": 14,
-          "timeTo": 0,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 55,
           "greenTo": 60
         }
       ]    
     },
     { 
-      "name" : "Schönhauser/Wisbyer_R3",
-      "lat": 52.553634,
-      "lon": 13.414241,
+      "name" : "Dammstr/Seestr_A1",
+      "lat": 53.4514804,
+      "lon": 12.2716484,
       "dependsOnTraffic": false,
       "timetable" : 
       [
         {
           "days": ["Mo", "Di", "Mi", "Do"] ,
-          "timeFrom": 14,
-          "timeTo": 0,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 56,
           "greenTo": 27
         },
         {
           "days": ["Fr"] , 
-          "timeFrom": 13,
-          "timeTo": 0,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 56,
           "greenTo": 27
         }
       ]    
     },
     { 
-      "name" : "Schönhauser/Wisbyer_R4",
-      "lat": 52.553973,
-      "lon": 13.414316,
+      "name" : "Dammstr/Seestr_A2",
+      "lat": 53.4514961,
+      "lon": 12.2719917,
       "dependsOnTraffic": false,
       "timetable" : 
       [
         {
           "days": ["Mo", "Di", "Mi", "Do"],
-          "timeFrom": 14,
-          "timeTo": 0,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 45,
           "greenTo": 50
         },
         {
           "days": ["Fr"] , 
-          "timeFrom": 13,
-          "timeTo": 0,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 45,
           "greenTo": 50
         }
       ]    
     },
     { 
-      "name" : "Schönhauser/Wisbyer_R6",
-      "lat": 52.553956,
-      "lon": 13.414804,
+      "name" : "Dammstr/Seestr_A3",
+      "lat": 53.4514732,
+      "lon": 12.2720690,
       "dependsOnTraffic": false,
       "timetable" : 
       [
         {
           "days": ["Mo", "Di", "Mi", "Do"],
-          "timeFrom": 14,
-          "timeTo": 0,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 55,
           "greenTo": 60
         },
         {
           "days": ["Fr"] , 
-          "timeFrom": 13,
-          "timeTo": 0,
+          "timeFrom": 12,
+          "timeTo": 16,
           "greenFrom": 55,
           "greenTo": 60
         }
-      ]    
-    },
-    { 
-      "name" : "Schönhauser/Wisbyer_R7",
-      "lat": 52.553900,
-      "lon": 13.414840,
-      "dependsOnTraffic": false,
-      "timetable" : 
-      [
-        {
-          "days": ["Mo", "Di", "Mi", "Do"],
-          "timeFrom": 14,
-          "timeTo": 0,
-          "greenFrom": 56,
-          "greenTo": 60
-        },
-        {
-          "days": ["Fr"] , 
-          "timeFrom": 13,
-          "timeTo": 0,
-          "greenFrom": 56,
-          "greenTo": 60
-        }
-      ]    
-    },
-    { 
-      "name" : "Schönhauser/Wisbyer_R8",
-      "lat": 52.553542,
-      "lon": 13.414730,
-      "dependsOnTraffic": false,
-      "timetable" : 
-      [
-        {
-          "days": ["Mo", "Di", "Mi", "Do"],
-          "timeFrom": 14,
-          "timeTo": 0,
-          "greenFrom": 45,
-          "greenTo": 50
-        },
-        {
-          "days": ["Fr"] , 
-          "timeFrom": 13,
-          "timeTo": 0,
-          "greenFrom": 45,
-          "greenTo": 50
-        }
-      ]    
-    },
-    { 
-      "name" : "Wisbyer/Neumann_R1",
-      "lat": 52.552918,
-      "lon": 13.423992,
-      "dependsOnTraffic": false,
-      "timetable" : 
-      [
-        {
-          "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,
-          "greenFrom": 5,
-          "greenTo": 10
-        },
-        {
-          "days": ["Do", "Fr"],
-          "timeFrom": 13,
-          "timeTo": 21,
-          "greenFrom": 5,
-          "greenTo": 10
-        }
-      ]    
-    },
-    { 
-      "name" : "Wisbyer/Neumann_R2",
-      "lat": 52.552920,
-      "lon": 13.424350,
-      "dependsOnTraffic": false,
-      "timetable" : 
-      [
-        {
-          "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,
-          "greenFrom": 26,
-          "greenTo": 58
-        },
-        {
-          "days": ["Do", "Fr"],
-          "timeFrom": 13,
-          "timeTo": 21,
-          "greenFrom": 26,
-          "greenTo": 58
-        }
-      ]    
-    },
-    { 
-      "name" : "Wisbyer/Neumann_R3",
-      "lat": 52.552875,
-      "lon": 13.424942,
-      "dependsOnTraffic": false,
-      "timetable" : 
-      [
-        {
-          "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,
-          "greenFrom": 60,
-          "greenTo": 60
-        },
-        {
-          "days": ["Do", "Fr"],
-          "timeFrom": 13,
-          "timeTo": 21,
-          "greenFrom": 60,
-          "greenTo": 60
-        }
-      ]    
-    },
-    { 
-      "name" : "Wisbyer/Neumann_R4",
-      "lat": 52.552504,
-      "lon": 13.424384,
-      "dependsOnTraffic": false,
-      "timetable" : 
-      [
-        {
-          "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,
-          "greenFrom": 5,
-          "greenTo": 10
-        },
-        {
-          "days": ["Do", "Fr"],
-          "timeFrom": 13,
-          "timeTo": 21,
-          "greenFrom": 5,
-          "greenTo": 10
-        }
-      ]    
-    },
-    { 
-      "name" : "Wisbyer/Neumann_K1",
-      "lat": 52.552633,
-      "lon": 13.424046,
-      "dependsOnTraffic": false,
-      "timetable" : 
-      [
-        {
-          "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,
-          "greenFrom": 39,
-          "greenTo": 59
-        },
-        {
-          "days": ["Do", "Fr"], 
-          "timeFrom": 13,
-          "timeTo": 21,
-          "greenFrom": 39,
-          "greenTo": 59
-        }
-      ]    
-    },
-    { 
-      "name" : "Wisbyer/Neumann_K15",
-      "lat": 52.552468,
-      "lon": 13.424539,
-      "dependsOnTraffic": false,
-      "timetable" : 
-      [
-        {
-          "days": ["Mo", "Di", "Mi"],
-          "timeFrom": 14,
-          "timeTo": 20,
-          "greenFrom": 25,
-          "greenTo": 54
-        },
-        {
-          "days": ["Do", "Fr"], 
-          "timeFrom": 13,
-          "timeTo": 21,
-          "greenFrom": 25,
-          "greenTo": 54
-        }
-      ]    
-    },
-    { 
-      "name" : "Wisbyer/Neumann_K20",
-      "lat": 52.552418,
-      "lon": 13.425184,
-      "dependsOnTraffic": true
-    },
-    { 
-      "name" : "Wisbyer/Neumann_K18",
-      "lat": 52.552418,
-      "lon": 13.425184,
-      "dependsOnTraffic": true
+      ] 
     }
-]
+  ]  
 }
