@@ -308,6 +308,7 @@ public class SpeedHandler{
                 mainActivity.countdownTextView.setText(String.valueOf(countdown));
             }
 
+            // sekündlich updaten
             handler.postDelayed(this, 1000);
         }
     };
