@@ -1,7 +1,6 @@
 package com.example.cobi.ais;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -30,17 +29,18 @@ public class MainActivity extends ActionBarActivity {
         // hide ActionBar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        isFirstRun();
+        checkIfFirstRun();
 
         init();
         if(!gpstracker.gpsIsActive(this)) {
             showDialog(R.string.achtung, R.string.gpsActivate);
         } else {
             gpstracker.startGpsTracker();
-            gpstracker.setOnSetListener(new OnSetListener() {
+            gpstracker.setLSAListener(new LSAListener() {
                 @Override
-                public void onLSASet(LSA lsa, Location loc) {
+                public void onNewNearestLSA(LSA lsa, Location loc) {
                     Log.d("+++ lsa gesetzt ", lsa.getName() + "\n");
+                    // TODO umbenennen
                     speedHandler.getCurrentSzpl(lsa, loc);
                 }
             });
@@ -75,7 +75,7 @@ public class MainActivity extends ActionBarActivity {
             builder.setNeutralButton(R.string.ok,null).show();
     };
 
-    private void isFirstRun(){
+    private void checkIfFirstRun(){
         boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
         if (isFirstRun){
             showDialog(R.string.achtung, R.string.onStart);

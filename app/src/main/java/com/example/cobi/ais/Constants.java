@@ -5,9 +5,11 @@ package com.example.cobi.ais;
  */
 public class Constants {
 
-    static final int LOCATION_ACCURACY = 40;
+    static final int LOCATION_ACCURACY = 40; //zurücklegbare distanz in 3-5 metern
 
-    static final int MY_DISTANCE = 5;
+    static  final int UPDATE_INTERVAL = 2000; //
+
+    static final int MIN_DISTANCE_CHANGE = 5;
     static final int MIN_LSA_DISTANCE = 300;
 
     static final double MAX_SPEED = (30/3.6); // 30 km/h --> 8,33333 m/s

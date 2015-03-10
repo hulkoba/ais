@@ -15,7 +15,7 @@ import java.util.Locale;
  */
 public class SpeedHandler{
 
-    private final Calendar c = Calendar.getInstance(Locale.GERMANY);
+    private final Calendar calendar = Calendar.getInstance(Locale.GERMANY);
     private final Handler handler = new Handler();
     private final MainActivity mainActivity;
 
@@ -39,9 +39,9 @@ public class SpeedHandler{
         lsaLocation = nearestLSA.getLsaLocation();
         myLocation = loc;
 
-        c.setTime(new Date());
+        calendar.setTime(new Date());
         // Aktuelle Stunde
-        int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
         // verkehrsabhängige LSA hat keinen Schaltplan
         if(nearestLSA.isDependsOnTraffic()){
@@ -53,7 +53,7 @@ public class SpeedHandler{
             for (SZPL szpl : szpls) {
                 for (int i : szpl.getDays()) {
                     // stimmen Wochentag und Zeitabschnitt überein?
-                    if (i == c.get(Calendar.DAY_OF_WEEK) && szpl.getTimeFrom() <= hourOfDay && szpl.getTimeTo() >= hourOfDay) {
+                    if (i == calendar.get(Calendar.DAY_OF_WEEK) && szpl.getTimeFrom() <= hourOfDay && szpl.getTimeTo() >= hourOfDay) {
                         currentSzpl = szpl;
                     }
                 }
@@ -129,11 +129,11 @@ public class SpeedHandler{
     void getOptSpeed(SZPL szpl){
         final int greenFrom = szpl.getGreenFrom();
         final int greenTo = szpl.getGreenTo();
-        final float speed = myLocation.getSpeed();
+        final float mySpeed = myLocation.getSpeed();
 
-        c.setTime(new Date());
+        calendar.setTime(new Date());
         // aktuelle Sekunde
-        int t1 = c.get(Calendar.SECOND);
+        int t1 = calendar.get(Calendar.SECOND);
         // Ampel schaltet auf rot
         int t2 =greenTo + 1;
 
@@ -146,27 +146,27 @@ public class SpeedHandler{
         float s = myLocation.distanceTo(lsaLocation);
 
         // v=s/(t2-t1)
-        final float v = s / deltaT;
-        // a=v/(t2-t1)²
-        final double a = v / Math.pow(deltaT, 2.0);
-        Log.d("v: " ,"\n"+ v +"\n in km/h: " + (v*3.6)+"\na= " +a +"\nspeed "+speed);
+        final float recomenndedSpeed = s / deltaT;
+        // recomenndedAccelleration=v/(t2-t1)²
+        final double recomenndedAccelleration = recomenndedSpeed / Math.pow(deltaT, 2.0);
+        Log.d("v: " ,"\n"+ recomenndedSpeed +"\n in km/h: " + (recomenndedSpeed*3.6)+"\nrecomenndedAccelleration= " +recomenndedAccelleration +"\nmySpeed "+mySpeed);
 
         // mit den Ergebnissen die GUI updaten
-        UpdateGUI(speed, v, a);
+        updateGUI(mySpeed, recomenndedSpeed, recomenndedAccelleration);
     }
 
     /*
      * GUI bestimmen
      */
-    private void UpdateGUI(float speed, float v, double a) {
+    private void updateGUI(float mySpeed, float recomenndedSpeed, double recomenndedAccelleration) {
 
         // empfohlene Geschwindigkeit = aktuelles Tempo
-        if (Math.round(speed) == Math.round(v)) {
+        if (Math.round(mySpeed) == Math.round(recomenndedSpeed)) {
             Log.d("\nok", "ok");
             ok=true;
             x = false; up = false; upper=false; down=false; downer = false;
 
-        } else if (speed < v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
+        } else if (mySpeed < recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
 
             // langsamer als empfohlen, also schneller fahren
             Log.d("\nup", "schnell");
@@ -174,7 +174,7 @@ public class SpeedHandler{
             up = true;
             ok = false; x = false; upper = false; down = false; downer = false;
 
-        } else if (speed < v && (speed + Constants.DIFF_SPEED) < v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
+        } else if (mySpeed < recomenndedSpeed && (mySpeed + Constants.DIFF_SPEED) < recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
 
             // viel langsamer als empfohlen, also viel schneller fahren
             Log.d("\nup", "schneller");
@@ -183,7 +183,7 @@ public class SpeedHandler{
             ok = false; x = false; down=false; downer = false;
 
 
-        } else if (speed > v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
+        } else if (mySpeed > recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
 
             //schneller als empfohlen --> langsamer fahren
             Log.d("\ndown", "langsam");
@@ -192,7 +192,7 @@ public class SpeedHandler{
             ok = false; x = false; upper = false; up = false; downer = false;
 
 
-        } else if ( speed > v && (speed - Constants.DIFF_SPEED) > v && v < Constants.MAX_SPEED && v > Constants.MIN_SPEED && a < Constants.MAX_ACCELERATION) {
+        } else if ( mySpeed > recomenndedSpeed && (mySpeed - Constants.DIFF_SPEED) > recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
 
             // viel schneller als empfohlen >> viel langsamer fahren
             Log.d("\ndown", "langsamer");
@@ -212,9 +212,9 @@ public class SpeedHandler{
         handler.post(viewRunnable);
     }
 
-    private void getCountdown(int greenFrom, int greenTo){
-        c.setTime(new Date());
-        final int currentSecond = c.get(Calendar.SECOND);
+    private void calculateCountdown(int greenFrom, int greenTo){
+        calendar.setTime(new Date());
+        final int currentSecond = calendar.get(Calendar.SECOND);
 
         if(getPhase(currentSecond, greenFrom, greenTo).equals("green")){
             // Ampel ist grün
@@ -238,7 +238,7 @@ public class SpeedHandler{
 
             // wenn Signalschaltplan verfügbar, dann Countdown berechnen
             if(currentSzpl != null) {
-                getCountdown(currentSzpl.getGreenFrom(), currentSzpl.getGreenTo());
+                calculateCountdown(currentSzpl.getGreenFrom(), currentSzpl.getGreenTo());
             }
 
             // Anhalten in jedem Fall erforderlich
