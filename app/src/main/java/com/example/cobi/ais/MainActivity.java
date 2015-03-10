@@ -16,7 +16,7 @@ import java.io.InputStream;
 
 
 public class MainActivity extends ActionBarActivity {
-    private static TextView gpsTextView;
+
     public TextView countdownTextView;
     public ImageView okView, mepView, xView, upView, upperView, downView, downerView;
 
@@ -30,11 +30,11 @@ public class MainActivity extends ActionBarActivity {
         // hide ActionBar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        showStartDialog();
+        isFirstRun();
 
         init();
         if(!gpstracker.gpsIsActive(this)) {
-            gpsTextView.setText(R.string.gpsActivate);
+            showDialog(R.string.achtung, R.string.gpsActivate);
         } else {
             gpstracker.startGpsTracker();
             gpstracker.setOnSetListener(new OnSetListener() {
@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
         speedHandler =  new SpeedHandler(this);
 
         gpstracker = new GpsTracker();
-        gpsTextView = (TextView) findViewById(R.id.gps);
+
         countdownTextView = (TextView) findViewById(R.id.countdown);
         okView = (ImageView) findViewById(R.id.ok);
         mepView = (ImageView) findViewById(R.id.mep);
@@ -66,24 +66,22 @@ public class MainActivity extends ActionBarActivity {
         downerView = (ImageView) findViewById(R.id.pfeil_down2);
     }
 
-    // startDialog, StVo hat Vorrang...
-    private void showStartDialog(){
+    // Dialog für Rückmeldungen (gps aktivieren, stvo hat Vorrang)
+    private void showDialog(int title, int msg){
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo_Dialog));
+            builder.setTitle(title);
+            builder.setMessage(msg);
+            builder.setNeutralButton(R.string.ok,null).show();
+    };
+
+    private void isFirstRun(){
         boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
         if (isFirstRun){
-            // Startdialog nur bei der Installation anzeigen
-            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo_Dialog));
-            builder.setTitle("Achtung");
-            builder.setMessage(R.string.onStart);
-            builder.setNeutralButton(R.string.ok,null).show();
-
+            showDialog(R.string.achtung, R.string.onStart);
             getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                     .edit().putBoolean("isFirstRun", false).apply();
         }
-    }
-
-    public static void showPosition(String string) {
-        gpsTextView.setText(string);
     }
 
     @Override

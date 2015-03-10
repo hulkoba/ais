@@ -157,15 +157,5 @@
         android:visibility="invisible"
         android:layout_margin="70dp" />
 
-    <!-- GPS & LSA  -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/gps"
-        android:id="@+id/gps"
-        android:textColor="@color/white"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -45,37 +45,8 @@ public class SpeedHandler{
 
         // verkehrsabhängige LSA hat keinen Schaltplan
         if(nearestLSA.isDependsOnTraffic()){
-            if(mainActivity.mepView.getVisibility() == View.INVISIBLE) {
-                mainActivity.mepView.setVisibility(View.VISIBLE);
-            }
-
-            if(mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
-                mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
-            }
-            if(mainActivity.okView.getVisibility() == View.VISIBLE) {
-                mainActivity.okView.setVisibility(View.INVISIBLE);
-            }
-            if(mainActivity.xView.getVisibility() == View.VISIBLE) {
-                mainActivity.xView.setVisibility(View.INVISIBLE);
-            }
-            if(mainActivity.downView.getVisibility() == View.VISIBLE) {
-                mainActivity.downView.setVisibility(View.INVISIBLE);
-            }
-            if(mainActivity.downerView.getVisibility() == View.VISIBLE) {
-                mainActivity.downerView.setVisibility(View.INVISIBLE);
-            }
-            if(mainActivity.upView.getVisibility() == View.VISIBLE) {
-                mainActivity.upView.setVisibility(View.INVISIBLE);
-            }
-            if(mainActivity.upperView.getVisibility() == View.VISIBLE) {
-                mainActivity.upperView.setVisibility(View.INVISIBLE);
-            }
+            showMepView();
         } else {
-
-            if (mainActivity.mepView.getVisibility() == View.VISIBLE) {
-                mainActivity.mepView.setVisibility(View.INVISIBLE);
-            }
-
 
             SZPL[] szpls = nearestLSA.getSzpls();
 
@@ -89,8 +60,44 @@ public class SpeedHandler{
             }
         }
 
-        if(currentSzpl != null) {
-            getOptSpeed(currentSzpl);
+        if(currentSzpl != null ) {
+            // greentFrom + greenTo ist auf 999 gesetzt, wenn die Ampel aus ist
+            if (currentSzpl.getGreenFrom() == 999) showMepView();
+            else {
+                getOptSpeed(currentSzpl);
+            }
+        }
+        if (mainActivity.mepView.getVisibility() == View.VISIBLE) {
+            mainActivity.mepView.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+    private void showMepView(){
+        if(mainActivity.mepView.getVisibility() == View.INVISIBLE) {
+            mainActivity.mepView.setVisibility(View.VISIBLE);
+        }
+
+        if(mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
+            mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
+        }
+        if(mainActivity.okView.getVisibility() == View.VISIBLE) {
+            mainActivity.okView.setVisibility(View.INVISIBLE);
+        }
+        if(mainActivity.xView.getVisibility() == View.VISIBLE) {
+            mainActivity.xView.setVisibility(View.INVISIBLE);
+        }
+        if(mainActivity.downView.getVisibility() == View.VISIBLE) {
+            mainActivity.downView.setVisibility(View.INVISIBLE);
+        }
+        if(mainActivity.downerView.getVisibility() == View.VISIBLE) {
+            mainActivity.downerView.setVisibility(View.INVISIBLE);
+        }
+        if(mainActivity.upView.getVisibility() == View.VISIBLE) {
+            mainActivity.upView.setVisibility(View.INVISIBLE);
+        }
+        if(mainActivity.upperView.getVisibility() == View.VISIBLE) {
+            mainActivity.upperView.setVisibility(View.INVISIBLE);
         }
     }
 

@@ -26,6 +26,7 @@ class GpsTracker implements LocationListener {
 
     // Provider verfügbar --> GPS aktiviert???
     public boolean gpsIsActive(Activity a) {
+        //List<LSA> lsas = JSONParser.getLsaList();
         locationManager = (LocationManager) a.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
@@ -34,7 +35,7 @@ class GpsTracker implements LocationListener {
 
         if (location.hasAccuracy()) {
            if(location.getAccuracy() <= 40) {
-               //getNearestLSA(location);
+               getNearestLSA(location);
            }
         }
 
@@ -67,7 +68,7 @@ class GpsTracker implements LocationListener {
             }
         // Ampeln in der Umgebung gefunden, noch keine Ampel festgelegt
         } else if(nearestLSAs != null && nearestLSA == null) {
-            Log.d("list+lsa ", "Nearest != null && nearestLSA == null");
+
             for(LSA lsa : nearestLSAs){
                 distance = myLocation.distanceTo(lsa.getLsaLocation());
                 if (/*distance < lsa.getDistance() &&*/ distance <= Constants.MIN_LSA_DISTANCE  && minDistance > distance){ // && minDistance > distance
