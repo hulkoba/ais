@@ -2,6 +2,15 @@ package com.example.cobi.ais;
 
 /**
  * Created by cobi on 12.02.15.
+ *
+ * Die Klasse SZPL repräsentiert einen Signalschaltplan
+ *
+ * @param days      repräsentiert die geltenden Wochentage
+ * @param timeFrom  repräsentiert die Anfangszeit des Plans
+ * @param timeTo    repräsentiert die Endzeit des Plans
+ * @param greenFrom repräsentiert den Start der Grünphase
+ * @param greenTo   repräsentiert das Ende der Grünphase
+ *
  */
 public class SZPL {
 

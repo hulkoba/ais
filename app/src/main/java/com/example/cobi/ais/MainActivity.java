@@ -17,7 +17,7 @@ import java.io.InputStream;
 public class MainActivity extends ActionBarActivity {
 
     public TextView countdownTextView;
-    public ImageView okView, mepView, xView, upView, upperView, downView, downerView;
+    public ImageView okImageView, trafficImageView, stopImageView, fastImageView, fasterImageView, slowImageView, slowerImageView;
 
     private SpeedHandler speedHandler;
     private GpsTracker gpstracker;
@@ -57,13 +57,13 @@ public class MainActivity extends ActionBarActivity {
         gpstracker = new GpsTracker();
 
         countdownTextView = (TextView) findViewById(R.id.countdown);
-        okView = (ImageView) findViewById(R.id.ok);
-        mepView = (ImageView) findViewById(R.id.mep);
-        xView = (ImageView) findViewById(R.id.stop);
-        upView = (ImageView) findViewById(R.id.pfeil);
-        upperView = (ImageView) findViewById(R.id.pfeil2);
-        downView = (ImageView) findViewById(R.id.pfeil_down);
-        downerView = (ImageView) findViewById(R.id.pfeil_down2);
+        okImageView = (ImageView) findViewById(R.id.ok);
+        trafficImageView = (ImageView) findViewById(R.id.mep);
+        stopImageView = (ImageView) findViewById(R.id.stop);
+        fastImageView = (ImageView) findViewById(R.id.pfeil);
+        fasterImageView = (ImageView) findViewById(R.id.pfeil2);
+        slowImageView = (ImageView) findViewById(R.id.pfeil_down);
+        slowerImageView = (ImageView) findViewById(R.id.pfeil_down2);
     }
 
     // Dialog für Rückmeldungen (gps aktivieren, stvo hat Vorrang)

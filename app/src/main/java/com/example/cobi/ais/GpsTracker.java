@@ -5,7 +5,6 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -15,14 +14,18 @@ import java.util.List;
 
 /**
  * Created by cobi on 13.01.15.
- * was macht gpstracker
- * von wem aufgerufen?
+ *
+ * GpsTracker ermittelt Position des Gerätes
+ * Wenn sich diese um 5 Meter geändert hat, ermittelt die Klasse GpsTracker die nächste Ampel
+ *
+ * Der GpsTracker wird von der MainActivity aufgerufen
+ * Sobald die nächste Ampel ermittelt ist, wird die MainActivity über einen Listener benachrichtigt
+ *
  */
 class GpsTracker implements LocationListener {
 
     private LocationManager locationManager;
-   // private Location myNewLocation;
-    public LSAListener lsaListener = null;
+    private LSAListener lsaListener = null;
     private List<LSA> listNearestLSAs;
 
 
@@ -34,23 +37,16 @@ class GpsTracker implements LocationListener {
     }
     // wird aufgerufen, wenn neue Positionsdaten vorhanden sind
     public void onLocationChanged(Location location) {
-
+        // wenn das GPS Signal von hoher Genauigkeit ist, die nächste Ampel ermitteln
         if (location.hasAccuracy()) {
            if(location.getAccuracy() <= Constants.LOCATION_ACCURACY) {
                getNearestLSA(location);
            }
         }
-
-        //nach höherer Entfernung zur LSA neu berechnen
-        //if(myNewLocation == null || location.distanceTo(myNewLocation) >= Constants.MY_DISTANCE){
-          //  myNewLocation = location;
-            Log.d("\n ", "\n"+ String.valueOf(location.getLatitude())+"\n"+ String.valueOf(location.getLongitude()));
-
-       // }
     }
 
     private void getNearestLSA(Location myLocation){
-        Log.d("count ", "get Nearest");
+        Log.d("func ", "get Nearest");
         List<LSA> lsas = JSONParser.getLsaList();
         LSA nearestLSA = null;
         float distance = 0;
@@ -58,8 +54,8 @@ class GpsTracker implements LocationListener {
 
         // Ampeln in der Umgebung suchen
         if (listNearestLSAs == null ) {
-            Log.d("list ", "NearestLSAs == null");
-            listNearestLSAs = new ArrayList<LSA>();
+
+            listNearestLSAs = new ArrayList<>();
 
             for (LSA lsa : lsas) {
                 distance = myLocation.distanceTo(lsa.getLsaLocation());
@@ -69,15 +65,13 @@ class GpsTracker implements LocationListener {
                 }
             }
         // Ampeln in der Umgebung gefunden, noch keine Ampel festgelegt
-        } else if((listNearestLSAs != null) && (nearestLSA == null)) {
+        } else {
 
             for(LSA lsa : listNearestLSAs){
                 distance = myLocation.distanceTo(lsa.getLsaLocation());
-                if (/*distance < lsa.getDistance() &&*/ distance <= Constants.MIN_LSA_DISTANCE  && minDistance > distance){ // && minDistance > distance
+                if ((distance < lsa.getDistance()) && (distance <= Constants.MIN_LSA_DISTANCE)  && (minDistance > distance)){
                     minDistance = distance;
                     nearestLSA = lsa;
-                    Log.d("\n nearest lsa: ", nearestLSA.getName());
-
                 }
             }
             // LSA gefunden --> per Listener MainActivity benachrichtigen
@@ -88,7 +82,7 @@ class GpsTracker implements LocationListener {
         }
 
         // LSA gesetzt und Entfernung ist höher als gegebene Distanz oder Entfernung ist größer als vorher
-        // warum wird liste gelöscht
+        // Liste wird gelöscht, um bei der nächsten Kreuzung mit neuen Ampeln zu füllen
         if(nearestLSA != null) {
             if(myLocation.distanceTo(nearestLSA.getLsaLocation()) > Constants.MIN_LSA_DISTANCE || myLocation.distanceTo(nearestLSA.getLsaLocation()) > distance) {
                 listNearestLSAs = null;
@@ -102,7 +96,6 @@ class GpsTracker implements LocationListener {
 
     //wird bei Zustandsänderungen aufgerufen
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
     }
 
     //gewählter Provider aktiviert?
@@ -117,8 +110,6 @@ class GpsTracker implements LocationListener {
     public void startGpsTracker() {
         // Registrieren für GPS Updates (alle  2 sekunden, nach 5 Metern)
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.UPDATE_INTERVAL, Constants.MIN_DISTANCE_CHANGE, this);
-        // VergleichsPosition ist die letzte bekannte Position
-      //  myNewLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
     }
 
     // Location Uptdate Listener abmelden
