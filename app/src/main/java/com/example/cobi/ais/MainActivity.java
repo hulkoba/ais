@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
                 public void onNewNearestLSA(LSA lsa, Location loc) {
                     Log.d("+++ lsa gesetzt ", lsa.getName() + "\n");
                     // TODO umbenennen
-                    speedHandler.getCurrentSzpl(lsa, loc);
+                    speedHandler.fetchCurrentSzpl(lsa, loc);
                 }
             });
         }

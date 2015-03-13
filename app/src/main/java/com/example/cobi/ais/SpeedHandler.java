@@ -26,15 +26,15 @@ public class SpeedHandler{
 
     private int countdown;
 
-    private boolean x, ok, up, upper, down, downer = false;
+    private boolean stop, ok, fast, faster, slow, slower = false;
 
     public SpeedHandler(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
 
     // Schaltplan der nächsten LSA holen, wenn keiner Vorhanden --> verkehrsabhängig --> keine Vorausage möglich
-    protected void getCurrentSzpl(LSA nearestLSA, Location loc){
-        Log.d("getCurrentSzpl", "getCurrentSzpl");
+    protected void fetchCurrentSzpl(LSA nearestLSA, Location loc){
+        Log.d("fetchCurrentSzpl", "fetchCurrentSzpl");
 
         lsaLocation = nearestLSA.getLsaLocation();
         myLocation = loc;
@@ -45,7 +45,7 @@ public class SpeedHandler{
 
         // verkehrsabhängige LSA hat keinen Schaltplan
         if(nearestLSA.isDependsOnTraffic()){
-            showMepView();
+            showTrafficImageView();
         } else {
 
             SZPL[] szpls = nearestLSA.getSzpls();
@@ -61,10 +61,10 @@ public class SpeedHandler{
         }
 
         if(currentSzpl != null ) {
-            // greentFrom + greenTo ist auf 999 gesetzt, wenn die Ampel aus ist
-            if (currentSzpl.getGreenFrom() == 999) showMepView();
+            // greentFrom ist auf 999 gesetzt, wenn die Ampel aus ist
+            if (currentSzpl.getGreenFrom() == 999) showTrafficImageView();
             else {
-                getOptSpeed(currentSzpl);
+                calculateOptSpeed(currentSzpl);
             }
         }
         if (mainActivity.trafficImageView.getVisibility() == View.VISIBLE) {
@@ -73,7 +73,7 @@ public class SpeedHandler{
 
     }
 
-    private void showMepView(){
+    private void showTrafficImageView(){
         if(mainActivity.trafficImageView.getVisibility() == View.INVISIBLE) {
             mainActivity.trafficImageView.setVisibility(View.VISIBLE);
         }
@@ -116,18 +116,18 @@ public class SpeedHandler{
 
     /*
      * Geschwindigkeit berechnen
-     * v = s / (t2 - t1)
-     * a = v / (t2 - t1)²
-     * t1 = aktuelle Sekunde
-     * t2 = Ampel schaltet auf rot
-     * s = Abstand zwischen Fahrrad und Ampel
-     * a = notwendige Beschleunigung
-     * speed = eigene Geschwindigkeit
+     * @param recommendedSpeed =; v = s / (t2 - t1)
+     * @param recommendedAccelleration =: a = v / (t2 - t1)²
+     * @param t1 = aktuelle Sekunde
+     * @param t2 = Ampel schaltet auf rot
+     * @param s = Abstand zwischen Fahrrad und Ampel
+     * @param recommendesAccelleration = notwendige Beschleunigung
+     * @param speed = eigene Geschwindigkeit
      *
-     * Timer updatet jede Sekunde die GUI
+     * Handler updatet jede Sekunde die GUI
      */
-    void getOptSpeed(SZPL szpl){
-        final int greenFrom = szpl.getGreenFrom();
+    void calculateOptSpeed(SZPL szpl){
+
         final int greenTo = szpl.getGreenTo();
         final float mySpeed = myLocation.getSpeed();
 
@@ -135,24 +135,25 @@ public class SpeedHandler{
         // aktuelle Sekunde
         int t1 = calendar.get(Calendar.SECOND);
         // Ampel schaltet auf rot
-        int t2 =greenTo + 1;
+        int t2 = greenTo + 1;
 
         if(t2 < t1 || myLocation == null || lsaLocation == null) {
             return;
         }
         // Zeitabschnitt = deltaT
         float deltaT = t2 - t1;
+
         // s = Abstand zur Ampel
         float s = myLocation.distanceTo(lsaLocation);
 
-        // v=s/(t2-t1)
-        final float recomenndedSpeed = s / deltaT;
-        // recomenndedAccelleration=v/(t2-t1)²
-        final double recomenndedAccelleration = recomenndedSpeed / Math.pow(deltaT, 2.0);
-        Log.d("v: " ,"\n"+ recomenndedSpeed +"\n in km/h: " + (recomenndedSpeed*3.6)+"\nrecomenndedAccelleration= " +recomenndedAccelleration +"\nmySpeed "+mySpeed);
+        // v = s / (t2-t1)
+        final float recommendedSpeed = s / deltaT;
+
+        // recommendedAccelleration = v/(t2-t1)²
+        final double recommendedAccelleration = recommendedSpeed / Math.pow(deltaT, 2.0);
 
         // mit den Ergebnissen die GUI updaten
-        updateGUI(mySpeed, recomenndedSpeed, recomenndedAccelleration);
+        updateGUI(mySpeed, recommendedSpeed, recommendedAccelleration);
     }
 
     /*
@@ -163,49 +164,49 @@ public class SpeedHandler{
         // empfohlene Geschwindigkeit = aktuelles Tempo
         if (Math.round(mySpeed) == Math.round(recomenndedSpeed)) {
             Log.d("\nok", "ok");
-            ok=true;
-            x = false; up = false; upper=false; down=false; downer = false;
+            ok = true;
+            stop = false; fast = false; faster =false; slow =false; slower = false;
 
         } else if (mySpeed < recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
 
             // langsamer als empfohlen, also schneller fahren
-            Log.d("\nup", "schnell");
+            Log.d("\nfast", "schnell");
 
-            up = true;
-            ok = false; x = false; upper = false; down = false; downer = false;
+            fast = true;
+            ok = false; stop = false; faster = false; slow = false; slower = false;
 
         } else if (mySpeed < recomenndedSpeed && (mySpeed + Constants.DIFF_SPEED) < recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
 
             // viel langsamer als empfohlen, also viel schneller fahren
-            Log.d("\nup", "schneller");
+            Log.d("\nfast", "schneller");
 
-            up = true; upper = true;
-            ok = false; x = false; down=false; downer = false;
+            fast = true; faster = true;
+            ok = false; stop = false; slow =false; slower = false;
 
 
         } else if (mySpeed > recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
 
             //schneller als empfohlen --> langsamer fahren
-            Log.d("\ndown", "langsam");
+            Log.d("\nslow", "langsam");
 
-            down = true;
-            ok = false; x = false; upper = false; up = false; downer = false;
+            slow = true;
+            ok = false; stop = false; faster = false; fast = false; slower = false;
 
 
         } else if ( mySpeed > recomenndedSpeed && (mySpeed - Constants.DIFF_SPEED) > recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
 
             // viel schneller als empfohlen >> viel langsamer fahren
-            Log.d("\ndown", "langsamer");
+            Log.d("\nslow", "langsamer");
 
-            down = true; downer = true;
-            ok = false; x = false; upper = false; up = false;
+            slow = true; slower = true;
+            ok = false; stop = false; faster = false; fast = false;
         } else {
 
 
             // Geschwindigkeit zu hoch  oder  Geschwindigkeit zu niedrig oder Beschleunigung zu hoch -->> anhalten
-            Log.d("\nx", "x");
-            x=true;
-            ok = false; up = false; upper = false; down = false; downer = false;
+            Log.d("\nstop", "stop");
+            stop =true;
+            ok = false; fast = false; faster = false; slow = false; slower = false;
         }
 
         handler.removeCallbacks(viewRunnable);
@@ -242,7 +243,7 @@ public class SpeedHandler{
             }
 
             // Anhalten in jedem Fall erforderlich
-            if (x){
+            if (stop){
 
                 mainActivity.stopImageView.setVisibility(View.VISIBLE);
 
@@ -267,7 +268,7 @@ public class SpeedHandler{
                 mainActivity.trafficImageView.setVisibility(View.INVISIBLE);
 
             // Aufforderung schneller zu fahren?
-            } else if (up) {
+            } else if (fast) {
 
                 mainActivity.countdownTextView.setVisibility(View.VISIBLE);
                 mainActivity.fastImageView.setVisibility(View.VISIBLE);
@@ -280,12 +281,12 @@ public class SpeedHandler{
                 mainActivity.trafficImageView.setVisibility(View.INVISIBLE);
 
                 // bei Aufforderung noch schneller, zweiten Pfeil auch einblenden
-                if(up && upper){
+                if(fast && faster){
                     mainActivity.fasterImageView.setVisibility(View.VISIBLE);
                 }
 
             // Aufforderung langsamer zu fahren?
-            } else if (down) {
+            } else if (slow) {
 
                 mainActivity.countdownTextView.setVisibility(View.VISIBLE);
                 mainActivity.slowImageView.setVisibility(View.VISIBLE);
@@ -298,7 +299,7 @@ public class SpeedHandler{
                 mainActivity.trafficImageView.setVisibility(View.INVISIBLE);
 
                 // bei Aufforderung noch langsamer, zweiten Pfeil auch einblenden
-                if (down && downer) {
+                if (slow && slower) {
                     mainActivity.slowerImageView.setVisibility(View.VISIBLE);
                 }
             }
