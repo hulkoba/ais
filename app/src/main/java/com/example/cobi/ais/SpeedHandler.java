@@ -15,9 +15,10 @@ import java.util.Locale;
  */
 public class SpeedHandler{
 
+    private AdviceListener adviceListener;
+
     private final Calendar calendar = Calendar.getInstance(Locale.GERMANY);
     private final Handler handler = new Handler();
-    private final MainActivity mainActivity;
 
     private SZPL currentSzpl;
 
@@ -28,9 +29,7 @@ public class SpeedHandler{
 
     private boolean stop, ok, fast, faster, slow, slower = false;
 
-    public SpeedHandler(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
-    }
+
 
     // Schaltplan der nächsten LSA holen, wenn keiner Vorhanden --> verkehrsabhängig --> keine Vorausage möglich
     protected void fetchCurrentSzpl(LSA nearestLSA, Location loc){
@@ -45,7 +44,8 @@ public class SpeedHandler{
 
         // verkehrsabhängige LSA hat keinen Schaltplan
         if(nearestLSA.isDependsOnTraffic()){
-            showTrafficImageView();
+            adviceListener.lsaIsTrafficDependent();
+           // showTrafficImageView();
         } else {
 
             SZPL[] szpls = nearestLSA.getSzpls();
@@ -61,43 +61,11 @@ public class SpeedHandler{
         }
 
         if(currentSzpl != null ) {
-            // greentFrom ist auf 999 gesetzt, wenn die Ampel aus ist
-            if (currentSzpl.getGreenFrom() == 999) showTrafficImageView();
+            // greentFrom ist auf 999 gesetzt, wenn die Ampel aus ist, gelbes ausrufungszeichen anzeigen
+            if (currentSzpl.getGreenFrom() == 999) adviceListener.lsaIsTrafficDependent();
             else {
                 calculateOptSpeed(currentSzpl);
             }
-        }
-        if (mainActivity.trafficImageView.getVisibility() == View.VISIBLE) {
-            mainActivity.trafficImageView.setVisibility(View.INVISIBLE);
-        }
-
-    }
-
-    private void showTrafficImageView(){
-        if(mainActivity.trafficImageView.getVisibility() == View.INVISIBLE) {
-            mainActivity.trafficImageView.setVisibility(View.VISIBLE);
-        }
-
-        if(mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
-            mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
-        }
-        if(mainActivity.okImageView.getVisibility() == View.VISIBLE) {
-            mainActivity.okImageView.setVisibility(View.INVISIBLE);
-        }
-        if(mainActivity.stopImageView.getVisibility() == View.VISIBLE) {
-            mainActivity.stopImageView.setVisibility(View.INVISIBLE);
-        }
-        if(mainActivity.slowImageView.getVisibility() == View.VISIBLE) {
-            mainActivity.slowImageView.setVisibility(View.INVISIBLE);
-        }
-        if(mainActivity.slowerImageView.getVisibility() == View.VISIBLE) {
-            mainActivity.slowerImageView.setVisibility(View.INVISIBLE);
-        }
-        if(mainActivity.fastImageView.getVisibility() == View.VISIBLE) {
-            mainActivity.fastImageView.setVisibility(View.INVISIBLE);
-        }
-        if(mainActivity.fasterImageView.getVisibility() == View.VISIBLE) {
-            mainActivity.fasterImageView.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -164,6 +132,7 @@ public class SpeedHandler{
         // empfohlene Geschwindigkeit = aktuelles Tempo
         if (Math.round(mySpeed) == Math.round(recomenndedSpeed)) {
             Log.d("\nok", "ok");
+
             ok = true;
             stop = false; fast = false; faster =false; slow =false; slower = false;
 
@@ -201,7 +170,6 @@ public class SpeedHandler{
             slow = true; slower = true;
             ok = false; stop = false; faster = false; fast = false;
         } else {
-
 
             // Geschwindigkeit zu hoch  oder  Geschwindigkeit zu niedrig oder Beschleunigung zu hoch -->> anhalten
             Log.d("\nstop", "stop");
@@ -244,73 +212,39 @@ public class SpeedHandler{
 
             // Anhalten in jedem Fall erforderlich
             if (stop){
-
-                mainActivity.stopImageView.setVisibility(View.VISIBLE);
-
-                mainActivity.fastImageView.setVisibility(View.INVISIBLE);
-                mainActivity.fasterImageView.setVisibility(View.INVISIBLE);
-                mainActivity.slowImageView.setVisibility(View.INVISIBLE);
-                mainActivity.slowerImageView.setVisibility(View.INVISIBLE);
-                mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
-                mainActivity.okImageView.setVisibility(View.INVISIBLE);
-                mainActivity.trafficImageView.setVisibility(View.INVISIBLE);
+                adviceListener.needToStop();
 
             // Geschwindigkeit ist okay?
             } else if (ok){
-                mainActivity.okImageView.setVisibility(View.VISIBLE);
-
-                mainActivity.fastImageView.setVisibility(View.INVISIBLE);
-                mainActivity.fasterImageView.setVisibility(View.INVISIBLE);
-                mainActivity.slowImageView.setVisibility(View.INVISIBLE);
-                mainActivity.slowerImageView.setVisibility(View.INVISIBLE);
-                mainActivity.stopImageView.setVisibility(View.INVISIBLE);
-                mainActivity.countdownTextView.setVisibility(View.INVISIBLE);
-                mainActivity.trafficImageView.setVisibility(View.INVISIBLE);
+                adviceListener.speedIsOk();
 
             // Aufforderung schneller zu fahren?
             } else if (fast) {
 
-                mainActivity.countdownTextView.setVisibility(View.VISIBLE);
-                mainActivity.fastImageView.setVisibility(View.VISIBLE);
-
-                mainActivity.fasterImageView.setVisibility(View.INVISIBLE);
-                mainActivity.slowImageView.setVisibility(View.INVISIBLE);
-                mainActivity.slowerImageView.setVisibility(View.INVISIBLE);
-                mainActivity.okImageView.setVisibility(View.INVISIBLE);
-                mainActivity.stopImageView.setVisibility(View.INVISIBLE);
-                mainActivity.trafficImageView.setVisibility(View.INVISIBLE);
+                adviceListener.needToIncreaseSpeed(countdown);
 
                 // bei Aufforderung noch schneller, zweiten Pfeil auch einblenden
                 if(fast && faster){
-                    mainActivity.fasterImageView.setVisibility(View.VISIBLE);
+                    adviceListener.seriouslyNeedToIncreaseSpeed(countdown);
                 }
 
             // Aufforderung langsamer zu fahren?
             } else if (slow) {
 
-                mainActivity.countdownTextView.setVisibility(View.VISIBLE);
-                mainActivity.slowImageView.setVisibility(View.VISIBLE);
-
-                mainActivity.slowerImageView.setVisibility(View.INVISIBLE);
-                mainActivity.fastImageView.setVisibility(View.INVISIBLE);
-                mainActivity.fasterImageView.setVisibility(View.INVISIBLE);
-                mainActivity.okImageView.setVisibility(View.INVISIBLE);
-                mainActivity.stopImageView.setVisibility(View.INVISIBLE);
-                mainActivity.trafficImageView.setVisibility(View.INVISIBLE);
+                adviceListener.needToDecreaseSpeed(countdown);
 
                 // bei Aufforderung noch langsamer, zweiten Pfeil auch einblenden
                 if (slow && slower) {
-                    mainActivity.slowerImageView.setVisibility(View.VISIBLE);
+                    adviceListener.seriouslyNeedToDecreaseSpeed(countdown);
                 }
-            }
-
-            // ist die TextView sichtbar, dann Countdown anzeigen
-            if (mainActivity.countdownTextView.getVisibility() == View.VISIBLE) {
-                mainActivity.countdownTextView.setText(String.valueOf(countdown));
             }
 
             // sekündlich updaten
             handler.postDelayed(this, 1000);
         }
     };
+
+    public void setAdviceListener(AdviceListener adviceListener) {
+        this.adviceListener = adviceListener;
+    }
 }
