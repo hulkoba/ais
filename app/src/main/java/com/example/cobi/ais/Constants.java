@@ -12,7 +12,7 @@ public class Constants {
     static  final int UPDATE_INTERVAL = 2000;
 
     // 5 Meter
-    static final int MIN_DISTANCE_CHANGE = 5;
+    static final int MIN_DISTANCE_CHANGE = 2;
 
     // 300 Meter
     static final int MIN_LSA_DISTANCE = 300;

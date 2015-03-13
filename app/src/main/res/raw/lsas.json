@@ -52,28 +52,28 @@
       "dependsOnTraffic": false,
         "timetable" : 
         [    
-        {
-          "days": ["Mo", "Fr"] ,
-          "timeFrom": 12,
-          "timeTo": 16,     
-          "greenFrom": 37,
-          "greenTo": 56
-        },     
-        {
-          "days": ["Sa"],
-          "timeFrom": 13,
-          "timeTo": 21,         
-          "greenFrom": 37,
-          "greenTo": 56
-        }
-        {
-          "days": ["So"],
-          "timeFrom": 0,
-          "timeTo": 24,         
-          "greenFrom": 999,
-          "greenTo": 999
-        }
-      ]    
+	        {
+	          "days": ["Mo", "Fr"] ,
+	          "timeFrom": 12,
+	          "timeTo": 16,     
+	          "greenFrom": 37,
+	          "greenTo": 56
+	        },     
+	        {
+	          "days": ["Sa"],
+	          "timeFrom": 13,
+	          "timeTo": 21,         
+	          "greenFrom": 37,
+	          "greenTo": 56
+	        },
+	        {
+	          "days": ["So"],
+	          "timeFrom": 0,
+	          "timeTo": 24,         
+	          "greenFrom": 999,
+	          "greenTo": 999
+	        }
+      	]    
     },
     { 
       "name" : "Steinstr/Schulstr_A2",
@@ -95,7 +95,7 @@
           "timeTo": 21,         
           "greenFrom": 37,
           "greenTo": 56
-        }
+        },
         {
           "days": ["So"],
           "timeFrom": 0,
