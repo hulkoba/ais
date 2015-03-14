@@ -17,8 +17,8 @@ import java.io.InputStream;
 
 public class MainActivity extends ActionBarActivity{
 
-    public TextView countdownTextView;
-    public ImageView okImageView, trafficImageView, stopImageView, fastImageView, fasterImageView, slowImageView, slowerImageView;
+    private TextView countdownTextView;
+    private ImageView okImageView, trafficImageView, stopImageView, fastImageView, fasterImageView, slowImageView, slowerImageView;
 
     private SpeedHandler speedHandler;
     private GpsTracker gpstracker;
@@ -40,7 +40,8 @@ public class MainActivity extends ActionBarActivity{
             gpstracker.setLSAListener(new LSAListener() {
                 @Override
                 public void onNewNearestLSA(LSA lsa, Location loc) {
-                    Log.d("+++ lsa gesetzt ", lsa.getName() + "\n");
+                    // sobald die nächste Ampel gesetzt ist,
+                    // holt der SpeedHandler deren Signalschaltplan
                     speedHandler.fetchCurrentSzpl(lsa, loc);
                 }
             });
@@ -53,9 +54,9 @@ public class MainActivity extends ActionBarActivity{
         jsonParser.fetchJSON(inputStream); //liest LSA JSON
 
         speedHandler =  new SpeedHandler();
-
         gpstracker = new GpsTracker();
 
+        // ImageViews
         countdownTextView = (TextView) findViewById(R.id.countdown);
         okImageView = (ImageView) findViewById(R.id.ok);
         trafficImageView = (ImageView) findViewById(R.id.mep);
@@ -73,7 +74,7 @@ public class MainActivity extends ActionBarActivity{
             builder.setTitle(title);
             builder.setMessage(msg);
             builder.setNeutralButton(R.string.ok,null).show();
-    };
+    }
 
     private void checkIfFirstRun(){
         boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
@@ -84,12 +85,12 @@ public class MainActivity extends ActionBarActivity{
         }
     }
 
-/*    private void setCountdownTextView(){
-        // ist die TextView sichtbar, dann Countdown anzeigen
-        if (countdownTextView.getVisibility() == View.VISIBLE) {
-            //countdownTextView.setText(String.valueOf(countdown));
+    private void setCountdownTextView(int countdown) {
+        if (countdownTextView.getVisibility() == View.INVISIBLE) {
+            countdownTextView.setVisibility(View.VISIBLE);
         }
-    }*/
+        countdownTextView.setText(String.valueOf(countdown));
+    }
 
     @Override
     protected void onPause() {
@@ -134,90 +135,181 @@ public class MainActivity extends ActionBarActivity{
             @Override
             public void needToStop() {
                 Log.d("listener", "needToStop");
-                stopImageView.setVisibility(View.VISIBLE);
 
-                fastImageView.setVisibility(View.INVISIBLE);
-                fasterImageView.setVisibility(View.INVISIBLE);
-                slowImageView.setVisibility(View.INVISIBLE);
-                slowerImageView.setVisibility(View.INVISIBLE);
-                countdownTextView.setVisibility(View.INVISIBLE);
-                okImageView.setVisibility(View.INVISIBLE);
-                trafficImageView.setVisibility(View.INVISIBLE);
+                if(stopImageView.getVisibility() == View.INVISIBLE) {
+                    stopImageView.setVisibility(View.VISIBLE);
+                }
+
+                if(countdownTextView.getVisibility() == View.VISIBLE) {
+                    countdownTextView.setVisibility(View.INVISIBLE);
+                }
+                if(okImageView.getVisibility() == View.VISIBLE) {
+                    okImageView.setVisibility(View.INVISIBLE);
+                }
+                if(trafficImageView.getVisibility() == View.VISIBLE) {
+                    trafficImageView.setVisibility(View.INVISIBLE);
+                }
+                if(slowImageView.getVisibility() == View.VISIBLE) {
+                    slowImageView.setVisibility(View.INVISIBLE);
+                }
+                if(slowerImageView.getVisibility() == View.VISIBLE) {
+                    slowerImageView.setVisibility(View.INVISIBLE);
+                }
+                if(fastImageView.getVisibility() == View.VISIBLE) {
+                    fastImageView.setVisibility(View.INVISIBLE);
+                }
+                if(fasterImageView.getVisibility() == View.VISIBLE) {
+                    fasterImageView.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
             public void speedIsOk() {
                 Log.d("listener", "speedIsOk");
-                okImageView.setVisibility(View.VISIBLE);
 
-                fastImageView.setVisibility(View.INVISIBLE);
-                fasterImageView.setVisibility(View.INVISIBLE);
-                slowImageView.setVisibility(View.INVISIBLE);
-                slowerImageView.setVisibility(View.INVISIBLE);
-                stopImageView.setVisibility(View.INVISIBLE);
-                countdownTextView.setVisibility(View.INVISIBLE);
-                trafficImageView.setVisibility(View.INVISIBLE);
+                if (okImageView.getVisibility() == View.INVISIBLE) {
+                    okImageView.setVisibility(View.VISIBLE);
+                }
+
+                if(countdownTextView.getVisibility() == View.VISIBLE) {
+                    countdownTextView.setVisibility(View.INVISIBLE);
+                }
+                if(stopImageView.getVisibility() == View.VISIBLE) {
+                    stopImageView.setVisibility(View.INVISIBLE);
+                }
+                if(trafficImageView.getVisibility() == View.VISIBLE) {
+                    trafficImageView.setVisibility(View.INVISIBLE);
+                }
+                if(slowImageView.getVisibility() == View.VISIBLE) {
+                    slowImageView.setVisibility(View.INVISIBLE);
+                }
+                if(slowerImageView.getVisibility() == View.VISIBLE) {
+                    slowerImageView.setVisibility(View.INVISIBLE);
+                }
+                if(fastImageView.getVisibility() == View.VISIBLE) {
+                    fastImageView.setVisibility(View.INVISIBLE);
+                }
+                if(fasterImageView.getVisibility() == View.VISIBLE) {
+                    fasterImageView.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
             public void needToIncreaseSpeed(int countdown) {
                 Log.d("listener", "needToIncrease");
-                countdownTextView.setVisibility(View.VISIBLE);
-                countdownTextView.setText(String.valueOf(countdown));
-                fastImageView.setVisibility(View.VISIBLE);
+                setCountdownTextView(countdown);
 
-                fasterImageView.setVisibility(View.INVISIBLE);
-                slowImageView.setVisibility(View.INVISIBLE);
-                slowerImageView.setVisibility(View.INVISIBLE);
-                okImageView.setVisibility(View.INVISIBLE);
-                stopImageView.setVisibility(View.INVISIBLE);
-                trafficImageView.setVisibility(View.INVISIBLE);
+                if (fastImageView.getVisibility() == View.INVISIBLE) {
+                    fastImageView.setVisibility(View.VISIBLE);
+                }
+
+
+                if(okImageView.getVisibility() == View.VISIBLE) {
+                    okImageView.setVisibility(View.INVISIBLE);
+                }
+                if(stopImageView.getVisibility() == View.VISIBLE) {
+                    stopImageView.setVisibility(View.INVISIBLE);
+                }
+                if(trafficImageView.getVisibility() == View.VISIBLE) {
+                    trafficImageView.setVisibility(View.INVISIBLE);
+                }
+                if(slowImageView.getVisibility() == View.VISIBLE) {
+                    slowImageView.setVisibility(View.INVISIBLE);
+                }
+                if(slowerImageView.getVisibility() == View.VISIBLE) {
+                    slowerImageView.setVisibility(View.INVISIBLE);
+                }
+                if(fasterImageView.getVisibility() == View.VISIBLE) {
+                    fasterImageView.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
             public void seriouslyNeedToIncreaseSpeed(int countdown) {
                 Log.d("listener", "seriouslyNeedToIncrease");
-                countdownTextView.setVisibility(View.VISIBLE);
-                countdownTextView.setText(String.valueOf(countdown));
-                fastImageView.setVisibility(View.VISIBLE);
-                fasterImageView.setVisibility(View.VISIBLE);
+                setCountdownTextView(countdown);
 
-                slowImageView.setVisibility(View.INVISIBLE);
-                slowerImageView.setVisibility(View.INVISIBLE);
-                okImageView.setVisibility(View.INVISIBLE);
-                stopImageView.setVisibility(View.INVISIBLE);
-                trafficImageView.setVisibility(View.INVISIBLE);
+                if (fastImageView.getVisibility() == View.INVISIBLE) {
+                    fastImageView.setVisibility(View.VISIBLE);
+                }
+                if (fasterImageView.getVisibility() == View.INVISIBLE) {
+                    fasterImageView.setVisibility(View.VISIBLE);
+                }
+
+                if(okImageView.getVisibility() == View.VISIBLE) {
+                    okImageView.setVisibility(View.INVISIBLE);
+                }
+                if(stopImageView.getVisibility() == View.VISIBLE) {
+                    stopImageView.setVisibility(View.INVISIBLE);
+                }
+                if(trafficImageView.getVisibility() == View.VISIBLE) {
+                    trafficImageView.setVisibility(View.INVISIBLE);
+                }
+                if(slowImageView.getVisibility() == View.VISIBLE) {
+                    slowImageView.setVisibility(View.INVISIBLE);
+                }
+                if(slowerImageView.getVisibility() == View.VISIBLE) {
+                    slowerImageView.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
             public void needToDecreaseSpeed(int countdown) {
                 Log.d("listener", "needToDecrease");
-                countdownTextView.setVisibility(View.VISIBLE);
-                countdownTextView.setText(String.valueOf(countdown));
-                slowImageView.setVisibility(View.VISIBLE);
+                setCountdownTextView(countdown);
 
-                slowerImageView.setVisibility(View.INVISIBLE);
-                fastImageView.setVisibility(View.INVISIBLE);
-                fasterImageView.setVisibility(View.INVISIBLE);
-                okImageView.setVisibility(View.INVISIBLE);
-                stopImageView.setVisibility(View.INVISIBLE);
-                trafficImageView.setVisibility(View.INVISIBLE);
+                if (slowImageView.getVisibility() == View.INVISIBLE) {
+                    slowImageView.setVisibility(View.VISIBLE);
+                }
+
+
+                if(okImageView.getVisibility() == View.VISIBLE) {
+                    okImageView.setVisibility(View.INVISIBLE);
+                }
+                if(stopImageView.getVisibility() == View.VISIBLE) {
+                    stopImageView.setVisibility(View.INVISIBLE);
+                }
+                if(trafficImageView.getVisibility() == View.VISIBLE) {
+                    trafficImageView.setVisibility(View.INVISIBLE);
+                }
+                if(fastImageView.getVisibility() == View.VISIBLE) {
+                    fastImageView.setVisibility(View.INVISIBLE);
+                }
+                if(fasterImageView.getVisibility() == View.VISIBLE) {
+                    fasterImageView.setVisibility(View.INVISIBLE);
+                }
+                if(slowerImageView.getVisibility() == View.VISIBLE) {
+                    slowerImageView.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
             public void seriouslyNeedToDecreaseSpeed(int countdown) {
                 Log.d("listener", "seriouslyNeedToDecrease");
-                countdownTextView.setVisibility(View.VISIBLE);
-                countdownTextView.setText(String.valueOf(countdown));
+                setCountdownTextView(countdown);
 
-                slowImageView.setVisibility(View.VISIBLE);
-                slowerImageView.setVisibility(View.VISIBLE);
+                if (slowImageView.getVisibility() == View.INVISIBLE) {
+                    slowImageView.setVisibility(View.VISIBLE);
+                }
+                if (slowerImageView.getVisibility() == View.INVISIBLE) {
+                    slowerImageView.setVisibility(View.VISIBLE);
+                }
 
-                fastImageView.setVisibility(View.INVISIBLE);
-                fasterImageView.setVisibility(View.INVISIBLE);
-                okImageView.setVisibility(View.INVISIBLE);
-                stopImageView.setVisibility(View.INVISIBLE);
-                trafficImageView.setVisibility(View.INVISIBLE);
+                if(okImageView.getVisibility() == View.VISIBLE) {
+                    okImageView.setVisibility(View.INVISIBLE);
+                }
+                if(stopImageView.getVisibility() == View.VISIBLE) {
+                    stopImageView.setVisibility(View.INVISIBLE);
+                }
+                if(trafficImageView.getVisibility() == View.VISIBLE) {
+                    trafficImageView.setVisibility(View.INVISIBLE);
+                }
+                if(fastImageView.getVisibility() == View.VISIBLE) {
+                    fastImageView.setVisibility(View.INVISIBLE);
+                }
+                if(fasterImageView.getVisibility() == View.VISIBLE) {
+                    fasterImageView.setVisibility(View.INVISIBLE);
+                }
             }
         });
         super.onResume();
