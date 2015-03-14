@@ -2,7 +2,7 @@ package com.example.cobi.ais;
 
 /**
  * Created by cobi on 13.03.15.
- * gibt die berechnete Empfehlungen an die MainActivity zur Anzeige
+ * gibt die berechnete Empfehlungen an die MainActivity zur Displayanzeige
  */
 public interface AdviceListener {
 

@@ -19,8 +19,8 @@ public class Constants {
 
     // 30 km/h --> 8,33333 m/s
     static final double MAX_SPEED = (30/3.6);
-    // 2 m/s  --> 7,2 km/h
-    static final int DIFF_SPEED = (2);
+    // 2 m/s  --> 3,6 km/h
+    static final int DIFF_SPEED = (1);
     // 5 km/h --> 1.39 m/s
     static final double MIN_SPEED = (5/3.6);
     // 2 m/s²

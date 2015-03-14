@@ -11,7 +11,7 @@
     <!-- keepScreenOn = bleibt immer an-->
     <!-- Pfeil transparent up-->
     <ImageView
-        android:id="@+id/pfeil_transparent"
+        android:id="@+id/pfeil_transparent2"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:src="@drawable/pfeil_transparent"
@@ -22,7 +22,7 @@
         android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"/>
     <ImageView
-        android:id="@+id/pfeil_transparent2"
+        android:id="@+id/pfeil_transparent"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:src="@drawable/pfeil_transparent"

@@ -66,7 +66,7 @@ class GpsTracker implements LocationListener {
             }
         // Ampeln in der Umgebung gefunden, noch keine Ampel festgelegt
         } else if(nearestLSA == null) {
-            Log.d("nearestLSAs", "getNearestLSA");
+            Log.d("nearestLSAs", "getNearestLSA" + listNearestLSAs);
             for(LSA lsa : listNearestLSAs){
                 distance = myLocation.distanceTo(lsa.getLsaLocation());
                 if (/*(distance < lsa.getDistance()) && */(distance <= Constants.MIN_LSA_DISTANCE)  && (minDistance > distance)){
@@ -84,7 +84,7 @@ class GpsTracker implements LocationListener {
         // LSA gesetzt und Entfernung ist höher als gegebene Distanz oder Entfernung ist größer als vorher
         // Liste wird gelöscht, um bei der nächsten Kreuzung mit neuen Ampeln zu füllen
         if(nearestLSA != null) {
-            if(myLocation.distanceTo(nearestLSA.getLsaLocation()) > Constants.MIN_LSA_DISTANCE || myLocation.distanceTo(nearestLSA.getLsaLocation()) > distance) {
+            if((myLocation.distanceTo(nearestLSA.getLsaLocation()) > Constants.MIN_LSA_DISTANCE) || (myLocation.distanceTo(nearestLSA.getLsaLocation()) > distance)) {
                 listNearestLSAs = null;
             }
         }

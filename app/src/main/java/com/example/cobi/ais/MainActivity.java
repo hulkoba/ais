@@ -41,7 +41,6 @@ public class MainActivity extends ActionBarActivity{
                 @Override
                 public void onNewNearestLSA(LSA lsa, Location loc) {
                     Log.d("+++ lsa gesetzt ", lsa.getName() + "\n");
-                    // TODO umbenennen
                     speedHandler.fetchCurrentSzpl(lsa, loc);
                 }
             });
@@ -85,18 +84,14 @@ public class MainActivity extends ActionBarActivity{
         }
     }
 
-    private void setCountdownTextView(){
+/*    private void setCountdownTextView(){
         // ist die TextView sichtbar, dann Countdown anzeigen
         if (countdownTextView.getVisibility() == View.VISIBLE) {
-           // countdownTextView.setText(String.valueOf(countdown));
+            //countdownTextView.setText(String.valueOf(countdown));
         }
-    }
+    }*/
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-    @Override // Daten übergeben?
     protected void onPause() {
         gpstracker.quitGpsTracker();
         super.onPause();
@@ -105,8 +100,10 @@ public class MainActivity extends ActionBarActivity{
     protected void onResume() {
         gpstracker.startGpsTracker();
         speedHandler.setAdviceListener(new AdviceListener(){
+
             @Override
             public void lsaIsTrafficDependent() {
+                Log.d("listener", "lsaIsTrafficDependent");
                 if(trafficImageView.getVisibility() == View.INVISIBLE) {
                     trafficImageView.setVisibility(View.VISIBLE);
                 }
@@ -136,6 +133,7 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void needToStop() {
+                Log.d("listener", "needToStop");
                 stopImageView.setVisibility(View.VISIBLE);
 
                 fastImageView.setVisibility(View.INVISIBLE);
@@ -149,6 +147,7 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void speedIsOk() {
+                Log.d("listener", "speedIsOk");
                 okImageView.setVisibility(View.VISIBLE);
 
                 fastImageView.setVisibility(View.INVISIBLE);
@@ -162,7 +161,9 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void needToIncreaseSpeed(int countdown) {
+                Log.d("listener", "needToIncrease");
                 countdownTextView.setVisibility(View.VISIBLE);
+                countdownTextView.setText(String.valueOf(countdown));
                 fastImageView.setVisibility(View.VISIBLE);
 
                 fasterImageView.setVisibility(View.INVISIBLE);
@@ -175,7 +176,9 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void seriouslyNeedToIncreaseSpeed(int countdown) {
+                Log.d("listener", "seriouslyNeedToIncrease");
                 countdownTextView.setVisibility(View.VISIBLE);
+                countdownTextView.setText(String.valueOf(countdown));
                 fastImageView.setVisibility(View.VISIBLE);
                 fasterImageView.setVisibility(View.VISIBLE);
 
@@ -188,7 +191,9 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void needToDecreaseSpeed(int countdown) {
+                Log.d("listener", "needToDecrease");
                 countdownTextView.setVisibility(View.VISIBLE);
+                countdownTextView.setText(String.valueOf(countdown));
                 slowImageView.setVisibility(View.VISIBLE);
 
                 slowerImageView.setVisibility(View.INVISIBLE);
@@ -201,7 +206,10 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void seriouslyNeedToDecreaseSpeed(int countdown) {
+                Log.d("listener", "seriouslyNeedToDecrease");
                 countdownTextView.setVisibility(View.VISIBLE);
+                countdownTextView.setText(String.valueOf(countdown));
+
                 slowImageView.setVisibility(View.VISIBLE);
                 slowerImageView.setVisibility(View.VISIBLE);
 

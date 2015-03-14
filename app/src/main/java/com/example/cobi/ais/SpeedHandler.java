@@ -4,7 +4,6 @@ package com.example.cobi.ais;
 import android.location.Location;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -131,48 +130,38 @@ public class SpeedHandler{
 
         // empfohlene Geschwindigkeit = aktuelles Tempo
         if (Math.round(mySpeed) == Math.round(recomenndedSpeed)) {
-            Log.d("\nok", "ok");
 
             ok = true;
             stop = false; fast = false; faster =false; slow =false; slower = false;
 
-        } else if (mySpeed < recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
+        } else if ((mySpeed < recomenndedSpeed) && (recomenndedSpeed < Constants.MAX_SPEED) && (recomenndedSpeed > Constants.MIN_SPEED) && (recomenndedAccelleration < Constants.MAX_ACCELERATION)) {
 
             // langsamer als empfohlen, also schneller fahren
-            Log.d("\nfast", "schnell");
-
             fast = true;
             ok = false; stop = false; faster = false; slow = false; slower = false;
 
-        } else if (mySpeed < recomenndedSpeed && (mySpeed + Constants.DIFF_SPEED) < recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
+        } else if ((mySpeed < recomenndedSpeed) && ((mySpeed + Constants.DIFF_SPEED) < recomenndedSpeed) && (recomenndedSpeed < Constants.MAX_SPEED) && (recomenndedSpeed > Constants.MIN_SPEED) && (recomenndedAccelleration < Constants.MAX_ACCELERATION)) {
 
             // viel langsamer als empfohlen, also viel schneller fahren
-            Log.d("\nfast", "schneller");
-
             fast = true; faster = true;
             ok = false; stop = false; slow =false; slower = false;
 
 
-        } else if (mySpeed > recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
+        } else if ((mySpeed > recomenndedSpeed) && (recomenndedSpeed < Constants.MAX_SPEED) && (recomenndedSpeed > Constants.MIN_SPEED) && (recomenndedAccelleration < Constants.MAX_ACCELERATION)) {
 
             //schneller als empfohlen --> langsamer fahren
-            Log.d("\nslow", "langsam");
-
             slow = true;
             ok = false; stop = false; faster = false; fast = false; slower = false;
 
 
-        } else if ( mySpeed > recomenndedSpeed && (mySpeed - Constants.DIFF_SPEED) > recomenndedSpeed && recomenndedSpeed < Constants.MAX_SPEED && recomenndedSpeed > Constants.MIN_SPEED && recomenndedAccelleration < Constants.MAX_ACCELERATION) {
+        } else if ((mySpeed > recomenndedSpeed) && ((mySpeed - Constants.DIFF_SPEED) > recomenndedSpeed) && (recomenndedSpeed < Constants.MAX_SPEED) && (recomenndedSpeed > Constants.MIN_SPEED) && (recomenndedAccelleration < Constants.MAX_ACCELERATION)) {
 
             // viel schneller als empfohlen >> viel langsamer fahren
-            Log.d("\nslow", "langsamer");
-
             slow = true; slower = true;
             ok = false; stop = false; faster = false; fast = false;
         } else {
 
             // Geschwindigkeit zu hoch  oder  Geschwindigkeit zu niedrig oder Beschleunigung zu hoch -->> anhalten
-            Log.d("\nstop", "stop");
             stop =true;
             ok = false; fast = false; faster = false; slow = false; slower = false;
         }
