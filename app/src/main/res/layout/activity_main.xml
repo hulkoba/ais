@@ -154,7 +154,7 @@
         android:src="@drawable/mep"
         android:contentDescription="@string/mep"
         android:layout_centerInParent="true"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_margin="70dp" />
 
 
