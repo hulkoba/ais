@@ -69,6 +69,7 @@ class GpsTracker implements LocationListener {
             Log.d("nearestLSAs", "getNearestLSA" + listNearestLSAs);
             for(LSA lsa : listNearestLSAs){
                 distance = myLocation.distanceTo(lsa.getLsaLocation());
+                // TODO kommentar weg
                 if (/*(distance < lsa.getDistance()) && */(distance <= Constants.MIN_LSA_DISTANCE)  && (minDistance > distance)){
                     minDistance = distance;
                     nearestLSA = lsa;
