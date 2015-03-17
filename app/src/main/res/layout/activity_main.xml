@@ -18,9 +18,12 @@
         android:contentDescription="@string/schneller"
         android:layout_marginLeft="65dp"
         android:layout_marginRight="65dp"
-        android:layout_marginTop="-70dp"
-        android:layout_marginBottom="10dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/kreis"
+        android:layout_marginTop="-65dp" />
     <ImageView
         android:id="@+id/pfeil_transparent"
         android:layout_height="wrap_content"
@@ -30,7 +33,10 @@
         android:layout_marginLeft="65dp"
         android:layout_marginRight="65dp"
         android:layout_centerHorizontal="true"
-       />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
     <!-- Pfeil transparent down-->
     <ImageView
         android:id="@+id/pfeil_transparent_down"
@@ -38,10 +44,15 @@
         android:layout_width="wrap_content"
         android:src="@drawable/pfeil_transparent_down"
         android:contentDescription="@string/langsamer"
-        android:layout_marginLeft="65dp"
-        android:layout_marginRight="65dp"
-        android:layout_marginTop="310dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignParentTop="false"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_above="@+id/kreis" />
     <ImageView
         android:id="@+id/pfeil_transparent_down2"
         android:layout_height="wrap_content"
@@ -50,9 +61,13 @@
         android:contentDescription="@string/langsamer"
         android:layout_marginLeft="65dp"
         android:layout_marginRight="65dp"
-        android:layout_marginTop="440dp"
         android:layout_centerHorizontal="true"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_marginBottom="-65dp" />
 
     <!-- Pfeil up-->
     <ImageView
@@ -64,10 +79,13 @@
         android:visibility="invisible"
         android:layout_marginLeft="65dp"
         android:layout_marginRight="65dp"
-        android:layout_marginTop="-70dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="-65dp"
         android:layout_centerHorizontal="true"
-        android:adjustViewBounds="false" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/kreis" />
     <ImageView
         android:id="@+id/pfeil"
         android:layout_height="wrap_content"
@@ -78,7 +96,10 @@
         android:layout_marginLeft="65dp"
         android:layout_marginRight="65dp"
         android:layout_centerHorizontal="true"
-        android:adjustViewBounds="false" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"  />
     <!-- Pfeil down-->
     <ImageView
         android:id="@+id/pfeil_down"
@@ -87,11 +108,15 @@
         android:src="@drawable/pfeil_down"
         android:contentDescription="@string/langsamer"
         android:visibility="invisible"
-        android:layout_marginLeft="65dp"
-        android:layout_marginRight="65dp"
-        android:layout_marginTop="310dp"
         android:layout_centerHorizontal="true"
-        android:adjustViewBounds="false" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignParentTop="false"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_above="@+id/kreis" />
     <ImageView
         android:id="@+id/pfeil_down2"
         android:layout_height="wrap_content"
@@ -101,9 +126,13 @@
         android:visibility="invisible"
         android:layout_marginLeft="65dp"
         android:layout_marginRight="65dp"
-        android:layout_marginTop="440dp"
         android:layout_centerHorizontal="true"
-        android:adjustViewBounds="false" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_marginBottom="-65dp" />
 
 
     <!-- COUNTDOWN  -->
@@ -123,7 +152,9 @@
         android:src="@drawable/kreis"
         android:contentDescription="@string/stop"
         android:layout_centerInParent="true"
-        android:layout_margin="70dp"/>
+        android:layout_margin="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
 
 
 <!-- STOP & OK  -->
@@ -155,7 +186,13 @@
         android:contentDescription="@string/mep"
         android:layout_centerInParent="true"
         android:visibility="invisible"
-        android:layout_margin="70dp" />
+        android:layout_margin="70dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="false" />
 
 
 </RelativeLayout>
