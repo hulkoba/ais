@@ -32,7 +32,6 @@ public class SpeedHandler{
 
     // Schaltplan der nächsten LSA holen, wenn keiner Vorhanden --> verkehrsabhängig --> keine Vorausage möglich
     protected void fetchCurrentSzpl(LSA nearestLSA, Location loc){
-        Log.d("fetchCurrentSzpl", "fetchCurrentSzpl");
 
         lsaLocation = nearestLSA.getLsaLocation();
         myLocation = loc;
@@ -143,7 +142,7 @@ public class SpeedHandler{
         } else if ((mySpeed < recomenndedSpeed) && ((mySpeed + Constants.DIFF_SPEED) < recomenndedSpeed) && (recomenndedSpeed < Constants.MAX_SPEED) && (recomenndedSpeed > Constants.MIN_SPEED) && (recomenndedAccelleration < Constants.MAX_ACCELERATION)) {
 
             // viel langsamer als empfohlen, also viel schneller fahren
-            fast = true; faster = true;
+            fast = false; faster = true;
             ok = false; stop = false; slow =false; slower = false;
 
 
@@ -157,7 +156,7 @@ public class SpeedHandler{
         } else if ((mySpeed > recomenndedSpeed) && ((mySpeed - Constants.DIFF_SPEED) > recomenndedSpeed) && (recomenndedSpeed < Constants.MAX_SPEED) && (recomenndedSpeed > Constants.MIN_SPEED) && (recomenndedAccelleration < Constants.MAX_ACCELERATION)) {
 
             // viel schneller als empfohlen >> viel langsamer fahren
-            slow = true; slower = true;
+            slow = false; slower = true;
             ok = false; stop = false; faster = false; fast = false;
         } else {
 
@@ -212,20 +211,18 @@ public class SpeedHandler{
 
                 adviceListener.needToIncreaseSpeed(countdown);
 
-                // bei Aufforderung noch schneller, zweiten Pfeil auch einblenden
-                if(fast && faster){
-                    adviceListener.seriouslyNeedToIncreaseSpeed(countdown);
-                }
+            } else if(faster){
+            // bei Aufforderung noch schneller, zweiten Pfeil auch einblenden
+                adviceListener.seriouslyNeedToIncreaseSpeed(countdown);
+
 
             // Aufforderung langsamer zu fahren?
             } else if (slow) {
 
                 adviceListener.needToDecreaseSpeed(countdown);
-
-                // bei Aufforderung noch langsamer, zweiten Pfeil auch einblenden
-                if (slow && slower) {
-                    adviceListener.seriouslyNeedToDecreaseSpeed(countdown);
-                }
+            } else if (slower) {
+            // bei Aufforderung noch langsamer, zweiten Pfeil auch einblenden
+                adviceListener.seriouslyNeedToDecreaseSpeed(countdown);
             }
 
             // sekündlich updaten

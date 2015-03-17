@@ -46,7 +46,7 @@ class GpsTracker implements LocationListener {
     }
 
     private void getNearestLSA(Location myLocation){
-        Log.d("func ", "get Nearest");
+
         List<LSA> lsas = JSONParser.getLsaList();
         LSA nearestLSA = null;
         float distance = 0;
@@ -65,19 +65,18 @@ class GpsTracker implements LocationListener {
                 }
             }
         // Ampeln in der Umgebung gefunden, noch keine Ampel festgelegt
-        } else if(nearestLSA == null) {
-            Log.d("nearestLSAs", "getNearestLSA" + listNearestLSAs);
+        } else {
+
             for(LSA lsa : listNearestLSAs){
                 distance = myLocation.distanceTo(lsa.getLsaLocation());
-                // TODO kommentar weg
-                if (/*(distance < lsa.getDistance()) && */(distance <= Constants.MIN_LSA_DISTANCE)  && (minDistance > distance)){
+
+                if (/*(distance < lsa.getDistance())&&*/  (distance <= Constants.MIN_LSA_DISTANCE)  && (minDistance > distance)){
                     minDistance = distance;
                     nearestLSA = lsa;
                 }
             }
             // LSA gefunden --> per Listener MainActivity benachrichtigen
             if((lsaListener != null) && (nearestLSA != null) ) {
-                Log.d("\n nearest LSA: ", nearestLSA.getName());
                 lsaListener.onNewNearestLSA(nearestLSA, myLocation);
             }
         }
@@ -85,7 +84,7 @@ class GpsTracker implements LocationListener {
         // LSA gesetzt und Entfernung ist höher als gegebene Distanz oder Entfernung ist größer als vorher
         // Liste wird gelöscht, um bei der nächsten Kreuzung mit neuen Ampeln zu füllen
         if(nearestLSA != null) {
-            if((myLocation.distanceTo(nearestLSA.getLsaLocation()) > Constants.MIN_LSA_DISTANCE) || (myLocation.distanceTo(nearestLSA.getLsaLocation()) > distance)) {
+            if(((myLocation.distanceTo(nearestLSA.getLsaLocation()) > Constants.MIN_LSA_DISTANCE)) || ((myLocation.distanceTo(nearestLSA.getLsaLocation()) > (distance+1)))) {
                 listNearestLSAs = null;
             }
         }

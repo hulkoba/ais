@@ -85,6 +85,7 @@ public class MainActivity extends ActionBarActivity{
         }
     }
 
+    // Countdownanzeige setzen
     private void setCountdownTextView(int countdown) {
         if (countdownTextView.getVisibility() == View.INVISIBLE) {
             countdownTextView.setVisibility(View.VISIBLE);
@@ -97,14 +98,14 @@ public class MainActivity extends ActionBarActivity{
         gpstracker.quitGpsTracker();
         super.onPause();
     }
-    @Override //aktiv
+    @Override // aktiv
     protected void onResume() {
         gpstracker.startGpsTracker();
+        // Anzeigeelemente nach berechneter Empfehlung aktualisieren
         speedHandler.setAdviceListener(new AdviceListener(){
 
             @Override
             public void lsaIsTrafficDependent() {
-                Log.d("listener", "lsaIsTrafficDependent");
                 if(trafficImageView.getVisibility() == View.INVISIBLE) {
                     trafficImageView.setVisibility(View.VISIBLE);
                 }
@@ -134,7 +135,6 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void needToStop() {
-                Log.d("listener", "needToStop");
 
                 if(stopImageView.getVisibility() == View.INVISIBLE) {
                     stopImageView.setVisibility(View.VISIBLE);
@@ -165,7 +165,6 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void speedIsOk() {
-                Log.d("listener", "speedIsOk");
 
                 if (okImageView.getVisibility() == View.INVISIBLE) {
                     okImageView.setVisibility(View.VISIBLE);
@@ -196,7 +195,6 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void needToIncreaseSpeed(int countdown) {
-                Log.d("listener", "needToIncrease");
                 setCountdownTextView(countdown);
 
                 if (fastImageView.getVisibility() == View.INVISIBLE) {
@@ -226,7 +224,6 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void seriouslyNeedToIncreaseSpeed(int countdown) {
-                Log.d("listener", "seriouslyNeedToIncrease");
                 setCountdownTextView(countdown);
 
                 if (fastImageView.getVisibility() == View.INVISIBLE) {
@@ -255,7 +252,6 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void needToDecreaseSpeed(int countdown) {
-                Log.d("listener", "needToDecrease");
                 setCountdownTextView(countdown);
 
                 if (slowImageView.getVisibility() == View.INVISIBLE) {
@@ -285,7 +281,6 @@ public class MainActivity extends ActionBarActivity{
 
             @Override
             public void seriouslyNeedToDecreaseSpeed(int countdown) {
-                Log.d("listener", "seriouslyNeedToDecrease");
                 setCountdownTextView(countdown);
 
                 if (slowImageView.getVisibility() == View.INVISIBLE) {
