@@ -139,12 +139,11 @@ public class SpeedHandler{
             fast = true;
             ok = false; stop = false; faster = false; slow = false; slower = false;
 
-        } else if ((mySpeed < recomenndedSpeed) && ((mySpeed + Constants.DIFF_SPEED) < recomenndedSpeed) && (recomenndedSpeed < Constants.MAX_SPEED) && (recomenndedSpeed > Constants.MIN_SPEED) && (recomenndedAccelleration < Constants.MAX_ACCELERATION)) {
-
             // viel langsamer als empfohlen, also viel schneller fahren
-            fast = false; faster = true;
-            ok = false; stop = false; slow =false; slower = false;
-
+            if((mySpeed + Constants.DIFF_SPEED) < recomenndedSpeed){
+                fast = false;
+                faster = true;
+            }
 
         } else if ((mySpeed > recomenndedSpeed) && (recomenndedSpeed < Constants.MAX_SPEED) && (recomenndedSpeed > Constants.MIN_SPEED) && (recomenndedAccelleration < Constants.MAX_ACCELERATION)) {
 
@@ -152,12 +151,12 @@ public class SpeedHandler{
             slow = true;
             ok = false; stop = false; faster = false; fast = false; slower = false;
 
-
-        } else if ((mySpeed > recomenndedSpeed) && ((mySpeed - Constants.DIFF_SPEED) > recomenndedSpeed) && (recomenndedSpeed < Constants.MAX_SPEED) && (recomenndedSpeed > Constants.MIN_SPEED) && (recomenndedAccelleration < Constants.MAX_ACCELERATION)) {
-
             // viel schneller als empfohlen >> viel langsamer fahren
-            slow = false; slower = true;
-            ok = false; stop = false; faster = false; fast = false;
+            if((mySpeed - Constants.DIFF_SPEED) > recomenndedSpeed){
+                slow = false;
+                slower = true;
+            }
+
         } else {
 
             // Geschwindigkeit zu hoch  oder  Geschwindigkeit zu niedrig oder Beschleunigung zu hoch -->> anhalten

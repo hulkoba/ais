@@ -12,15 +12,15 @@ public class Constants {
     static  final int UPDATE_INTERVAL = 2000;
 
     // 5 Meter
-    static final int MIN_DISTANCE_CHANGE = 5;
+    static final int MIN_DISTANCE_CHANGE = 2;
 
-    // 300 Meter
-    static final int MIN_LSA_DISTANCE = 300;
+    // 300 Meter + Entfernungsänderung
+    static final int MIN_LSA_DISTANCE = 310;
 
     // 30 km/h --> 8,33333 m/s
     static final double MAX_SPEED = (30/3.6);
-    // 1 m/s  --> 3,6 km/h
-    static final int DIFF_SPEED = (1);
+    // 2 m/s  --> 7,8 km/h
+    static final int DIFF_SPEED = (2);
     // 5 km/h --> 1.39 m/s
     static final double MIN_SPEED = (5/3.6);
     // 2 m/s²
