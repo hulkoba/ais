@@ -22,31 +22,26 @@ import java.util.List;
  * Sobald die nächste Ampel ermittelt ist, wird die MainActivity über einen Listener benachrichtigt
  *
  */
-class GpsTracker implements LocationListener {
-
+class GpsTracker {
     private LocationManager locationManager;
     private LSAListener lsaListener = null;
     private List<LSA> listNearestLSAs;
+    private Location myNewLocation = null;
 
 
     // Provider verfügbar --> GPS aktiviert???
     public boolean gpsIsActive(Activity a) {
-
         locationManager = (LocationManager) a.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
-    // wird aufgerufen, wenn neue Positionsdaten vorhanden sind
-    public void onLocationChanged(Location location) {
-        // wenn das GPS Signal von hoher Genauigkeit ist, die nächste Ampel ermitteln
-        if (location.hasAccuracy()) {
-           if(location.getAccuracy() <= Constants.LOCATION_ACCURACY) {
-               getNearestLSA(location);
-           }
-        }
-    }
 
-    private void getNearestLSA(Location myLocation){
 
+    private void getNearestLSA(FakeLocation location){
+        Location myLocation = new Location("LocA");
+        myLocation.setLongitude(location.getLongitude());
+        myLocation.setLatitude(location.getLatitude());
+
+        Log.d("###", "getNearestLSA");
         List<LSA> lsas = JSONParser.getLsaList();
         LSA nearestLSA = null;
         float distance = 0;
@@ -59,6 +54,7 @@ class GpsTracker implements LocationListener {
 
             for (LSA lsa : lsas) {
                 distance = myLocation.distanceTo(lsa.getLsaLocation());
+                //myLocation.getDistanceBetween(myLocation.getLatitude(), myLocation.getLongitude(), lsa.getLsaLocation().getLatitude(), lsa.getLsaLocation().getLongitude());
                 if (distance <= Constants.MIN_LSA_DISTANCE) {
                     LSA nlsa = new LSA(distance, lsa.getName(), lsa.getLsaLocation(), lsa.isDependsOnTraffic(), lsa.getSzpls());
                     listNearestLSAs.add(nlsa);
@@ -69,7 +65,6 @@ class GpsTracker implements LocationListener {
 
             for(LSA lsa : listNearestLSAs){
                 distance = myLocation.distanceTo(lsa.getLsaLocation());
-
                 if (/*(distance < lsa.getDistance())&&*/  (distance <= Constants.MIN_LSA_DISTANCE)  && (minDistance > distance)){
                     minDistance = distance;
                     nearestLSA = lsa;
@@ -94,27 +89,31 @@ class GpsTracker implements LocationListener {
         lsaListener = listener;
     }
 
-    //wird bei Zustandsänderungen aufgerufen
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
-
-    //gewählter Provider aktiviert?
-    public void onProviderEnabled(String provider) {
-
-    }
-    //gewählter Lieferant  abgeschaltet?
-    public void onProviderDisabled(String provider) {
-
-    }
 
     public void startGpsTracker() {
+        FakeLocation fakeLocation = new FakeLocation();
+        fakeLocation.startFakeTrack();
+        Log.d("###", "startGpsTracker");
+        fakeLocation.setFakeLocationListener(new FakeLocationListener() {
+            @Override
+            public void onFakeLocationChange(FakeLocation fakeLocation) {
+                Location myLocation = new Location("LocA");
+                myLocation.setLongitude(fakeLocation.getLongitude());
+                myLocation.setLatitude(fakeLocation.getLatitude());
+
+                if(myNewLocation == null || myLocation.distanceTo(myNewLocation) >= Constants.MIN_DISTANCE_CHANGE){
+                    myNewLocation = myLocation;
+                    getNearestLSA(fakeLocation);
+                }
+            }
+        });
         // Registrieren für GPS Updates (alle  2 sekunden, nach 5 Metern)
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.UPDATE_INTERVAL, Constants.MIN_DISTANCE_CHANGE, this);
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.UPDATE_INTERVAL, Constants.MIN_DISTANCE_CHANGE, this);
     }
 
     // Location Uptdate Listener abmelden
     public void quitGpsTracker() {
-        locationManager.removeUpdates(this);
+      //  locationManager.removeUpdates(this);
     }
 }
 

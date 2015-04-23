@@ -22,7 +22,7 @@ public class SpeedHandler{
     private SZPL currentSzpl;
 
     private Location lsaLocation;
-    private Location myLocation;
+    private FakeLocation myLocation;
 
     private int countdown;
 
@@ -34,7 +34,7 @@ public class SpeedHandler{
     protected void fetchCurrentSzpl(LSA nearestLSA, Location loc){
 
         lsaLocation = nearestLSA.getLsaLocation();
-        myLocation = loc;
+       // myLocation = loc;
 
         calendar.setTime(new Date());
         // Aktuelle Stunde
@@ -95,7 +95,8 @@ public class SpeedHandler{
     void calculateOptSpeed(SZPL szpl){
 
         final int greenTo = szpl.getGreenTo();
-        final float mySpeed = myLocation.getSpeed();
+      //  final float mySpeed = myLocation.getSpeed();
+        final double mySpeed = 5.1;
 
         calendar.setTime(new Date());
         // aktuelle Sekunde
@@ -110,10 +111,11 @@ public class SpeedHandler{
         float deltaT = t2 - t1;
 
         // s = Abstand zur Ampel
-        float s = myLocation.distanceTo(lsaLocation);
+        double s = myLocation.getDistanceBetween(myLocation.getLatitude(), myLocation.getLongitude(), lsaLocation.getLatitude(), lsaLocation.getLongitude());
+       // float s = myLocation.distanceTo(lsaLocation);
 
         // v = s / (t2-t1)
-        final float recommendedSpeed = s / deltaT;
+        final double recommendedSpeed = s / deltaT;
 
         // recommendedAccelleration = v/(t2-t1)²
         final double recommendedAccelleration = recommendedSpeed / Math.pow(deltaT, 2.0);
@@ -125,7 +127,7 @@ public class SpeedHandler{
     /*
      * GUI bestimmen
      */
-    private void updateGUI(float mySpeed, float recomenndedSpeed, double recomenndedAccelleration) {
+    private void updateGUI(double mySpeed, double recomenndedSpeed, double recomenndedAccelleration) {
 
         // empfohlene Geschwindigkeit = aktuelles Tempo
         if (Math.round(mySpeed) == Math.round(recomenndedSpeed)) {
